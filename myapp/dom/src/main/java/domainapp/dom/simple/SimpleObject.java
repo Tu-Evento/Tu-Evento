@@ -64,7 +64,7 @@ public class SimpleObject implements Comparable<SimpleObject> {
 
     //region > title
     public TranslatableString title() {
-        return TranslatableString.tr("Object: {name}", "name", getName());
+        return TranslatableString.tr("Object: {name}", "name", getApellido(),", ", getName());
     }
     //endregion
 
@@ -73,21 +73,31 @@ public class SimpleObject implements Comparable<SimpleObject> {
         setName(name);
     }
     //endregion
+    
+    
+    
+    public static class NameDomainEvent extends PropertyDomainEvent<SimpleObject, String>{
+    	
+    	private static final long serialVersionUID = 1L;
+    	
+    }
 
     //region > name (read-only property)
     public static final int NAME_LENGTH = 40;
+    
+    @javax.jdo.annotations.Column(allowsNull = "true", length = NAME_LENGTH)
+    private String apellido;
+    @Property(editing = Editing.DISABLED)
+    public String getApellido() {return name;}
+    public void setApellido( String apellido) {this.apellido = apellido;}
 
     @javax.jdo.annotations.Column(allowsNull = "false", length = NAME_LENGTH)
     private String name;
-    @Property(
-            editing = Editing.DISABLED
-    )
-    public String getName() {
-        return name;
-    }
-    public void setName(final String name) {
-        this.name = name;
-    }
+    @Property(editing = Editing.DISABLED)
+    public String getName() {return name;}
+    public void setName( String name) {this.name = name;}
+    
+    
     //endregion
 
     //region > updateName (action)
