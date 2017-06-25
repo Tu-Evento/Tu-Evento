@@ -78,7 +78,7 @@ public class SimpleObjectRepositoryTest {
             });
 
             // when
-            final SimpleObject obj = simpleObjectRepository.create(someName);
+            final SimpleObject obj = simpleObjectRepository.create(someName, someName, someName);
 
             // then
             assertThat(obj).isNotNull();

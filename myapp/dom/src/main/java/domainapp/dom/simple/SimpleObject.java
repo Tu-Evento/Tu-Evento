@@ -40,7 +40,9 @@ import org.apache.isis.applib.util.ObjectContracts;
 
 @javax.jdo.annotations.PersistenceCapable(
         identityType=IdentityType.DATASTORE,
-        schema = "simple"
+        schema = "simple",
+        table="SimpleObject"
+        
 )
 @javax.jdo.annotations.DatastoreIdentity(
         strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
@@ -49,6 +51,10 @@ import org.apache.isis.applib.util.ObjectContracts;
         strategy= VersionStrategy.DATE_TIME,
         column="version")
 @javax.jdo.annotations.Queries({
+		@javax.jdo.annotations.Query(
+				name="listAll", language="JDOQL",
+				value="SELECT" 
+				+ "FROM domainapp.dom.simple.SimpleObject"),
         @javax.jdo.annotations.Query(
                 name = "findByName", language = "JDOQL",
                 value = "SELECT "
@@ -64,14 +70,18 @@ public class SimpleObject implements Comparable<SimpleObject> {
 
     //region > title
     public TranslatableString title() {
-        return TranslatableString.tr("Object: {name}", "name", getApellido(),", ", getName());
+        return TranslatableString.tr("Empleado: {apellido}, {name},{nombre}", "name",getName()," apellido",getApellido()," nombre",getNombre());
     }
     //endregion
 
     //region > constructor
-    public SimpleObject(final String name) {
+    public SimpleObject(final String name, final String apellido, final String nombre) {
         setName(name);
+        setApellido(apellido);
+        setNombre(nombre);
     }
+    
+    
     //endregion
     
     
@@ -97,6 +107,11 @@ public class SimpleObject implements Comparable<SimpleObject> {
     public String getName() {return name;}
     public void setName( String name) {this.name = name;}
     
+    @javax.jdo.annotations.Column(allowsNull = "true", length = NAME_LENGTH)
+    private String nombre;
+    @Property(editing = Editing.DISABLED)
+    public String getNombre() {return nombre;}
+    public void setNombre( String nombre) {this.nombre = nombre;}
     
     //endregion
 
@@ -108,7 +123,8 @@ public class SimpleObject implements Comparable<SimpleObject> {
             semantics = SemanticsOf.IDEMPOTENT,
             domainEvent = UpdateNameDomainEvent.class
     )
-    public SimpleObject updateName(@ParameterLayout(named="Name") final String name) {
+    public SimpleObject updateName(
+    		@ParameterLayout(named="Name") final String name) {
         setName(name);
         return this;
     }

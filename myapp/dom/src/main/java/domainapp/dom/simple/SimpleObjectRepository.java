@@ -44,8 +44,8 @@ public class SimpleObjectRepository {
                         "name", name));
     }
 
-    public SimpleObject create(final String name) {
-        final SimpleObject object = new SimpleObject(name);
+    public SimpleObject create(final String name, final String apellido, final String nombre) {
+        final SimpleObject object = new SimpleObject(name, apellido,nombre);
         serviceRegistry.injectServicesInto(object);
         repositoryService.persist(object);
         return object;

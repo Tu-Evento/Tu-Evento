@@ -65,9 +65,10 @@ public class SimpleObjectMenu {
     @Action(domainEvent = CreateDomainEvent.class)
     @MemberOrder(sequence = "3")
     public SimpleObject create(
-            @ParameterLayout(named="Name")
-            final String name) {
-        return simpleObjectRepository.create(name);
+            @ParameterLayout(named="Name")final String name,
+            @ParameterLayout(named="Apellido")final String apellido,
+            @ParameterLayout(named="Nombre") final String nombre) {
+        return simpleObjectRepository.create(name, apellido, nombre);
     }
 
 
