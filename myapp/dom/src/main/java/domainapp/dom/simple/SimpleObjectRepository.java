@@ -40,12 +40,20 @@ public class SimpleObjectRepository {
         return repositoryService.allMatches(
                 new QueryDefault<>(
                         SimpleObject.class,
-                        "findByName",
+                        "findByNombre",
                         "name", name));
     }
+    
+    public List<SimpleObject> findByRol(final String rol)
+    {
+    	return repositoryService.allMatches(
+    			new QueryDefault<>(
+    					SimpleObject.class,
+    					"BuscarporRoldeTrabajo","rol",rol));
+    }
 
-    public SimpleObject create(final String name, final String apellido, final String nombre) {
-        final SimpleObject object = new SimpleObject(name, apellido,nombre);
+    public SimpleObject create(final String name, final String apellido,final String documento, final String rol) {
+        final SimpleObject object = new SimpleObject(name, apellido,documento,rol);
         serviceRegistry.injectServicesInto(object);
         repositoryService.persist(object);
         return object;

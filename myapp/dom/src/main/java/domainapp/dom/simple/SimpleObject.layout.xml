@@ -35,6 +35,9 @@
                                 <c:action id="updateName"/>
                                 <c:property id="name" namedEscaped="true"/>
                                 <c:property id="apellido" namedEscaped="true"/>
+                                <c:property id="documento" namedEscaped="true"/>
+                                <c:property id="cuil" namedEscaped="true"/>
+                                <c:property id="direccion" namedEscaped="true"/>
                                 <c:property id="rol" namedEscaped="true"/>
                                 <c:property id="notes" namedEscaped="true" multiLine="10" hidden="ALL_TABLES"/>
                             </c:fieldSet>

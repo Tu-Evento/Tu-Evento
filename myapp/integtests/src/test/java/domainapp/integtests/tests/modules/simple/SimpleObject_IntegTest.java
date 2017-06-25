@@ -87,7 +87,7 @@ public class SimpleObject_IntegTest extends DomainAppIntegTest {
         public void can_be_updated_directly() throws Exception {
 
             // when
-            wrap(simpleObject).updateName("new name");
+            wrap(simpleObject).updateName("new name", null, null, null);
             transactionService.nextTransaction();
 
             // then
@@ -102,7 +102,7 @@ public class SimpleObject_IntegTest extends DomainAppIntegTest {
             expectedExceptions.expectMessage("Exclamation mark is not allowed");
 
             // when
-            wrap(simpleObject).updateName("new name!");
+            wrap(simpleObject).updateName("new name!", null, null, null);
         }
     }
 

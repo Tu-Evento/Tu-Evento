@@ -51,15 +51,20 @@ import org.apache.isis.applib.util.ObjectContracts;
         strategy= VersionStrategy.DATE_TIME,
         column="version")
 @javax.jdo.annotations.Queries({
-		@javax.jdo.annotations.Query(
-				name="listAll", language="JDOQL",
-				value="SELECT" 
-				+ "FROM domainapp.dom.simple.SimpleObject"),
+		//@javax.jdo.annotations.Query(
+			//	name="listAll", language="JDOQL",
+			//	value="SELECT" 
+			//	+ "FROM domainapp.dom.simple.SimpleObject"),
         @javax.jdo.annotations.Query(
-                name = "findByName", language = "JDOQL",
+                name = "findByNombre", language = "JDOQL",
                 value = "SELECT "
                         + "FROM domainapp.dom.simple.SimpleObject "
-                        + "WHERE name.indexOf(:name) >= 0 ")
+                        + "WHERE name.indexOf(:name) >= 0 "),
+        @javax.jdo.annotations.Query(
+        		name="BuscarporRoldeTrabajo", language="JDOQL",
+        		value= "SELECT "	
+        				+ "FROM domanapp.dom.simple.SimpleObject " 
+        				+ "WHERE rol.indexOf(:rol) >=0")
 })
 @javax.jdo.annotations.Unique(name="SimpleObject_name_UNQ", members = {"name"})
 @DomainObject(
@@ -70,21 +75,22 @@ public class SimpleObject implements Comparable<SimpleObject> {
 
     //region > title
     public TranslatableString title() {
-        return TranslatableString.tr("Empleado: {apellido}, {name}, {rol}", "name",getName(),"apellido",getApellido(),"rol",getRol());
+        return TranslatableString.tr("Empleado: {apellido}, {name} - {rol}", "name",getName(),"apellido",getApellido(),"rol",getRol());
     }
     //endregion
 
     //region > constructor
-    public SimpleObject(final String name, final String apellido, final String rol) {
+    public SimpleObject(final String name, final String apellido, final String documento, final String rol) {
         setName(name);
         setApellido(apellido);
+        setDocumento(documento);
         setRol(rol);
     }
     //endregion
         
     public static class NameDomainEvent extends PropertyDomainEvent<SimpleObject, String>{
     	
-    	private static final long serialVersionUID = 1L;
+    	//private static final long serialVersionUID = 1L;
     	
     }
 
@@ -97,11 +103,17 @@ public class SimpleObject implements Comparable<SimpleObject> {
     public String getApellido() {return apellido;}
     public void setApellido( String apellido) {this.apellido = apellido;}
 
-    @javax.jdo.annotations.Column(allowsNull = "false", length = NAME_LENGTH)
+    @javax.jdo.annotations.Column(allowsNull = "true", length = NAME_LENGTH)
     private String name;
     @Property(editing = Editing.DISABLED)
     public String getName() {return name;}
     public void setName( String name) {this.name = name;}
+    
+    @javax.jdo.annotations.Column(allowsNull = "true", length = NAME_LENGTH)
+    private String documento;
+    @Property(editing = Editing.DISABLED)
+    public String getDocumento() {return documento;}
+    public void setDocumento( String documento) {this.documento = documento;}
     
     @javax.jdo.annotations.Column(allowsNull = "true", length = NAME_LENGTH)
     private String rol;
@@ -120,13 +132,29 @@ public class SimpleObject implements Comparable<SimpleObject> {
             domainEvent = UpdateNameDomainEvent.class
     )
     public SimpleObject updateName(
-    		@ParameterLayout(named="Name") final String name) {
+    		@ParameterLayout(named="Name") final String name,
+    		@ParameterLayout(named="Apellido")final String apellido,
+    		@ParameterLayout(named="Documento")final String documento,
+    		@ParameterLayout(named="Rol")final String rol) {
         setName(name);
+        setApellido(apellido);
+        setDocumento(documento);
+        setRol(rol);
         return this;
     }
     public String default0UpdateName() {
-        return getName();
+        return getName(); 
     }
+    public String default1UpdateName(){
+    	return getApellido();
+    }
+    public String default2UpdateName(){
+    	return getDocumento();
+    }
+    public String default3UpdateName(){
+    	return getRol();
+    }
+    
     public TranslatableString validate0UpdateName(final String name) {
         return name != null && name.contains("!")? TranslatableString.tr("Exclamation mark is not allowed"): null;
     }
