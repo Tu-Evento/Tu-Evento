@@ -52,8 +52,14 @@ public class SimpleObjectRepository {
     					"BuscarporRoldeTrabajo","rol",rol));
     }
 
-    public SimpleObject create(final String name, final String apellido,final String documento, final String rol) {
-        final SimpleObject object = new SimpleObject(name, apellido,documento,rol);
+    public SimpleObject create(
+    		final String name, 
+    		final String apellido,
+    		final String documento,
+    		final String cuil,
+    		final String direccion,
+    		final String rol) {
+        final SimpleObject object = new SimpleObject(name, apellido, documento, cuil, direccion, rol);
         serviceRegistry.injectServicesInto(object);
         repositoryService.persist(object);
         return object;

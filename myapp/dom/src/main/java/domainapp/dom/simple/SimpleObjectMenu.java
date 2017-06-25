@@ -76,8 +76,10 @@ public class SimpleObjectMenu {
             @ParameterLayout(named="Name")final String name,
             @ParameterLayout(named="Apellido")final String apellido,
             @ParameterLayout(named="Documento")final String documento,
+            @ParameterLayout(named="Cuil") final String cuil,
+            @ParameterLayout(named="Direccion") final String direccion,
             @ParameterLayout(named="Rol") final String rol){
-        return simpleObjectRepository.create(name, apellido,documento, rol);
+        return simpleObjectRepository.create(name, apellido,documento,cuil, direccion, rol);
     }
 
 

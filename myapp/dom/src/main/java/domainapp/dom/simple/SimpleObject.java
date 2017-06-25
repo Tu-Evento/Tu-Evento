@@ -80,19 +80,23 @@ public class SimpleObject implements Comparable<SimpleObject> {
     //endregion
 
     //region > constructor
-    public SimpleObject(final String name, final String apellido, final String documento, final String rol) {
+    public SimpleObject(
+    		final String name, 
+    		final String apellido, 
+    		final String documento, 
+    		final String cuil, 
+    		final String direccion, 
+    		final String rol) {
         setName(name);
         setApellido(apellido);
         setDocumento(documento);
+        setCuil(cuil);
+        setDireccion(direccion);
         setRol(rol);
     }
     //endregion
         
-    public static class NameDomainEvent extends PropertyDomainEvent<SimpleObject, String>{
-    	
-    	//private static final long serialVersionUID = 1L;
-    	
-    }
+    public static class NameDomainEvent extends PropertyDomainEvent<SimpleObject, String>{}
 
     //region > name (read-only property)
     public static final int NAME_LENGTH = 40;
@@ -116,6 +120,18 @@ public class SimpleObject implements Comparable<SimpleObject> {
     public void setDocumento( String documento) {this.documento = documento;}
     
     @javax.jdo.annotations.Column(allowsNull = "true", length = NAME_LENGTH)
+    private String cuil;
+    @Property(editing = Editing.DISABLED)
+    public String getCuil() {return cuil;}
+    public void setCuil( String cuil) {this.cuil = cuil;}
+    
+    @javax.jdo.annotations.Column(allowsNull = "true", length = NAME_LENGTH)
+    private String direccion;
+    @Property(editing = Editing.DISABLED)
+    public String getDireccion() {return direccion;}
+    public void setDireccion( String direccion) {this.direccion = direccion;}
+    
+    @javax.jdo.annotations.Column(allowsNull = "true", length = NAME_LENGTH)
     private String rol;
     @Property(editing = Editing.DISABLED)
     public String getRol() {return rol;}
@@ -135,10 +151,14 @@ public class SimpleObject implements Comparable<SimpleObject> {
     		@ParameterLayout(named="Name") final String name,
     		@ParameterLayout(named="Apellido")final String apellido,
     		@ParameterLayout(named="Documento")final String documento,
+    		@ParameterLayout(named="Cuil")final String cuil,
+    		@ParameterLayout(named="Direccion")final String direccion,
     		@ParameterLayout(named="Rol")final String rol) {
         setName(name);
         setApellido(apellido);
         setDocumento(documento);
+        setCuil(cuil);
+        setDireccion(direccion);
         setRol(rol);
         return this;
     }
@@ -152,6 +172,12 @@ public class SimpleObject implements Comparable<SimpleObject> {
     	return getDocumento();
     }
     public String default3UpdateName(){
+    	return getCuil();
+    }
+    public String default4UpdateName(){
+    	return getDireccion();
+    }
+    public String default5UpdateName(){
     	return getRol();
     }
     
