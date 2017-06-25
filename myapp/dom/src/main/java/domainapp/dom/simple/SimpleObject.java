@@ -70,22 +70,18 @@ public class SimpleObject implements Comparable<SimpleObject> {
 
     //region > title
     public TranslatableString title() {
-        return TranslatableString.tr("Empleado: {apellido}, {name},{nombre}", "name",getName()," apellido",getApellido()," nombre",getNombre());
+        return TranslatableString.tr("Empleado: {apellido}, {name}, {rol}", "name",getName(),"apellido",getApellido(),"rol",getRol());
     }
     //endregion
 
     //region > constructor
-    public SimpleObject(final String name, final String apellido, final String nombre) {
+    public SimpleObject(final String name, final String apellido, final String rol) {
         setName(name);
         setApellido(apellido);
-        setNombre(nombre);
+        setRol(rol);
     }
-    
-    
     //endregion
-    
-    
-    
+        
     public static class NameDomainEvent extends PropertyDomainEvent<SimpleObject, String>{
     	
     	private static final long serialVersionUID = 1L;
@@ -98,7 +94,7 @@ public class SimpleObject implements Comparable<SimpleObject> {
     @javax.jdo.annotations.Column(allowsNull = "true", length = NAME_LENGTH)
     private String apellido;
     @Property(editing = Editing.DISABLED)
-    public String getApellido() {return name;}
+    public String getApellido() {return apellido;}
     public void setApellido( String apellido) {this.apellido = apellido;}
 
     @javax.jdo.annotations.Column(allowsNull = "false", length = NAME_LENGTH)
@@ -108,10 +104,10 @@ public class SimpleObject implements Comparable<SimpleObject> {
     public void setName( String name) {this.name = name;}
     
     @javax.jdo.annotations.Column(allowsNull = "true", length = NAME_LENGTH)
-    private String nombre;
+    private String rol;
     @Property(editing = Editing.DISABLED)
-    public String getNombre() {return nombre;}
-    public void setNombre( String nombre) {this.nombre = nombre;}
+    public String getRol() {return rol;}
+    public void setRol( String rol) {this.rol = rol;}
     
     //endregion
 

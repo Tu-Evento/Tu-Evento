@@ -39,6 +39,7 @@ public class SimpleObjectCreate extends FixtureScript {
         this.name = name;
         return this;
     }
+    
     //endregion
 
 
@@ -59,7 +60,7 @@ public class SimpleObjectCreate extends FixtureScript {
 
         String name = checkParam("name", ec, String.class);
 
-        this.simpleObject = wrap(simpleObjectMenu).create(name, null, null);
+        this.simpleObject = wrap(simpleObjectMenu).create(name, name, name);
 
         // also make available to UI
         ec.addResult(this, simpleObject);
