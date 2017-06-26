@@ -44,14 +44,11 @@ import org.apache.isis.applib.util.ObjectContracts;
 @javax.jdo.annotations.DatastoreIdentity(strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY, column = "id")
 @javax.jdo.annotations.Version(strategy = VersionStrategy.DATE_TIME, column = "version")
 @javax.jdo.annotations.Queries({
-		// @javax.jdo.annotations.Query(
-		// name="listAll", language="JDOQL",
-		// value="SELECT"
-		// + "FROM domainapp.dom.simple.SimpleObject"),
 		@javax.jdo.annotations.Query(name = "findByNombre", language = "JDOQL", value = "SELECT "
 				+ "FROM domainapp.dom.simple.SimpleObject " + "WHERE name.indexOf(:name) >= 0 "),
-		@javax.jdo.annotations.Query(name = "BuscarporRoldeTrabajo", language = "JDOQL", value = "SELECT "
-				+ "FROM domanapp.dom.simple.SimpleObject " + "WHERE rol.indexOf(:rol) >=0") })
+		//@javax.jdo.annotations.Query(name = "BuscarporRoldeTrabajo", language = "JDOQL", value = "SELECT "
+			//	+ "FROM domanapp.dom.simple.SimpleObject " + "WHERE rol.indexOf(:rol) >=0") 
+		})
 @javax.jdo.annotations.Unique(name = "SimpleObject_name_UNQ", members = { "name" })
 @DomainObject(publishing = Publishing.ENABLED, auditing = Auditing.ENABLED)
 public class SimpleObject implements Comparable<SimpleObject> {
