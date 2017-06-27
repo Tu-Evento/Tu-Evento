@@ -36,7 +36,7 @@ import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
         repositoryFor = SimpleObject.class
 )
 @DomainServiceLayout(
-        named = "Simple Objects",
+        named = "Simple Objects",//
         menuOrder = "10"
 )
 public class SimpleObjectMenu {
@@ -60,18 +60,11 @@ public class SimpleObjectMenu {
         return simpleObjectRepository.findByName(name);
     }
     
-    @Action(semantics =SemanticsOf.SAFE)
-    @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
-    @MemberOrder(sequence ="3")
-    public List<SimpleObject> findByRol(
-    		@ParameterLayout(named="Rol")final String rol
-    ){
-    	return simpleObjectRepository.findByRol(rol);
-    }
+    
 
     public static class CreateDomainEvent extends ActionDomainEvent<SimpleObjectMenu> {}
     @Action(domainEvent = CreateDomainEvent.class)
-    @MemberOrder(sequence = "4")
+    @MemberOrder(sequence = "3")
     public SimpleObject create(
             @ParameterLayout(named="Name")final String name,
             @ParameterLayout(named="Apellido")final String apellido,

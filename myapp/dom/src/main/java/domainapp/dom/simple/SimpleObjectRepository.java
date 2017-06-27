@@ -44,13 +44,7 @@ public class SimpleObjectRepository {
                         "name", name));
     }
     
-    public List<SimpleObject> findByRol(final String rol)
-    {
-    	return repositoryService.allMatches(
-    			new QueryDefault<>(
-    					SimpleObject.class,
-    					"BuscarporRoldeTrabajo","rol",rol));
-    }
+    
 
     public SimpleObject create(
     		final String name, 
