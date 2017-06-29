@@ -26,6 +26,7 @@ import org.apache.isis.applib.annotation.Auditing;
 import org.apache.isis.applib.annotation.CommandReification;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Editing;
+import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.Publishing;
@@ -38,16 +39,33 @@ import org.apache.isis.applib.services.repository.RepositoryService;
 import org.apache.isis.applib.services.title.TitleService;
 import org.apache.isis.applib.util.ObjectContracts;
 
-@javax.jdo.annotations.PersistenceCapable(identityType = IdentityType.DATASTORE, schema = "simple", table = "Empleado")
-@javax.jdo.annotations.DatastoreIdentity(strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY, column = "id")
-@javax.jdo.annotations.Version(strategy = VersionStrategy.DATE_TIME, column = "version")
+import domainapp.dom.persona.Persona;
+
+@javax.jdo.annotations.PersistenceCapable(
+		identityType = IdentityType.DATASTORE, 
+		schema = "simple", 
+		table = "Empleado")
+@javax.jdo.annotations.DatastoreIdentity(
+		strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY, 
+		column = "id")
+@javax.jdo.annotations.Version(
+		strategy = VersionStrategy.DATE_TIME, 
+		column = "version")
 @javax.jdo.annotations.Queries({
-		@javax.jdo.annotations.Query(name = "findByNombre", language = "JDOQL", value = "SELECT "
-				+ "FROM domainapp.dom.simple.Empleado " + "WHERE name.indexOf(:name) >= 0 "), 
+		@javax.jdo.annotations.Query(
+				name = "findByNombre", language = "JDOQL", 
+				value = "SELECT "
+						+ "FROM domainapp.dom.simple.Empleado " 
+						+ "WHERE name.indexOf(:name) >= 0 "), 
+		@javax.jdo.annotations.Query(
+				name = "buscarPorRol", language = "JDOQL",
+				value = "SELECT"
+						+ "FROM domainapp.dom.simple.Empleado "
+						+ "WHERE rol.indexOf(:rol)>= 0 ")
 		})
 @javax.jdo.annotations.Unique(name = "Empleado_name_UNQ", members = { "name" })
 @DomainObject(publishing = Publishing.ENABLED, auditing = Auditing.ENABLED)
-public class Empleado implements Comparable<Empleado> {
+public class Empleado extends Persona implements Comparable<Empleado> {
 
 	// region > title
 	public TranslatableString title() {
@@ -68,9 +86,7 @@ public class Empleado implements Comparable<Empleado> {
 	}
 	// endregion
 
-	public Empleado() {
-		// TODO Apéndice de constructor generado automáticamente
-	}
+	
 
 	public static class NameDomainEvent extends PropertyDomainEvent<Empleado, String> {
 	}
@@ -78,74 +94,14 @@ public class Empleado implements Comparable<Empleado> {
 	// region > name (read-only property)
 	public static final int NAME_LENGTH = 40;
 
-	@javax.jdo.annotations.Column(allowsNull = "true", length = NAME_LENGTH)
-	private String apellido;
 
-	@Property(editing = Editing.DISABLED)
-	public String getApellido() {
-		return apellido;
-	}
-
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
-	}
-
-	@javax.jdo.annotations.Column(allowsNull = "true", length = NAME_LENGTH)
-	private String name;
-
-	@Property(editing = Editing.DISABLED)
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	@javax.jdo.annotations.Column(allowsNull = "true", length = NAME_LENGTH)
-	private String documento;
-
-	@Property(editing = Editing.DISABLED)
-	public String getDocumento() {
-		return documento;
-	}
-
-	public void setDocumento(String documento) {
-		this.documento = documento;
-	}
-
-	@javax.jdo.annotations.Column(allowsNull = "true", length = NAME_LENGTH)
-	private String cuil;
-
-	@Property(editing = Editing.DISABLED)
-	public String getCuil() {
-		return cuil;
-	}
-
-	public void setCuil(String cuil) {
-		this.cuil = cuil;
-	}
-
-	@javax.jdo.annotations.Column(allowsNull = "true", length = NAME_LENGTH)
-	private String direccion;
-
-	@Property(editing = Editing.DISABLED)
-	public String getDireccion() {
-		return direccion;
-	}
-
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
-	}
-
+	@MemberOrder(sequence = "1")
 	@javax.jdo.annotations.Column(allowsNull = "true", length = NAME_LENGTH)
 	private String rol;
-
 	@Property(editing = Editing.DISABLED)
 	public String getRol() {
 		return rol;
 	}
-
 	public void setRol(String rol) {
 		this.rol = rol;
 	}

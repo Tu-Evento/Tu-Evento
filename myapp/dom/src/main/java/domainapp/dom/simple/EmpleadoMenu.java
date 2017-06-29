@@ -49,7 +49,6 @@ public class EmpleadoMenu {
         return simpleObjectRepository.listAll();
     }
 
-
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "2")
@@ -60,11 +59,19 @@ public class EmpleadoMenu {
         return simpleObjectRepository.findByName(name);
     }
     
-    
+    @Action(semantics = SemanticsOf.SAFE)
+    @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
+    @MemberOrder(sequence = "3")
+    public List<Empleado> buscarPorRol(
+            @ParameterLayout(named="Rol")
+            final String rol
+    ) {
+        return simpleObjectRepository.buscarPorRol(rol);
+    }
 
     public static class CreateDomainEvent extends ActionDomainEvent<EmpleadoMenu> {}
     @Action(domainEvent = CreateDomainEvent.class)
-    @MemberOrder(sequence = "3")
+    @MemberOrder(sequence = "4")
     public Empleado create(
             @ParameterLayout(named="Name")final String name,
             @ParameterLayout(named="Apellido")final String apellido,

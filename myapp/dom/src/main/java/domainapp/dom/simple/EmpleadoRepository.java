@@ -44,7 +44,13 @@ public class EmpleadoRepository {
                         "name", name));
     }
     
-    
+    public List<Empleado> buscarPorRol(final String rol) {
+        return repositoryService.allMatches(
+                new QueryDefault<>(
+                        Empleado.class,
+                        "buscarPorRol",
+                        "rol", rol));
+    }
 
     public Empleado create(
     		final String name, 
