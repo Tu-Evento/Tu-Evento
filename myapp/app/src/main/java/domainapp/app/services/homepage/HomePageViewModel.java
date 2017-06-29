@@ -23,21 +23,21 @@ import java.util.List;
 import org.apache.isis.applib.annotation.ViewModel;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 
-import domainapp.dom.simple.SimpleObject;
-import domainapp.dom.simple.SimpleObjectRepository;
+import domainapp.dom.simple.Empleado;
+import domainapp.dom.simple.EmpleadoRepository;
 
 @ViewModel
 public class HomePageViewModel {
 
     //region > title
     public TranslatableString title() {
-        return TranslatableString.tr("{num} empleados", "num", getObjects().size());
+        return TranslatableString.tr("{num} empleados", "num", getEmpleados().size());
     }
     //endregion
 
     //region > object (collection)
     @org.apache.isis.applib.annotation.HomePage
-    public List<SimpleObject> getObjects() {
+    public List<Empleado> getEmpleados() {
         return simpleObjectRepository.listAll();
     }
     //endregion
@@ -45,7 +45,7 @@ public class HomePageViewModel {
     //region > injected services
 
     @javax.inject.Inject
-    SimpleObjectRepository simpleObjectRepository;
+    EmpleadoRepository simpleObjectRepository;
 
     //endregion
 }

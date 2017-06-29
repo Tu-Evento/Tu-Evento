@@ -28,32 +28,32 @@ import org.apache.isis.applib.services.repository.RepositoryService;
 
 @DomainService(
         nature = NatureOfService.DOMAIN,
-        repositoryFor = SimpleObject.class
+        repositoryFor = Empleado.class
 )
-public class SimpleObjectRepository {
+public class EmpleadoRepository {
 
-    public List<SimpleObject> listAll() {
-        return repositoryService.allInstances(SimpleObject.class);
+    public List<Empleado> listAll() {
+        return repositoryService.allInstances(Empleado.class);
     }
 
-    public List<SimpleObject> findByName(final String name) {
+    public List<Empleado> findByName(final String name) {
         return repositoryService.allMatches(
                 new QueryDefault<>(
-                        SimpleObject.class,
+                        Empleado.class,
                         "findByNombre",
                         "name", name));
     }
     
     
 
-    public SimpleObject create(
+    public Empleado create(
     		final String name, 
     		final String apellido,
     		final String documento,
     		final String cuil,
     		final String direccion,
     		final String rol) {
-        final SimpleObject object = new SimpleObject(name, apellido, documento, cuil, direccion, rol);
+        final Empleado object = new Empleado(name, apellido, documento, cuil, direccion, rol);
         serviceRegistry.injectServicesInto(object);
         repositoryService.persist(object);
         return object;

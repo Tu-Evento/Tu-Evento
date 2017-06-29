@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package domainapp.dom.empleado;
+package domainapp.dom.simple;
 
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
@@ -43,9 +43,7 @@ import org.apache.isis.applib.util.ObjectContracts;
 @javax.jdo.annotations.Version(strategy = VersionStrategy.DATE_TIME, column = "version")
 @javax.jdo.annotations.Queries({
 		@javax.jdo.annotations.Query(name = "findByNombre", language = "JDOQL", value = "SELECT "
-				+ "FROM domainapp.dom.simple.Empleado " + "WHERE name.indexOf(:name) >= 0 "),
-		@javax.jdo.annotations.Query(name = "BuscarporRoldeTrabajo", language = "JDOQL", value = "SELECT "
-				+ "FROM domanapp.dom.simple.Empleado " + "WHERE rol.indexOf(:rol) >=0") 
+				+ "FROM domainapp.dom.simple.Empleado " + "WHERE name.indexOf(:name) >= 0 "), 
 		})
 @javax.jdo.annotations.Unique(name = "Empleado_name_UNQ", members = { "name" })
 @DomainObject(publishing = Publishing.ENABLED, auditing = Auditing.ENABLED)
@@ -69,6 +67,10 @@ public class Empleado implements Comparable<Empleado> {
 		setRol(rol);
 	}
 	// endregion
+
+	public Empleado() {
+		// TODO Apéndice de constructor generado automáticamente
+	}
 
 	public static class NameDomainEvent extends PropertyDomainEvent<Empleado, String> {
 	}

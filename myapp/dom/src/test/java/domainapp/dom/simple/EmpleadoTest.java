@@ -21,16 +21,16 @@ import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class SimpleObjectTest {
+public class EmpleadoTest {
 
-    SimpleObject simpleObject;
+    Empleado simpleObject;
 
     @Before
     public void setUp() throws Exception {
-        simpleObject = new SimpleObject();
+        simpleObject = new Empleado();
     }
 
-    public static class Name extends SimpleObjectTest {
+    public static class Name extends EmpleadoTest {
 
         @Test
         public void happyCase() throws Exception {

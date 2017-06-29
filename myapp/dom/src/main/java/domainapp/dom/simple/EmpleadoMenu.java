@@ -33,19 +33,19 @@ import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
-        repositoryFor = SimpleObject.class
+        repositoryFor = Empleado.class
 )
 @DomainServiceLayout(
-        named = "Simple Objects",//
+        named = "Menu de Servicios",//
         menuOrder = "10"
 )
-public class SimpleObjectMenu {
+public class EmpleadoMenu {
 
 
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "1")
-    public List<SimpleObject> listAll() {
+    public List<Empleado> listAll() {
         return simpleObjectRepository.listAll();
     }
 
@@ -53,7 +53,7 @@ public class SimpleObjectMenu {
     @Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
     @MemberOrder(sequence = "2")
-    public List<SimpleObject> findByName(
+    public List<Empleado> findByName(
             @ParameterLayout(named="Name")
             final String name
     ) {
@@ -62,10 +62,10 @@ public class SimpleObjectMenu {
     
     
 
-    public static class CreateDomainEvent extends ActionDomainEvent<SimpleObjectMenu> {}
+    public static class CreateDomainEvent extends ActionDomainEvent<EmpleadoMenu> {}
     @Action(domainEvent = CreateDomainEvent.class)
     @MemberOrder(sequence = "3")
-    public SimpleObject create(
+    public Empleado create(
             @ParameterLayout(named="Name")final String name,
             @ParameterLayout(named="Apellido")final String apellido,
             @ParameterLayout(named="Documento")final String documento,
@@ -77,6 +77,6 @@ public class SimpleObjectMenu {
 
 
     @javax.inject.Inject
-    SimpleObjectRepository simpleObjectRepository;
+    EmpleadoRepository simpleObjectRepository;
 
 }

@@ -21,10 +21,10 @@ package domainapp.fixture.dom.simple;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import domainapp.dom.simple.SimpleObject;
-import domainapp.dom.simple.SimpleObjectMenu;
+import domainapp.dom.simple.Empleado;
+import domainapp.dom.simple.EmpleadoMenu;
 
-public class SimpleObjectCreate extends FixtureScript {
+public class EmpleadoCreate extends FixtureScript {
 
     //region > name (input)
     private String name;
@@ -35,7 +35,7 @@ public class SimpleObjectCreate extends FixtureScript {
         return name;
     }
 
-    public SimpleObjectCreate setName(final String name) {
+    public EmpleadoCreate setName(final String name) {
         this.name = name;
         return this;
     }
@@ -44,13 +44,13 @@ public class SimpleObjectCreate extends FixtureScript {
 
 
     //region > simpleObject (output)
-    private SimpleObject simpleObject;
+    private Empleado simpleObject;
 
     /**
      * The created simple object (output).
      * @return
      */
-    public SimpleObject getSimpleObject() {
+    public Empleado getEmpleado() {
         return simpleObject;
     }
     //endregion
@@ -67,6 +67,6 @@ public class SimpleObjectCreate extends FixtureScript {
     }
 
     @javax.inject.Inject
-    private SimpleObjectMenu simpleObjectMenu;
+    private EmpleadoMenu simpleObjectMenu;
 
 }

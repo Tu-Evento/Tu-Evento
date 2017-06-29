@@ -33,33 +33,33 @@ import org.apache.isis.applib.services.xactn.TransactionService;
 import org.apache.isis.core.metamodel.services.jdosupport.Persistable_datanucleusIdLong;
 import org.apache.isis.core.metamodel.services.jdosupport.Persistable_datanucleusVersionTimestamp;
 
-import domainapp.dom.simple.SimpleObject;
-import domainapp.fixture.scenarios.RecreateSimpleObjects;
+import domainapp.dom.simple.Empleado;
+import domainapp.fixture.scenarios.RecreateEmpleados;
 import domainapp.integtests.tests.DomainAppIntegTest;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class SimpleObject_IntegTest extends DomainAppIntegTest {
+public class Empleado_IntegTest extends DomainAppIntegTest {
 
     @Inject
     FixtureScripts fixtureScripts;
     @Inject
     TransactionService transactionService;
 
-    SimpleObject simpleObject;
+    Empleado simpleObject;
 
     @Before
     public void setUp() throws Exception {
         // given
-        RecreateSimpleObjects fs = new RecreateSimpleObjects().setNumber(1);
+        RecreateEmpleados fs = new RecreateEmpleados().setNumber(1);
         fixtureScripts.runFixtureScript(fs, null);
         transactionService.nextTransaction();
 
-        simpleObject = fs.getSimpleObjects().get(0);
+        simpleObject = fs.getEmpleados().get(0);
 
         assertThat(simpleObject).isNotNull();
     }
 
-    public static class Name extends SimpleObject_IntegTest {
+    public static class Name extends Empleado_IntegTest {
 
         @Test
         public void accessible() throws Exception {
@@ -81,7 +81,7 @@ public class SimpleObject_IntegTest extends DomainAppIntegTest {
 
     }
 
-    public static class UpdateName extends SimpleObject_IntegTest {
+    public static class UpdateName extends Empleado_IntegTest {
 
         @Test
         public void can_be_updated_directly() throws Exception {
@@ -107,7 +107,7 @@ public class SimpleObject_IntegTest extends DomainAppIntegTest {
     }
 
 
-    public static class Title extends SimpleObject_IntegTest {
+    public static class Title extends Empleado_IntegTest {
 
         @Inject
         TitleService titleService;
@@ -126,7 +126,7 @@ public class SimpleObject_IntegTest extends DomainAppIntegTest {
         }
     }
 
-    public static class DataNucleusId extends SimpleObject_IntegTest {
+    public static class DataNucleusId extends Empleado_IntegTest {
 
         @Test
         public void should_be_populated() throws Exception {
@@ -138,7 +138,7 @@ public class SimpleObject_IntegTest extends DomainAppIntegTest {
         }
     }
 
-    public static class DataNucleusVersionTimestamp extends SimpleObject_IntegTest {
+    public static class DataNucleusVersionTimestamp extends Empleado_IntegTest {
 
         @Test
         public void should_be_populated() throws Exception {

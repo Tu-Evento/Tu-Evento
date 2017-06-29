@@ -22,7 +22,7 @@ package domainapp.fixture.dom.simple;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.services.jdosupport.IsisJdoSupport;
 
-public class SimpleObjectsTearDown extends FixtureScript {
+public class EmpleadosTearDown extends FixtureScript {
 
     @Override
     protected void execute(ExecutionContext executionContext) {

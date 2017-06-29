@@ -34,65 +34,65 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.services.xactn.TransactionService;
 
-import domainapp.dom.simple.SimpleObject;
-import domainapp.dom.simple.SimpleObjectMenu;
-import domainapp.fixture.dom.simple.SimpleObjectsTearDown;
-import domainapp.fixture.scenarios.RecreateSimpleObjects;
+import domainapp.dom.simple.Empleado;
+import domainapp.dom.simple.EmpleadoMenu;
+import domainapp.fixture.dom.simple.EmpleadosTearDown;
+import domainapp.fixture.scenarios.RecreateEmpleados;
 import domainapp.integtests.tests.DomainAppIntegTest;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class SimpleObjectMenu_IntegTest extends DomainAppIntegTest {
+public class EmpleadoMenu_IntegTest extends DomainAppIntegTest {
 
     @Inject
     FixtureScripts fixtureScripts;
     @Inject
     TransactionService transactionService;
     @Inject
-    SimpleObjectMenu menu;
+    EmpleadoMenu menu;
 
-    public static class ListAll extends SimpleObjectMenu_IntegTest {
+    public static class ListAll extends EmpleadoMenu_IntegTest {
 
         @Test
         public void happyCase() throws Exception {
 
             // given
-            RecreateSimpleObjects fs = new RecreateSimpleObjects();
+            RecreateEmpleados fs = new RecreateEmpleados();
             fixtureScripts.runFixtureScript(fs, null);
             transactionService.nextTransaction();
 
             // when
-            final List<SimpleObject> all = wrap(menu).listAll();
+            final List<Empleado> all = wrap(menu).listAll();
 
             // then
-            assertThat(all).hasSize(fs.getSimpleObjects().size());
+            assertThat(all).hasSize(fs.getEmpleados().size());
 
-            SimpleObject simpleObject = wrap(all.get(0));
-            assertThat(simpleObject.getName()).isEqualTo(fs.getSimpleObjects().get(0).getName());
+            Empleado simpleObject = wrap(all.get(0));
+            assertThat(simpleObject.getName()).isEqualTo(fs.getEmpleados().get(0).getName());
         }
 
         @Test
         public void whenNone() throws Exception {
 
             // given
-            FixtureScript fs = new SimpleObjectsTearDown();
+            FixtureScript fs = new EmpleadosTearDown();
             fixtureScripts.runFixtureScript(fs, null);
             transactionService.nextTransaction();
 
             // when
-            final List<SimpleObject> all = wrap(menu).listAll();
+            final List<Empleado> all = wrap(menu).listAll();
 
             // then
             assertThat(all).hasSize(0);
         }
     }
 
-    public static class Create extends SimpleObjectMenu_IntegTest {
+    public static class Create extends EmpleadoMenu_IntegTest {
 
         @Test
         public void happyCase() throws Exception {
 
             // given
-            FixtureScript fs = new SimpleObjectsTearDown();
+            FixtureScript fs = new EmpleadosTearDown();
             fixtureScripts.runFixtureScript(fs, null);
             transactionService.nextTransaction();
 
@@ -100,7 +100,7 @@ public class SimpleObjectMenu_IntegTest extends DomainAppIntegTest {
             wrap(menu).create("Faz", null, null, null, null, null);
 
             // then
-            final List<SimpleObject> all = wrap(menu).listAll();
+            final List<Empleado> all = wrap(menu).listAll();
             assertThat(all).hasSize(1);
         }
 
@@ -108,7 +108,7 @@ public class SimpleObjectMenu_IntegTest extends DomainAppIntegTest {
         public void whenAlreadyExists() throws Exception {
 
             // given
-            FixtureScript fs = new SimpleObjectsTearDown();
+            FixtureScript fs = new EmpleadosTearDown();
             fixtureScripts.runFixtureScript(fs, null);
             transactionService.nextTransaction();
             wrap(menu).create("Faz", null, null, null, null, null);

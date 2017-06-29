@@ -28,16 +28,16 @@ import com.google.common.collect.Lists;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import domainapp.dom.simple.SimpleObject;
-import domainapp.fixture.dom.simple.SimpleObjectCreate;
-import domainapp.fixture.dom.simple.SimpleObjectsTearDown;
+import domainapp.dom.simple.Empleado;
+import domainapp.fixture.dom.simple.EmpleadoCreate;
+import domainapp.fixture.dom.simple.EmpleadosTearDown;
 
-public class RecreateSimpleObjects extends FixtureScript {
+public class RecreateEmpleados extends FixtureScript {
 
     public final List<String> NAMES = Collections.unmodifiableList(Arrays.asList(
             "Foo", "Bar", "Baz", "Frodo", "Froyo", "Fizz", "Bip", "Bop", "Bang", "Boo"));
 
-    public RecreateSimpleObjects() {
+    public RecreateEmpleados() {
         withDiscoverability(Discoverability.DISCOVERABLE);
     }
 
@@ -51,20 +51,20 @@ public class RecreateSimpleObjects extends FixtureScript {
         return number;
     }
 
-    public RecreateSimpleObjects setNumber(final Integer number) {
+    public RecreateEmpleados setNumber(final Integer number) {
         this.number = number;
         return this;
     }
     //endregion
 
     //region > simpleObjects (output)
-    private final List<SimpleObject> simpleObjects = Lists.newArrayList();
+    private final List<Empleado> simpleObjects = Lists.newArrayList();
 
     /**
      * The simpleobjects created by this fixture (output).
      */
     @Programmatic
-    public List<SimpleObject> getSimpleObjects() {
+    public List<Empleado> getEmpleados() {
         return simpleObjects;
     }
     //endregion
@@ -83,12 +83,12 @@ public class RecreateSimpleObjects extends FixtureScript {
         //
         // execute
         //
-        ec.executeChild(this, new SimpleObjectsTearDown());
+        ec.executeChild(this, new EmpleadosTearDown());
 
         for (int i = 0; i < number; i++) {
-            final SimpleObjectCreate fs = new SimpleObjectCreate().setName(NAMES.get(i));
+            final EmpleadoCreate fs = new EmpleadoCreate().setName(NAMES.get(i));
             ec.executeChild(this, fs.getName(), fs);
-            simpleObjects.add(fs.getSimpleObject());
+            simpleObjects.add(fs.getEmpleado());
         }
     }
 }
