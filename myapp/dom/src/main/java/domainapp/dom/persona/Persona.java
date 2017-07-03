@@ -26,6 +26,8 @@ import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Property;
 
+import domainapp.dom.tipodocumento.TipoDoc;
+
 @PersistenceCapable
 @Inheritance(strategy = InheritanceStrategy.SUBCLASS_TABLE)
 public abstract class Persona {
@@ -64,8 +66,19 @@ public abstract class Persona {
 	public void setDocumento(String documento) {
 		this.documento = documento;
 	}
-
+	
 	@MemberOrder(sequence = "5")
+	@javax.jdo.annotations.Column(allowsNull = "true", length = NAME_LENGTH)
+	private TipoDoc tipo;
+	@Property(editing = Editing.DISABLED)
+	public TipoDoc getTipo() {
+		return tipo;
+	}
+	public void setTipoDoc(TipoDoc tipo) {
+		this.tipo = tipo;
+	}
+
+	@MemberOrder(sequence = "6")
 	@javax.jdo.annotations.Column(allowsNull = "true", length = NAME_LENGTH)
 	private String cuil;
 	@Property(editing = Editing.DISABLED)
@@ -76,7 +89,7 @@ public abstract class Persona {
 		this.cuil = cuil;
 	}
 
-	@MemberOrder(sequence = "6")
+	@MemberOrder(sequence = "7")
 	@javax.jdo.annotations.Column(allowsNull = "true", length = NAME_LENGTH)
 	private String direccion;
 	@Property(editing = Editing.DISABLED)

@@ -27,7 +27,7 @@ public class EmpleadoTest {
 
     @Before
     public void setUp() throws Exception {
-        simpleObject = new Empleado(null, null, null, null, null, null);
+        simpleObject = new Empleado(null, null, null, null, null, null, null);
     }
 
     public static class Name extends EmpleadoTest {

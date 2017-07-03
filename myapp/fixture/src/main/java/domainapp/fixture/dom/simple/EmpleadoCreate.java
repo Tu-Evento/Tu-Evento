@@ -60,7 +60,7 @@ public class EmpleadoCreate extends FixtureScript {
 
         String name = checkParam("name", ec, String.class);
 
-        this.simpleObject = wrap(simpleObjectMenu).create(name, name, null, name, name, name);
+        this.simpleObject = wrap(simpleObjectMenu).create(name, name, null, null, name, name, name);
 
         // also make available to UI
         ec.addResult(this, simpleObject);

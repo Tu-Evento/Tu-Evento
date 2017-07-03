@@ -40,6 +40,7 @@ import org.apache.isis.applib.services.title.TitleService;
 import org.apache.isis.applib.util.ObjectContracts;
 
 import domainapp.dom.persona.Persona;
+import domainapp.dom.tipodocumento.TipoDoc;
 
 @javax.jdo.annotations.PersistenceCapable(
 		identityType = IdentityType.DATASTORE, 
@@ -75,27 +76,23 @@ public class Empleado extends Persona implements Comparable<Empleado> {
 	// endregion
 
 	// region > constructor
-	public Empleado(final String name, final String apellido, final String documento, final String cuil,
+	public Empleado(final String name, final String apellido, final String documento, final TipoDoc tipo, final String cuil,
 			final String direccion, final String rol) {
 		setName(name);
 		setApellido(apellido);
 		setDocumento(documento);
+		setTipoDoc(tipo);
 		setCuil(cuil);
 		setDireccion(direccion);
 		setRol(rol);
 	}
 	// endregion
 
-	
-
-	public static class NameDomainEvent extends PropertyDomainEvent<Empleado, String> {
-	}
-
 	// region > name (read-only property)
 	public static final int NAME_LENGTH = 40;
 
 
-	@MemberOrder(sequence = "1")
+	@MemberOrder(sequence = "2")
 	@javax.jdo.annotations.Column(allowsNull = "true", length = NAME_LENGTH)
 	private String rol;
 	@Property(editing = Editing.DISABLED)
@@ -105,7 +102,7 @@ public class Empleado extends Persona implements Comparable<Empleado> {
 	public void setRol(String rol) {
 		this.rol = rol;
 	}
-
+	
 	// endregion
 
 	// region > updateName (action)
@@ -115,12 +112,14 @@ public class Empleado extends Persona implements Comparable<Empleado> {
 	@Action(command = CommandReification.ENABLED, publishing = Publishing.ENABLED, semantics = SemanticsOf.IDEMPOTENT, domainEvent = UpdateNameDomainEvent.class)
 	public Empleado updateName(@ParameterLayout(named = "Name") final String name,
 			@ParameterLayout(named = "Apellido") final String apellido,
+			@ParameterLayout(named = "Tipo Documento") final TipoDoc tipo,
 			@ParameterLayout(named = "Documento") final String documento,
 			@ParameterLayout(named = "Cuil") final String cuil,
 			@ParameterLayout(named = "Direccion") final String direccion,
 			@ParameterLayout(named = "Rol") final String rol) {
 		setName(name);
 		setApellido(apellido);
+		setTipoDoc(tipo);
 		setDocumento(documento);
 		setCuil(cuil);
 		setDireccion(direccion);
@@ -135,20 +134,24 @@ public class Empleado extends Persona implements Comparable<Empleado> {
 	public String default1UpdateName() {
 		return getApellido();
 	}
-
-	public String default2UpdateName() {
-		return getDocumento();
+	
+	public TipoDoc default2UpdateName() {
+		return getTipo();
 	}
 
 	public String default3UpdateName() {
-		return getCuil();
+		return getDocumento();
 	}
 
 	public String default4UpdateName() {
-		return getDireccion();
+		return getCuil();
 	}
 
 	public String default5UpdateName() {
+		return getDireccion();
+	}
+
+	public String default6UpdateName() {
 		return getRol();
 	}
 

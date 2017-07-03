@@ -35,11 +35,11 @@
                                 <c:action id="updateName"/>
                                 <c:property id="name" namedEscaped="true"/>
                                 <c:property id="apellido" namedEscaped="true"/>
+                                <c:property id="tipo" namedEscaped="true" />
                                 <c:property id="documento" namedEscaped="true"/>
                                 <c:property id="cuil" namedEscaped="true"/>
                                 <c:property id="direccion" namedEscaped="true"/>
                                 <c:property id="rol" namedEscaped="true"/>
-                                <c:property id="notes" namedEscaped="true" multiLine="10" hidden="ALL_TABLES"/>
                             </c:fieldSet>
                         </bs3:col>
                     </bs3:row>
@@ -54,7 +54,10 @@
                 <bs3:tab name="Other">
                     <bs3:row>
                         <bs3:col span="12">
-                            <c:fieldSet name="Other" unreferencedProperties="true"/>
+                            <c:fieldSet name="Other" unreferencedProperties="true">
+                            	
+                            	<c:property id="notes" namedEscaped="true" multiLine="10" hidden="ALL_TABLES"/>
+                            </c:fieldSet>
                         </bs3:col>
                     </bs3:row>
                 </bs3:tab>

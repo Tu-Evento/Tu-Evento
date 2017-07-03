@@ -31,6 +31,8 @@ import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
 
+import domainapp.dom.tipodocumento.TipoDoc;
+
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY,
         repositoryFor = Empleado.class
@@ -76,10 +78,11 @@ public class EmpleadoMenu {
             @ParameterLayout(named="Name")final String name,
             @ParameterLayout(named="Apellido")final String apellido,
             @ParameterLayout(named="Documento")final String documento,
+            @ParameterLayout(named="Tipo Documento") final TipoDoc tipo,
             @ParameterLayout(named="Cuil") final String cuil,
             @ParameterLayout(named="Direccion") final String direccion,
             @ParameterLayout(named="Rol") final String rol){
-        return simpleObjectRepository.create(name, apellido,documento,cuil, direccion, rol);
+        return simpleObjectRepository.create(name, apellido,documento, tipo, cuil, direccion, rol);
     }
 
 

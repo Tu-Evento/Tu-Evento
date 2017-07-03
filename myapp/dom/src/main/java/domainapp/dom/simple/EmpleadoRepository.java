@@ -26,6 +26,8 @@ import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.registry.ServiceRegistry2;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
+import domainapp.dom.tipodocumento.TipoDoc;
+
 @DomainService(
         nature = NatureOfService.DOMAIN,
         repositoryFor = Empleado.class
@@ -56,10 +58,11 @@ public class EmpleadoRepository {
     		final String name, 
     		final String apellido,
     		final String documento,
+    		final TipoDoc tipo,
     		final String cuil,
     		final String direccion,
     		final String rol) {
-        final Empleado object = new Empleado(name, apellido, documento, cuil, direccion, rol);
+        final Empleado object = new Empleado(name, apellido, documento, tipo, cuil, direccion, rol);
         serviceRegistry.injectServicesInto(object);
         repositoryService.persist(object);
         return object;

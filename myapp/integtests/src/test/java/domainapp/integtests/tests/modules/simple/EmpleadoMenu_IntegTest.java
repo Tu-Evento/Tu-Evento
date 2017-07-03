@@ -97,7 +97,7 @@ public class EmpleadoMenu_IntegTest extends DomainAppIntegTest {
             transactionService.nextTransaction();
 
             // when
-            wrap(menu).create("Faz", null, null, null, null, null);
+            wrap(menu).create("Faz", null, null, null, null, null, null);
 
             // then
             final List<Empleado> all = wrap(menu).listAll();
@@ -111,14 +111,14 @@ public class EmpleadoMenu_IntegTest extends DomainAppIntegTest {
             FixtureScript fs = new EmpleadosTearDown();
             fixtureScripts.runFixtureScript(fs, null);
             transactionService.nextTransaction();
-            wrap(menu).create("Faz", null, null, null, null, null);
+            wrap(menu).create("Faz", null, null, null, null, null, null);
             transactionService.nextTransaction();
 
             // then
             expectedExceptions.expectCause(causalChainContains(SQLIntegrityConstraintViolationException.class));
 
             // when
-            wrap(menu).create("Faz", null, null, null, null, null);
+            wrap(menu).create("Faz", null, null, null, null, null, null);
             transactionService.nextTransaction();
         }
 

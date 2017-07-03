@@ -78,7 +78,7 @@ public class EmpleadoRepositoryTest {
             });
 
             // when
-            final Empleado obj = simpleObjectRepository.create(someName, someName, null, someName, someName, someName);
+            final Empleado obj = simpleObjectRepository.create(someName, someName, null, null, someName, someName, someName);
 
             // then
             assertThat(obj).isNotNull();
