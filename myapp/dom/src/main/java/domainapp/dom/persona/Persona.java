@@ -18,26 +18,27 @@
  */
 package domainapp.dom.persona;
 
-import javax.jdo.annotations.Inheritance;
-import javax.jdo.annotations.InheritanceStrategy;
-import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.*;
 
-import org.apache.isis.applib.annotation.Editing;
-import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.Property;
-
-import domainapp.dom.tipodocumento.TipoDoc;
-
-@PersistenceCapable
+@PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.SUBCLASS_TABLE)
 public abstract class Persona {
 
-	public static final int NAME_LENGTH = 50;
-	
-	@MemberOrder(sequence = "2")
-	@javax.jdo.annotations.Column(allowsNull = "true", length = NAME_LENGTH)
+	public Persona() {
+
+	}
+
+	@Column(allowsNull = "false")
+	private String nombre;
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	@Column(allowsNull = "false")
 	private String apellido;
-	@Property(editing = Editing.DISABLED)
 	public String getApellido() {
 		return apellido;
 	}
@@ -45,54 +46,26 @@ public abstract class Persona {
 		this.apellido = apellido;
 	}
 
-	@MemberOrder(sequence = "3")
-	@javax.jdo.annotations.Column(allowsNull = "true", length = NAME_LENGTH)
-	private String name;
-	@Property(editing = Editing.DISABLED)
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	@MemberOrder(sequence = "4")
-	@javax.jdo.annotations.Column(allowsNull = "true", length = NAME_LENGTH)
-	private String documento;
-	@Property(editing = Editing.DISABLED)
-	public String getDocumento() {
+	@Column(allowsNull = "false")
+	private Integer documento;
+	public Integer getDocumento() {
 		return documento;
 	}
-	public void setDocumento(String documento) {
+	public void setDocumento(Integer documento) {
 		this.documento = documento;
 	}
-	
-	@MemberOrder(sequence = "5")
-	@javax.jdo.annotations.Column(allowsNull = "true", length = NAME_LENGTH)
-	private TipoDoc tipo;
-	@Property(editing = Editing.DISABLED)
-	public TipoDoc getTipo() {
-		return tipo;
-	}
-	public void setTipoDoc(TipoDoc tipo) {
-		this.tipo = tipo;
-	}
 
-	@MemberOrder(sequence = "6")
-	@javax.jdo.annotations.Column(allowsNull = "true", length = NAME_LENGTH)
-	private String cuil;
-	@Property(editing = Editing.DISABLED)
-	public String getCuil() {
+	@Column(allowsNull = "false")
+	private Integer cuil;
+	public Integer getCuil() {
 		return cuil;
 	}
-	public void setCuil(String cuil) {
+	public void setCuil(Integer cuil) {
 		this.cuil = cuil;
 	}
 
-	@MemberOrder(sequence = "7")
-	@javax.jdo.annotations.Column(allowsNull = "true", length = NAME_LENGTH)
+	@Column(allowsNull = "true")
 	private String direccion;
-	@Property(editing = Editing.DISABLED)
 	public String getDireccion() {
 		return direccion;
 	}

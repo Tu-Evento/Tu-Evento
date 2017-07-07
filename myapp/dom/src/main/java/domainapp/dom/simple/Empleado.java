@@ -39,7 +39,7 @@ import org.apache.isis.applib.services.repository.RepositoryService;
 import org.apache.isis.applib.services.title.TitleService;
 import org.apache.isis.applib.util.ObjectContracts;
 
-import domainapp.dom.persona.Persona;
+import domainapp.dom.persona.PersonaSimple;
 import domainapp.dom.tipodocumento.TipoDoc;
 
 @javax.jdo.annotations.PersistenceCapable(
@@ -66,7 +66,7 @@ import domainapp.dom.tipodocumento.TipoDoc;
 		})
 @javax.jdo.annotations.Unique(name = "Empleado_name_UNQ", members = { "name" })
 @DomainObject(publishing = Publishing.ENABLED, auditing = Auditing.ENABLED)
-public class Empleado extends Persona implements Comparable<Empleado> {
+public class Empleado extends PersonaSimple implements Comparable<Empleado> {
 
 	// region > title
 	public TranslatableString title() {
