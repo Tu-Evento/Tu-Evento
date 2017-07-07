@@ -27,8 +27,6 @@ import org.apache.isis.applib.AppManifest;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import domainapp.dom.DomainAppDomainModule;
-import domainapp.fixture.DomainAppFixtureModule;
-
 /**
  * Bootstrap the application.
  */
@@ -41,7 +39,7 @@ public class DomainAppAppManifest implements AppManifest {
     public List<Class<?>> getModules() {
         return Arrays.asList(
                 DomainAppDomainModule.class,  // domain (entities and repositories)
-                DomainAppFixtureModule.class, // fixtures
+                //DomainAppFixtureModule.class, // fixtures
                 DomainAppAppModule.class      // home page service etc
         );
     }

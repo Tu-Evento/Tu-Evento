@@ -59,6 +59,10 @@
             <groupId>org.apache.isis.core</groupId>
             <artifactId>isis-core-runtime</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.mycompany</groupId>
+            <artifactId>myapp-dom</artifactId>
+        </dependency>
 
     </dependencies>
 
