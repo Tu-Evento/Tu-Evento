@@ -22,6 +22,9 @@ import domainapp.dom.persona.Persona;
 import domainapp.dom.tipodocumento.TipoDocumento;
 
 import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.CommandReification;
+import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.annotation.Publishing;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
 import org.apache.isis.applib.services.i18n.TranslatableString;
@@ -44,8 +47,8 @@ import javax.jdo.annotations.PersistenceCapable;
 		identityType = IdentityType.DATASTORE)
 public class Empleado extends Persona implements Comparable<Empleado> {
 
-    public TranslatableString title() { return TranslatableString.tr("Empleado: {apellido}, {nombre}",
-    		"apellido", getApellido(), "nombre", getNombre());}
+    public TranslatableString title() { return TranslatableString.tr("Empleado: {apellido}, {nombre} - {rol}",
+    		"apellido", getApellido(), "nombre", getNombre(), "rol", getRolTipo());}
 
     @Column(allowsNull = "false")
 	private RolTipoEnum rolTipo;
@@ -54,6 +57,56 @@ public class Empleado extends Persona implements Comparable<Empleado> {
 	}
 	public void setRolTipo(RolTipoEnum rolTipo){
 		this.rolTipo = rolTipo;
+	}
+	
+	
+	public static class EditarDomainEvent extends ActionDomainEvent<Empleado> {	}
+
+	@Action(command = CommandReification.ENABLED, publishing = Publishing.ENABLED, semantics = SemanticsOf.IDEMPOTENT, domainEvent = EditarDomainEvent.class)
+	public Empleado editar(
+			@ParameterLayout(named = "Nombre") final String nombre,
+			@ParameterLayout(named = "Apellido") final String apellido,
+			@ParameterLayout(named = "Tipo Documento") final TipoDocumento tipo,
+			@ParameterLayout(named = "Documento") final Integer documento,
+			@ParameterLayout(named = "Cuil") final Integer cuil,
+			@ParameterLayout(named = "Direccion") final String direccion,
+			@ParameterLayout(named = "Rol Tipo") final RolTipoEnum rolTipo) {
+		setNombre(nombre);
+		setApellido(apellido);
+		setTipoDocumento(tipo);
+		setDocumento(documento);
+		setCuil(cuil);
+		setDireccion(direccion);
+		setRolTipo(rolTipo);
+		return this;
+	}
+
+	public String default0Editar() {
+		return getNombre();
+	}
+
+	public String default1Editar() {
+		return getApellido();
+	}
+	
+	public TipoDocumento default2Editar() {
+		return getTipoDocumento();
+	}
+
+	public Integer default3Editar() {
+		return getDocumento();
+	}
+
+	public Integer default4Editar() {
+		return getCuil();
+	}
+
+	public String default5Editar() {
+		return getDireccion();
+	}
+
+	public RolTipoEnum default6Editar() {
+		return getRolTipo();
 	}
     
  // region > delete (action)

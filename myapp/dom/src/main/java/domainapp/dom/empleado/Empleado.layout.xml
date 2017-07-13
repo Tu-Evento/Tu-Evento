@@ -34,7 +34,7 @@
                         <bs3:col span="12">
                             <c:fieldSet name="Datos">
                                 <c:action id="eliminar"/>
-                                <!-- <c:action id="updateName"/> -->
+                                <c:action id="editar"/>
                                 <c:property id="apellido" namedEscaped="true"/>
                                 <c:property id="nombre" namedEscaped="true" />
                                 <c:property id="tipoDocumento" namedEscaped="true" />
