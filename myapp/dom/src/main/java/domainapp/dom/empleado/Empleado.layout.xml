@@ -18,6 +18,7 @@
   specific language governing permissions and limitations
   under the License.
 -->
+
 <bs3:grid xsi:schemaLocation="http://isis.apache.org/applib/layout/component http://isis.apache.org/applib/layout/component/component.xsd http://isis.apache.org/applib/layout/grid/bootstrap3 http://isis.apache.org/applib/layout/grid/bootstrap3/bootstrap3.xsd" xmlns:c="http://isis.apache.org/applib/layout/component" xmlns:bs3="http://isis.apache.org/applib/layout/grid/bootstrap3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
     <bs3:row>
@@ -36,11 +37,11 @@
                                 <!-- <c:action id="updateName"/> -->
                                 <c:property id="apellido" namedEscaped="true"/>
                                 <c:property id="nombre" namedEscaped="true" />
-                                <c:property id="tipo" namedEscaped="true" />
+                                <c:property id="tipoDocumento" namedEscaped="true" />
                                 <c:property id="documento" namedEscaped="true"/>
                                 <c:property id="cuil" namedEscaped="true"/>
                                 <c:property id="direccion" namedEscaped="true"/>
-                                <c:property id="rol" namedEscaped="true"/>
+                                <c:property id="rolTipo" namedEscaped="true" />
                             </c:fieldSet>
                         </bs3:col>
                     </bs3:row>

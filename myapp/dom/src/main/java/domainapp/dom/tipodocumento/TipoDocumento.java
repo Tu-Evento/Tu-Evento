@@ -16,18 +16,23 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package domainapp.dom.empleado;
+package domainapp.dom.tipodocumento;
 
-/**
- * Created for domainapp.dom.producto.empleado on 18/06/2017.
- */
-public enum RolTipoEnum {
-    Seguridad,
-    Limpieza,
-    Mozos,
-    Barman,
-    Dj,
-    Fotografo,
-    Filmación,
-    Ayudante
+public enum TipoDocumento {
+
+	DNI("DNI: Documento Nacional de Identidad"), 
+	LC("LC: Libreta Civica"), 
+	LE("LE:  Libreta de Enrolamiento"), 
+	CI("CI: Cedula de Identidad"), 
+	PASAPORTE("Pasaporte");
+	
+	private final String nombre;
+
+	public String getNombre() {return nombre;}
+	private TipoDocumento(String nom) {nombre = nom;}
+
+	@Override
+	public String toString() {
+		return this.nombre;
+	}
 }

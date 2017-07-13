@@ -20,13 +20,13 @@ package domainapp.dom.persona;
 
 import javax.jdo.annotations.*;
 
+import domainapp.dom.tipodocumento.TipoDocumento;
+
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.SUBCLASS_TABLE)
 public abstract class Persona {
 
-	public Persona() {
-
-	}
+	public Persona() {}
 
 	@Column(allowsNull = "false")
 	private String nombre;
@@ -44,6 +44,15 @@ public abstract class Persona {
 	}
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
+	}
+	
+	@Column(allowsNull = "false")
+	private TipoDocumento tipoDocumento;
+	public TipoDocumento getTipoDocumento(){
+		return tipoDocumento;
+	}
+	public void setTipoDocumento(TipoDocumento tipoDocumento){
+		this.tipoDocumento = tipoDocumento;
 	}
 
 	@Column(allowsNull = "false")
