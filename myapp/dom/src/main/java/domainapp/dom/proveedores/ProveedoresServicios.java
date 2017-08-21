@@ -45,10 +45,20 @@ public class ProveedoresServicios {
 	@ActionLayout(named = "Proveedores")
     @MemberOrder(name = "Crear", sequence = "2")
 	public Proveedores create(
-			@ParameterLayout(named="Nombre") String nombre
+			@ParameterLayout(named="Nombre de Organización") String nombreOrganizacion,
+			@ParameterLayout(named="Dirección") String direccion,
+			@ParameterLayout(named="Cuit") Integer cuit,
+			@ParameterLayout(named="Email") String email,
+			@ParameterLayout(named="Teléfono") Integer telefono,
+			@ParameterLayout(named="Nombre de Contacto") String nombreContacto
 			){
 		final Proveedores obj = repositoryService.instantiate(Proveedores.class);
-		obj.setNombre(nombre);
+		obj.setNombreOrganizacion(nombreOrganizacion);
+		obj.setDireccion(direccion);
+		obj.setCuit(cuit);
+		obj.setEmail(email);
+		obj.setTelefono(telefono);
+		obj.setNombreContacto(nombreContacto);
 		repositoryService.persist(obj);
 		return obj;
 	}

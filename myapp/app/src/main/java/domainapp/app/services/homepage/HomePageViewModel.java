@@ -35,8 +35,11 @@ import domainapp.dom.proveedores.ProveedoresServicios;
 public class HomePageViewModel {
 
     //region > title
-    public TranslatableString title() {
-        return TranslatableString.tr("{num} empleados", "num", getEmpleados().size());
+    //public TranslatableString title() {
+    //    return TranslatableString.tr("{num} empleados", "num", getEmpleados().size());
+    //}
+	public String title() {
+        return "Tu-Evento";
     }
     //endregion
 

@@ -22,6 +22,7 @@ import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 
+import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.services.message.MessageService;
 import org.apache.isis.applib.services.repository.RepositoryService;
@@ -37,13 +38,70 @@ public class Proveedores implements Comparable<Proveedores>{
 	
 	public TranslatableString title() { return TranslatableString.tr("Proveedores: ");}
 	
+	//Nombre de Organización
+	@MemberOrder(sequence = "1")
 	@Column(allowsNull = "false")
-	private String nombre;
-	public String getNombre(){
-		return nombre;
+	private String nombreOrganizacion;
+	public String getNombreOrganizacion(){
+		return nombreOrganizacion;
 	}
-	public void setNombre(String nombre){
-		this.nombre = nombre;
+	public void setNombreOrganizacion(String nombreOrganizacion){
+		this.nombreOrganizacion = nombreOrganizacion;
+	}
+	
+	//Dirección de Organización
+	@MemberOrder(sequence = "2")
+	@Column(allowsNull = "false")
+	private String direccion;
+	public String getDireccion(){
+		return direccion;
+	}
+	public void setDireccion(String direccion){
+		this.direccion = direccion;
+	}
+	
+	//CUIT de Organizacion
+	@MemberOrder(sequence = "3")
+	@Column(allowsNull = "false")
+	private Integer cuit;
+	public Integer getCuit(){
+		return cuit;
+	}
+	public void setCuit(Integer cuit){
+		this.cuit = cuit;
+	}
+	
+	//Email de Organización
+	@MemberOrder(sequence = "4")
+	@Column(allowsNull = "false")
+	private String email;
+	public String getEmail(){
+		return email;
+	}
+	public void setEmail(String email){
+		this.email = email;
+	}
+	
+	//Número de Teléfono
+	@MemberOrder(sequence = "5")
+	@Column(allowsNull = "false")
+	private Integer telefono;
+	public Integer getTelefono(){
+		return telefono;
+	}
+	public void setTelefono(Integer telefono){
+		this.telefono = telefono;
+	}
+	
+	//Contacto de Referencia de la Organización
+	@MemberOrder(sequence = "6")
+	@Column(allowsNull = "false")
+	private String nombreContacto;
+	public String getNombreContacto(){
+		return nombreContacto;
+	}
+	public void setNombreContacto(String nombreContacto){
+		this.nombreContacto = nombreContacto;
 	}
 
 	@Override

@@ -27,7 +27,44 @@
         </bs3:col>
     </bs3:row>
     <bs3:row>
-    
-    
+    	<bs3:col span="12">
+            <bs3:tabGroup>
+                <bs3:tab name="Datos de Organización">
+                    <bs3:row>
+                        <bs3:col span="12">
+                            <c:fieldSet name="Datos">
+                                <c:action id="eliminar"/>
+                                <c:action id="editar"/>
+                                <c:property id="nombredeorganizacion" namedEscaped="true" />
+                                <c:property id="direccion" namedEscaped="true"/>
+                                <c:property id="cuit" namedEscaped="true"/>
+                                <c:property id="email" namedEscaped="true"/>
+                                <c:property id="telefono" namedEscaped="true"/>
+                                <c:property id="nombredecontacto" namedEscaped="true"/>
+                                <!-- <c:property id="rolTipo" namedEscaped="true" /> -->
+                            </c:fieldSet>
+                        </bs3:col>
+                    </bs3:row>
+                </bs3:tab>
+                <bs3:tab name="Metadata">
+                    <bs3:row>
+                        <bs3:col span="12">
+                            <c:fieldSet name="Metadata"/>
+                        </bs3:col>
+                    </bs3:row>
+                </bs3:tab>
+                <bs3:tab name="Other">
+                    <bs3:row>
+                        <bs3:col span="12">
+                            <c:fieldSet name="Other" unreferencedProperties="true">
+                            	<c:property id="notes" namedEscaped="true" multiLine="10" hidden="ALL_TABLES"/>
+                            </c:fieldSet>
+                        </bs3:col>
+                    </bs3:row>
+                </bs3:tab>
+            </bs3:tabGroup>
+            <bs3:tabGroup>
+            </bs3:tabGroup>
+        </bs3:col>
     </bs3:row>
 </bs3:grid>

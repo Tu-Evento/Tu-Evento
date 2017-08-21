@@ -19,7 +19,6 @@
 package domainapp.dom.empleado;
 
 import org.apache.isis.applib.annotation.*;
-import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.factory.FactoryService;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
