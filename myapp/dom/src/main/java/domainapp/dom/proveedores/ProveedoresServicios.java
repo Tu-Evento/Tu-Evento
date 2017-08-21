@@ -18,6 +18,50 @@
  */
 package domainapp.dom.proveedores;
 
-public class ProveedoresServicios {
+import java.util.List;
 
+import javax.inject.Inject;
+
+import org.apache.isis.applib.annotation.ActionLayout;
+import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.DomainServiceLayout;
+import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.services.factory.FactoryService;
+import org.apache.isis.applib.services.repository.RepositoryService;
+
+
+
+@DomainService(
+        repositoryFor = Proveedores.class,
+        nature = NatureOfService.VIEW
+)
+@DomainServiceLayout(
+        menuOrder = "20"
+)
+public class ProveedoresServicios {
+	
+	@ActionLayout(named = "Proveedores")
+    @MemberOrder(name = "Crear", sequence = "2")
+	public Proveedores create(
+			@ParameterLayout(named="Nombre") String nombre
+			){
+		final Proveedores obj = repositoryService.instantiate(Proveedores.class);
+		obj.setNombre(nombre);
+		repositoryService.persist(obj);
+		return obj;
+	}
+	
+	@ActionLayout(named = "Proveedores")
+    @MemberOrder(name = "Listar", sequence = "3")
+    public List<Proveedores> listar() {
+        return repositoryService.allInstances(Proveedores.class);
+    }
+
+	@Inject
+    RepositoryService repositoryService;
+
+    @Inject
+    FactoryService factoryService;
 }

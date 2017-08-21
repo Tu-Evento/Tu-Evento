@@ -20,11 +20,16 @@ package domainapp.app.services.homepage;
 
 import java.util.List;
 
+import org.apache.isis.applib.annotation.CollectionLayout;
+import org.apache.isis.applib.annotation.HomePage;
 import org.apache.isis.applib.annotation.ViewModel;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 
 import domainapp.dom.empleado.Empleado;
 import domainapp.dom.empleado.EmpleadoServicio;
+//import domainapp.dom.temporada.Temporada;
+import domainapp.dom.proveedores.Proveedores;
+import domainapp.dom.proveedores.ProveedoresServicios;
 
 @ViewModel
 public class HomePageViewModel {
@@ -36,9 +41,21 @@ public class HomePageViewModel {
     //endregion
 
     //region > object (collection)
-    @org.apache.isis.applib.annotation.HomePage
+    //@org.apache.isis.applib.annotation.HomePage
+    //public List<Empleado> getEmpleados() {
+    //    return empleadoServicio.listar();
+    //}
+    
+    @HomePage()
+    @CollectionLayout(named="Empleados")
     public List<Empleado> getEmpleados() {
         return empleadoServicio.listar();
+    }
+    
+    @HomePage()
+    @CollectionLayout(named="Proveedores")
+    public List<Proveedores> getProveedores() {
+        return proveedoresServicio.listar();
     }
     //endregion
 
@@ -46,6 +63,9 @@ public class HomePageViewModel {
 
     @javax.inject.Inject
     EmpleadoServicio empleadoServicio;
+    
+    @javax.inject.Inject
+    ProveedoresServicios proveedoresServicio;
 
     //endregion
 }

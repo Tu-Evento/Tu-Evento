@@ -18,6 +18,50 @@
  */
 package domainapp.dom.proveedores;
 
-public class Proveedores {
+import javax.jdo.annotations.Column;
+import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.PersistenceCapable;
+
+import org.apache.isis.applib.services.i18n.TranslatableString;
+import org.apache.isis.applib.services.message.MessageService;
+import org.apache.isis.applib.services.repository.RepositoryService;
+import org.apache.isis.applib.services.title.TitleService;
+import org.apache.isis.applib.util.ObjectContracts;
+
+
+
+@PersistenceCapable(
+		schema = "proveedores", 
+		identityType = IdentityType.DATASTORE)
+public class Proveedores implements Comparable<Proveedores>{
+	
+	public TranslatableString title() { return TranslatableString.tr("Proveedores: ");}
+	
+	@Column(allowsNull = "false")
+	private String nombre;
+	public String getNombre(){
+		return nombre;
+	}
+	public void setNombre(String nombre){
+		this.nombre = nombre;
+	}
+
+	@Override
+	public int compareTo(Proveedores o) {
+		return ObjectContracts.compare(o, this, "nombre");
+	}
+	
+	// region > injected dependencies
+
+	 	@javax.inject.Inject
+	 	RepositoryService repositoryService;
+
+	 	@javax.inject.Inject
+	 	TitleService titleService;
+
+	 	@javax.inject.Inject
+	 	MessageService messageService;
+
+	 	// endregion
 
 }
