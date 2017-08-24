@@ -31,6 +31,9 @@ import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.services.factory.FactoryService;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
+import domainapp.dom.estado.Estado;
+import domainapp.dom.tipocategoria.TipoCategoria;
+
 
 
 @DomainService(
@@ -45,20 +48,24 @@ public class ProveedoresServicios {
 	@ActionLayout(named = "Proveedores")
     @MemberOrder(name = "Crear", sequence = "2")
 	public Proveedores create(
-			@ParameterLayout(named="Nombre de Organización") String nombreOrganizacion,
+			@ParameterLayout(named="Organización") String organizacion,
+			@ParameterLayout(named="Categoria") TipoCategoria tipoCategoria,
+			@ParameterLayout(named="Estado") Estado estado,
 			@ParameterLayout(named="Dirección") String direccion,
 			@ParameterLayout(named="Cuit") Integer cuit,
 			@ParameterLayout(named="Email") String email,
 			@ParameterLayout(named="Teléfono") Integer telefono,
-			@ParameterLayout(named="Nombre de Contacto") String nombreContacto
+			@ParameterLayout(named="Contacto") String contacto
 			){
 		final Proveedores obj = repositoryService.instantiate(Proveedores.class);
-		obj.setNombreOrganizacion(nombreOrganizacion);
+		obj.setOrganizacion(organizacion);
+		obj.setTipoCategoria(tipoCategoria);
+		obj.setEstado(estado);
 		obj.setDireccion(direccion);
 		obj.setCuit(cuit);
 		obj.setEmail(email);
 		obj.setTelefono(telefono);
-		obj.setNombreContacto(nombreContacto);
+		obj.setContacto(contacto);
 		repositoryService.persist(obj);
 		return obj;
 	}

@@ -35,12 +35,14 @@
                             <c:fieldSet name="Datos">
                                 <c:action id="eliminar"/>
                                 <c:action id="editar"/>
-                                <c:property id="nombredeorganizacion" namedEscaped="true" />
+                                <c:property id="organizacion" namedEscaped="true" />
+                                <c:property id="tipocategoria" namedEscaped="true"/>
+                                <c:property id="estado" namedEscaped="true"/>
                                 <c:property id="direccion" namedEscaped="true"/>
                                 <c:property id="cuit" namedEscaped="true"/>
                                 <c:property id="email" namedEscaped="true"/>
                                 <c:property id="telefono" namedEscaped="true"/>
-                                <c:property id="nombredecontacto" namedEscaped="true"/>
+                                <c:property id="contacto" namedEscaped="true"/>
                                 <!-- <c:property id="rolTipo" namedEscaped="true" /> -->
                             </c:fieldSet>
                         </bs3:col>

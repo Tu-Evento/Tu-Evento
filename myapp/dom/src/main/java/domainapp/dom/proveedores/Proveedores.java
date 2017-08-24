@@ -29,6 +29,10 @@ import org.apache.isis.applib.services.repository.RepositoryService;
 import org.apache.isis.applib.services.title.TitleService;
 import org.apache.isis.applib.util.ObjectContracts;
 
+import domainapp.dom.empleado.RolTipoEnum;
+import domainapp.dom.estado.Estado;
+import domainapp.dom.tipocategoria.TipoCategoria;
+
 
 
 @PersistenceCapable(
@@ -41,16 +45,38 @@ public class Proveedores implements Comparable<Proveedores>{
 	//Nombre de Organización
 	@MemberOrder(sequence = "1")
 	@Column(allowsNull = "false")
-	private String nombreOrganizacion;
-	public String getNombreOrganizacion(){
-		return nombreOrganizacion;
+	private String organizacion;
+	public String getOrganizacion(){
+		return organizacion;
 	}
-	public void setNombreOrganizacion(String nombreOrganizacion){
-		this.nombreOrganizacion = nombreOrganizacion;
+	public void setOrganizacion(String organizacion){
+		this.organizacion = organizacion;
+	}
+	
+	//Categoria del servicio del Proveedor
+	@MemberOrder(sequence = "2")
+	@Column(allowsNull = "false")
+	private TipoCategoria tipoCategoria;
+	public TipoCategoria getTipoCategoria(){
+		return tipoCategoria;
+	}
+	public void setTipoCategoria(TipoCategoria tipoCategoria){
+		this.tipoCategoria = tipoCategoria;
+	}
+	
+	//Disponibilidad del proveedor para los Eventos
+	@MemberOrder(sequence = "3")
+	@Column(allowsNull = "false")
+	private Estado estado;
+	public Estado getEstado(){
+		return estado;
+	}
+	public void setEstado(Estado estado){
+		this.estado = estado;
 	}
 	
 	//Dirección de Organización
-	@MemberOrder(sequence = "2")
+	@MemberOrder(sequence = "4")
 	@Column(allowsNull = "false")
 	private String direccion;
 	public String getDireccion(){
@@ -61,7 +87,7 @@ public class Proveedores implements Comparable<Proveedores>{
 	}
 	
 	//CUIT de Organizacion
-	@MemberOrder(sequence = "3")
+	@MemberOrder(sequence = "5")
 	@Column(allowsNull = "false")
 	private Integer cuit;
 	public Integer getCuit(){
@@ -72,7 +98,7 @@ public class Proveedores implements Comparable<Proveedores>{
 	}
 	
 	//Email de Organización
-	@MemberOrder(sequence = "4")
+	@MemberOrder(sequence = "6")
 	@Column(allowsNull = "false")
 	private String email;
 	public String getEmail(){
@@ -83,7 +109,7 @@ public class Proveedores implements Comparable<Proveedores>{
 	}
 	
 	//Número de Teléfono
-	@MemberOrder(sequence = "5")
+	@MemberOrder(sequence = "7")
 	@Column(allowsNull = "false")
 	private Integer telefono;
 	public Integer getTelefono(){
@@ -94,14 +120,14 @@ public class Proveedores implements Comparable<Proveedores>{
 	}
 	
 	//Contacto de Referencia de la Organización
-	@MemberOrder(sequence = "6")
+	@MemberOrder(sequence = "8")
 	@Column(allowsNull = "false")
-	private String nombreContacto;
-	public String getNombreContacto(){
-		return nombreContacto;
+	private String contacto;
+	public String getContacto(){
+		return contacto;
 	}
-	public void setNombreContacto(String nombreContacto){
-		this.nombreContacto = nombreContacto;
+	public void setContacto(String contacto){
+		this.contacto = contacto;
 	}
 
 	@Override
