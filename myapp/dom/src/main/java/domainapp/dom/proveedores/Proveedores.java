@@ -29,7 +29,6 @@ import org.apache.isis.applib.services.repository.RepositoryService;
 import org.apache.isis.applib.services.title.TitleService;
 import org.apache.isis.applib.util.ObjectContracts;
 
-import domainapp.dom.empleado.RolTipoEnum;
 import domainapp.dom.estado.Estado;
 import domainapp.dom.tipocategoria.TipoCategoria;
 
