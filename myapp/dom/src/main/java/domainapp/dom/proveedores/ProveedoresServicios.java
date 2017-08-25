@@ -49,7 +49,7 @@ public class ProveedoresServicios {
     @MemberOrder(name = "Crear", sequence = "2")
 	public Proveedores create(
 			@ParameterLayout(named="Organización") String organizacion,
-			@ParameterLayout(named="Categoria") TipoCategoria tipoCategoria,
+			@ParameterLayout(named="Categoria") TipoCategoria categoria,
 			@ParameterLayout(named="Estado") Estado estado,
 			@ParameterLayout(named="Dirección") String direccion,
 			@ParameterLayout(named="Cuit") Integer cuit,
@@ -59,7 +59,7 @@ public class ProveedoresServicios {
 			){
 		final Proveedores obj = repositoryService.instantiate(Proveedores.class);
 		obj.setOrganizacion(organizacion);
-		obj.setTipoCategoria(tipoCategoria);
+		obj.setCategoria(categoria);
 		obj.setEstado(estado);
 		obj.setDireccion(direccion);
 		obj.setCuit(cuit);

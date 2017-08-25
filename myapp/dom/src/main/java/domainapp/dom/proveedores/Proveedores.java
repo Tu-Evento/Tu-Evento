@@ -36,8 +36,13 @@ import domainapp.dom.tipocategoria.TipoCategoria;
 
 
 @PersistenceCapable(
-		schema = "proveedores", 
-		identityType = IdentityType.DATASTORE)
+		identityType = IdentityType.DATASTORE,
+		schema = "TuEvento",
+		table="Proveedores"
+		)
+@javax.jdo.annotations.DatastoreIdentity(
+        strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+         column="proveedores_id")
 public class Proveedores implements Comparable<Proveedores>{
 	
 	public TranslatableString title() { return TranslatableString.tr("Proveedores: ");}
@@ -56,12 +61,12 @@ public class Proveedores implements Comparable<Proveedores>{
 	//Categoria del servicio del Proveedor
 	@MemberOrder(sequence = "2")
 	@Column(allowsNull = "false")
-	private TipoCategoria tipoCategoria;
-	public TipoCategoria getTipoCategoria(){
-		return tipoCategoria;
+	private TipoCategoria categoria;
+	public TipoCategoria getCategoria(){
+		return categoria;
 	}
-	public void setTipoCategoria(TipoCategoria tipoCategoria){
-		this.tipoCategoria = tipoCategoria;
+	public void setCategoria(TipoCategoria categoria){
+		this.categoria = categoria;
 	}
 	
 	//Disponibilidad del proveedor para los Eventos

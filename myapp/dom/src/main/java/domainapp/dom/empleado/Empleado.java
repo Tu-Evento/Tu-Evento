@@ -19,6 +19,7 @@
 package domainapp.dom.empleado;
 
 import domainapp.dom.persona.Persona;
+import domainapp.dom.tipocategoria.TipoCategoria;
 import domainapp.dom.tipodocumento.TipoDocumento;
 
 import org.apache.isis.applib.annotation.Action;
@@ -43,20 +44,25 @@ import javax.jdo.annotations.PersistenceCapable;
  * Created for domainapp.dom.empleado on 17/06/2017.
  */
 @PersistenceCapable(
-		schema = "empleado", 
-		identityType = IdentityType.DATASTORE)
+		identityType = IdentityType.DATASTORE,
+		schema = "TuEvento",
+		table="Empleado"
+		)
+@javax.jdo.annotations.DatastoreIdentity(
+        strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+         column="empleado_id")
 public class Empleado extends Persona implements Comparable<Empleado> {
 
     public TranslatableString title() { return TranslatableString.tr("Empleado: {apellido}, {nombre} - {rol}",
-    		"apellido", getApellido(), "nombre", getNombre(), "rol", getRolTipo());}
+    		"apellido", getApellido(), "nombre", getNombre(), "rol", getCategoria());}
 
     @Column(allowsNull = "false")
-	private RolTipoEnum rolTipo;
-	public RolTipoEnum getRolTipo(){
-		return rolTipo;
+	private TipoCategoria categoria;
+	public TipoCategoria getCategoria(){
+		return categoria;
 	}
-	public void setRolTipo(RolTipoEnum rolTipo){
-		this.rolTipo = rolTipo;
+	public void setCategoria(TipoCategoria categoria){
+		this.categoria = categoria;
 	}
 	
 	
@@ -70,14 +76,14 @@ public class Empleado extends Persona implements Comparable<Empleado> {
 			@ParameterLayout(named = "Documento") final Integer documento,
 			@ParameterLayout(named = "Cuil") final Integer cuil,
 			@ParameterLayout(named = "Direccion") final String direccion,
-			@ParameterLayout(named = "Rol Tipo") final RolTipoEnum rolTipo) {
+			@ParameterLayout(named = "Rol Trabajo") final TipoCategoria categoria) {
 		setNombre(nombre);
 		setApellido(apellido);
 		setTipoDocumento(tipo);
 		setDocumento(documento);
 		setCuil(cuil);
 		setDireccion(direccion);
-		setRolTipo(rolTipo);
+		setCategoria(categoria);
 		return this;
 	}
 
@@ -105,8 +111,8 @@ public class Empleado extends Persona implements Comparable<Empleado> {
 		return getDireccion();
 	}
 
-	public RolTipoEnum default6Editar() {
-		return getRolTipo();
+	public TipoCategoria default6Editar() {
+		return getCategoria();
 	}
     
  // region > delete (action)

@@ -36,7 +36,7 @@
                                 <c:action id="eliminar"/>
                                 <c:action id="editar"/>
                                 <c:property id="organizacion" namedEscaped="true" />
-                                <c:property id="tipocategoria" namedEscaped="true"/>
+                                <c:property id="categoria" namedEscaped="true"/>
                                 <c:property id="estado" namedEscaped="true"/>
                                 <c:property id="direccion" namedEscaped="true"/>
                                 <c:property id="cuit" namedEscaped="true"/>

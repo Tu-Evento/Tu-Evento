@@ -22,6 +22,7 @@ import org.apache.isis.applib.annotation.*;
 import org.apache.isis.applib.services.factory.FactoryService;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
+import domainapp.dom.tipocategoria.TipoCategoria;
 import domainapp.dom.tipodocumento.TipoDocumento;
 
 import javax.inject.Inject;
@@ -49,7 +50,7 @@ public class EmpleadoServicio {
             @ParameterLayout(named="Documento") Integer documento,
             @ParameterLayout(named="CUIL") Integer cuil,
             @ParameterLayout(named="Direccion") String direccion,
-            @ParameterLayout(named="RolTipo") RolTipoEnum rolTipo
+            @ParameterLayout(named="RolTrabajo") TipoCategoria categoria
     ) {
         final Empleado obj = repositoryService.instantiate(Empleado.class);
         obj.setNombre(nombre);
@@ -58,7 +59,7 @@ public class EmpleadoServicio {
         obj.setDocumento(documento);
         obj.setCuil(cuil);
         obj.setDireccion(direccion);
-        obj.setRolTipo(rolTipo);
+        obj.setCategoria(categoria);
         repositoryService.persist(obj);
         return obj;
     }
