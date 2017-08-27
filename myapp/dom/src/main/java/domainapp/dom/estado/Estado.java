@@ -2,8 +2,9 @@ package domainapp.dom.estado;
 
 public enum Estado {
 
-	Activo("Disponible"), 
-	Inactivo("No Disponible");
+	
+	Si("Disponible"), 
+	No("No Disponible");
 	
 	private final String nombre;
 

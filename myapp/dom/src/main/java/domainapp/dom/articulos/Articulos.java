@@ -16,7 +16,8 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package domainapp.dom.proveedores;
+
+package domainapp.dom.articulos;
 
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
@@ -33,42 +34,35 @@ import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.services.message.MessageService;
 import org.apache.isis.applib.services.repository.RepositoryService;
 import org.apache.isis.applib.services.title.TitleService;
-import org.apache.isis.applib.util.ObjectContracts;
 
-import domainapp.dom.empleado.Empleado;
-import domainapp.dom.empleado.Empleado.EditarDomainEvent;
-import domainapp.dom.empleado.Empleado.EliminarDomainEvent;
 import domainapp.dom.estado.Estado;
 import domainapp.dom.tipocategoria.TipoCategoria;
-import domainapp.dom.tipodocumento.TipoDocumento;
-
-
 
 @PersistenceCapable(
 		identityType = IdentityType.DATASTORE,
 		schema = "TuEvento",
-		table="Proveedores"
+		table="Articulos"
 		)
 @javax.jdo.annotations.DatastoreIdentity(
         strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-         column="proveedores_id")
-public class Proveedores implements Comparable<Proveedores>{
+         column="articulos_id")
+public class Articulos implements Comparable<Articulos>{
+
+	public TranslatableString title() { return TranslatableString.tr("Articulo: {nombre} - {categoria}",
+    		"nombre", getNombre(), "categoria", getCategoria());}
 	
-	public TranslatableString title() { return TranslatableString.tr("Proveedores: {organizacion} - {categoria}", 
-			"organizacion",getOrganizacion(), "categoria",getCategoria());}
-	
-	//Nombre de Organización
+	//Nombre del Articulo
 	@MemberOrder(sequence = "1")
 	@Column(allowsNull = "false")
-	private String organizacion;
-	public String getOrganizacion(){
-		return organizacion;
+	private String nombre;
+	public String getNombre() {
+		return nombre;
 	}
-	public void setOrganizacion(String organizacion){
-		this.organizacion = organizacion;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 	
-	//Categoria del servicio del Proveedor
+	//Categoria del Articulo
 	@MemberOrder(sequence = "2")
 	@Column(allowsNull = "false")
 	private TipoCategoria categoria;
@@ -79,7 +73,7 @@ public class Proveedores implements Comparable<Proveedores>{
 		this.categoria = categoria;
 	}
 	
-	//Disponibilidad del proveedor para los Eventos
+	//Disponibilidad en Stock
 	@MemberOrder(sequence = "3")
 	@Column(allowsNull = "false")
 	private Estado estado;
@@ -90,89 +84,37 @@ public class Proveedores implements Comparable<Proveedores>{
 		this.estado = estado;
 	}
 	
-	//Dirección de Organización
+	//Cantidad en Stock
 	@MemberOrder(sequence = "4")
 	@Column(allowsNull = "false")
-	private String direccion;
-	public String getDireccion(){
-		return direccion;
+	private int cantidad;
+	public int getCantidad(){
+		return cantidad;
 	}
-	public void setDireccion(String direccion){
-		this.direccion = direccion;
-	}
-	
-	//CUIT de Organizacion
-	@MemberOrder(sequence = "5")
-	@Column(allowsNull = "false")
-	private Integer cuit;
-	public Integer getCuit(){
-		return cuit;
-	}
-	public void setCuit(Integer cuit){
-		this.cuit = cuit;
+	public void setCantidad(int cantidad){
+		this.cantidad = cantidad;
 	}
 	
-	//Email de Organización
-	@MemberOrder(sequence = "6")
-	@Column(allowsNull = "false")
-	private String email;
-	public String getEmail(){
-		return email;
-	}
-	public void setEmail(String email){
-		this.email = email;
-	}
-	
-	//Número de Teléfono
-	@MemberOrder(sequence = "7")
-	@Column(allowsNull = "false")
-	private Integer telefono;
-	public Integer getTelefono(){
-		return telefono;
-	}
-	public void setTelefono(Integer telefono){
-		this.telefono = telefono;
-	}
-	
-	//Contacto de Referencia de la Organización
-	@MemberOrder(sequence = "8")
-	@Column(allowsNull = "false")
-	private String contacto;
-	public String getContacto(){
-		return contacto;
-	}
-	public void setContacto(String contacto){
-		this.contacto = contacto;
-	}
-	
-	public static class EditarDomainEvent extends ActionDomainEvent<Proveedores> {
+	public static class EditarDomainEvent extends ActionDomainEvent<Articulos> {
 		private static final long serialVersionUID = 1L;	
 	}
 
 	@Action(command = CommandReification.ENABLED, publishing = Publishing.ENABLED, semantics = SemanticsOf.IDEMPOTENT, domainEvent = EditarDomainEvent.class)
-	public Proveedores editar(
-			@ParameterLayout(named = "Organización") final String organizacion,
+	public Articulos editar(
+			@ParameterLayout(named = "Nombre") final String nombre,
 			@ParameterLayout(named = "Categoria") final TipoCategoria categoria,
 			@ParameterLayout(named = "Estado") final Estado estado,
-			@ParameterLayout(named = "Dirección") final String direccion,
-			@ParameterLayout(named = "CUIT") final Integer cuit,
-			@ParameterLayout(named = "Email") final String email,
-			@ParameterLayout(named = "Teléfono") final Integer telefono,
-			@ParameterLayout(named = "Contacto") final String contacto 
+			@ParameterLayout(named = "Cantidad") final Integer cantidad			 
 			){
-		setOrganizacion(organizacion);
+		setNombre(nombre);
 		setCategoria(categoria);
 		setEstado(estado);
-		setDireccion(direccion);
-		setCuit(cuit);
-		setEmail(email);
-		setTelefono(telefono);
-		setContacto(contacto);
+		setCantidad(cantidad);
 		return this;
 	}
 
 	public String default0Editar() {
-		return getOrganizacion();
+		return getNombre();
 	}
 
 	public TipoCategoria default1Editar() {
@@ -183,29 +125,13 @@ public class Proveedores implements Comparable<Proveedores>{
 		return getEstado();
 	}
 
-	public String default3Editar() {
-		return getDireccion();
+	public Integer default3Editar() {
+		return getCantidad();
 	}
 
-	public Integer default4Editar() {
-		return getCuit();
-	}
-
-	public String default5Editar() {
-		return getEmail();
-	}
-
-	public Integer default6Editar() {
-		return getTelefono();
-	}
-	
-	public String default7Editar(){
-		return getContacto();
-	}
-	
-	
+		
 	// region > delete (action)
-	public static class EliminarDomainEvent extends ActionDomainEvent<Proveedores> {
+	public static class EliminarDomainEvent extends ActionDomainEvent<Articulos> {
 		private static final long serialVersionUID = 1L;
 	}
 	
@@ -215,23 +141,24 @@ public class Proveedores implements Comparable<Proveedores>{
  		messageService.informUser(String.format("'%s' eliminado", title));
  		repositoryService.remove(this);
  	}
-
-	@Override
-	public int compareTo(Proveedores o) {
-		return ObjectContracts.compare(o, this, "organización");
-	}
 	
+	
+	@Override
+	public int compareTo(Articulos o) {
+
+		return 0;
+	}
+
 	// region > injected dependencies
 
-	 	@javax.inject.Inject
-	 	RepositoryService repositoryService;
+	@javax.inject.Inject
+	RepositoryService repositoryService;
 
-	 	@javax.inject.Inject
-	 	TitleService titleService;
+	@javax.inject.Inject
+	TitleService titleService;
 
-	 	@javax.inject.Inject
-	 	MessageService messageService;
+	@javax.inject.Inject
+	MessageService messageService;
 
-	 	// endregion
-
+	// endregion
 }
