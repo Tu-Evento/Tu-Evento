@@ -24,6 +24,7 @@ import domainapp.dom.tipodocumento.TipoDocumento;
 
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.CommandReification;
+import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Publishing;
 import org.apache.isis.applib.annotation.SemanticsOf;
@@ -54,6 +55,7 @@ public class Empleado extends Persona implements Comparable<Empleado> {
     public TranslatableString title() { return TranslatableString.tr("Empleado: {apellido}, {nombre} - {rol}",
     		"apellido", getApellido(), "nombre", getNombre(), "rol", getCategoria());}
 
+    @MemberOrder(sequence = "7")
     @Column(allowsNull = "false")
 	private TipoCategoria categoria;
 	public TipoCategoria getCategoria(){
@@ -66,7 +68,8 @@ public class Empleado extends Persona implements Comparable<Empleado> {
 	
 	public static class EditarDomainEvent extends ActionDomainEvent<Empleado> {	}
 
-	@Action(command = CommandReification.ENABLED, publishing = Publishing.ENABLED, semantics = SemanticsOf.IDEMPOTENT, domainEvent = EditarDomainEvent.class)
+	@Action(command = CommandReification.ENABLED, publishing = Publishing.ENABLED, 
+			semantics = SemanticsOf.IDEMPOTENT, domainEvent = EditarDomainEvent.class)
 	public Empleado editar(
 			@ParameterLayout(named = "Nombre") final String nombre,
 			@ParameterLayout(named = "Apellido") final String apellido,
@@ -114,7 +117,7 @@ public class Empleado extends Persona implements Comparable<Empleado> {
 	}
     
  // region > delete (action)
- 	public static class EliminarDomainEvent extends ActionDomainEvent<Empleado> {}
+ 	public static class EliminarDomainEvent extends ActionDomainEvent<Empleado> { }
 
  	@Action(domainEvent = EliminarDomainEvent.class, semantics = SemanticsOf.NON_IDEMPOTENT_ARE_YOU_SURE)
  	public void eliminar() {

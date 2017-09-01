@@ -22,9 +22,12 @@ import java.util.List;
 
 import org.apache.isis.applib.annotation.CollectionLayout;
 import org.apache.isis.applib.annotation.HomePage;
+import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.ViewModel;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 
+import domainapp.dom.articulos.Articulos;
+import domainapp.dom.articulos.ArticulosServicio;
 import domainapp.dom.empleado.Empleado;
 import domainapp.dom.empleado.EmpleadoServicio;
 //import domainapp.dom.temporada.Temporada;
@@ -49,16 +52,25 @@ public class HomePageViewModel {
     //    return empleadoServicio.listar();
     //}
     
+	@MemberOrder(sequence = "1")
     @HomePage()
     @CollectionLayout(named="Empleados")
     public List<Empleado> getEmpleados() {
         return empleadoServicio.listar();
     }
     
+	@MemberOrder(sequence = "2")
     @HomePage()
     @CollectionLayout(named="Proveedores")
     public List<Proveedores> getProveedores() {
         return proveedoresServicio.listar();
+    }
+    
+	@MemberOrder(sequence = "3")
+    @HomePage()
+    @CollectionLayout(named="Articulos")
+    public List<Articulos> getArticulos(){
+    	return articulosServicio.listar();
     }
     //endregion
 
@@ -69,6 +81,9 @@ public class HomePageViewModel {
     
     @javax.inject.Inject
     ProveedoresServicios proveedoresServicio;
+    
+    @javax.inject.Inject
+    ArticulosServicio articulosServicio;
 
     //endregion
 }

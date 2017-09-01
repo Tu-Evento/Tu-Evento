@@ -50,7 +50,7 @@ public class EmpleadoServicio {
             @ParameterLayout(named="Documento") Integer documento,
             @ParameterLayout(named="CUIL") Integer cuil,
             @ParameterLayout(named="Direccion") String direccion,
-            @ParameterLayout(named="RolTrabajo") TipoCategoria categoria
+            @ParameterLayout(named="Categoria") TipoCategoria categoria
     ) {
         final Empleado obj = repositoryService.instantiate(Empleado.class);
         obj.setNombre(nombre);

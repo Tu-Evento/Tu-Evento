@@ -20,6 +20,8 @@ package domainapp.dom.persona;
 
 import javax.jdo.annotations.*;
 
+import org.apache.isis.applib.annotation.MemberOrder;
+
 import domainapp.dom.tipodocumento.TipoDocumento;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
@@ -28,6 +30,7 @@ public abstract class Persona {
 
 	public Persona() {}
 
+	@MemberOrder(sequence = "2")
 	@Column(allowsNull = "false")
 	private String nombre;
 	public String getNombre() {
@@ -37,6 +40,7 @@ public abstract class Persona {
 		this.nombre = nombre;
 	}
 
+	@MemberOrder(sequence = "1")
 	@Column(allowsNull = "false")
 	private String apellido;
 	public String getApellido() {
@@ -46,6 +50,7 @@ public abstract class Persona {
 		this.apellido = apellido;
 	}
 	
+	@MemberOrder(sequence = "3")
 	@Column(allowsNull = "false")
 	private TipoDocumento tipoDocumento;
 	public TipoDocumento getTipoDocumento(){
@@ -55,6 +60,7 @@ public abstract class Persona {
 		this.tipoDocumento = tipoDocumento;
 	}
 
+	@MemberOrder(sequence = "4")
 	@Column(allowsNull = "false")
 	private Integer documento;
 	public Integer getDocumento() {
@@ -64,6 +70,7 @@ public abstract class Persona {
 		this.documento = documento;
 	}
 
+	@MemberOrder(sequence = "5")
 	@Column(allowsNull = "false")
 	private Integer cuil;
 	public Integer getCuil() {
@@ -73,6 +80,7 @@ public abstract class Persona {
 		this.cuil = cuil;
 	}
 
+	@MemberOrder(sequence = "6")
 	@Column(allowsNull = "true")
 	private String direccion;
 	public String getDireccion() {

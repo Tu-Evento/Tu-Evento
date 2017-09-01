@@ -53,7 +53,7 @@
                     <bs3:row>
                         <bs3:col span="12">
                             <c:fieldSet name="Other" unreferencedProperties="true">
-                            	<c:property id="notes" namedEscaped="true" multiLine="10" hidden="ALL_TABLES"/>
+                            	<!-- <c:property id="notes" namedEscaped="true" multiLine="10" hidden="ALL_TABLES"/> -->
                             </c:fieldSet>
                         </bs3:col>
                     </bs3:row>

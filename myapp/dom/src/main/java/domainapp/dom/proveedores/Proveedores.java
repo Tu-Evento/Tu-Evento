@@ -145,11 +145,10 @@ public class Proveedores implements Comparable<Proveedores>{
 		this.contacto = contacto;
 	}
 	
-	public static class EditarDomainEvent extends ActionDomainEvent<Proveedores> {
-		private static final long serialVersionUID = 1L;	
-	}
+	public static class EditarDomainEvent extends ActionDomainEvent<Proveedores> {	}
 
-	@Action(command = CommandReification.ENABLED, publishing = Publishing.ENABLED, semantics = SemanticsOf.IDEMPOTENT, domainEvent = EditarDomainEvent.class)
+	@Action(command = CommandReification.ENABLED, publishing = Publishing.ENABLED, 
+			semantics = SemanticsOf.IDEMPOTENT, domainEvent = EditarDomainEvent.class)
 	public Proveedores editar(
 			@ParameterLayout(named = "Organización") final String organizacion,
 			@ParameterLayout(named = "Categoria") final TipoCategoria categoria,
@@ -205,9 +204,7 @@ public class Proveedores implements Comparable<Proveedores>{
 	
 	
 	// region > delete (action)
-	public static class EliminarDomainEvent extends ActionDomainEvent<Proveedores> {
-		private static final long serialVersionUID = 1L;
-	}
+	public static class EliminarDomainEvent extends ActionDomainEvent<Proveedores> {}
 	
 	@Action(domainEvent = EliminarDomainEvent.class, semantics = SemanticsOf.NON_IDEMPOTENT_ARE_YOU_SURE)
  	public void eliminar() {
