@@ -95,9 +95,7 @@ public class Articulos implements Comparable<Articulos>{
 		this.cantidad = cantidad;
 	}
 	
-	public static class EditarDomainEvent extends ActionDomainEvent<Articulos> {
-		private static final long serialVersionUID = 1L;	
-	}
+	public static class EditarDomainEvent extends ActionDomainEvent<Articulos> { }
 
 	@Action(command = CommandReification.ENABLED, publishing = Publishing.ENABLED, semantics = SemanticsOf.IDEMPOTENT, domainEvent = EditarDomainEvent.class)
 	public Articulos editar(
@@ -128,7 +126,7 @@ public class Articulos implements Comparable<Articulos>{
 	public Integer default3Editar() {
 		return getCantidad();
 	}
-
+	
 		
 	// region > delete (action)
 	public static class EliminarDomainEvent extends ActionDomainEvent<Articulos> {
