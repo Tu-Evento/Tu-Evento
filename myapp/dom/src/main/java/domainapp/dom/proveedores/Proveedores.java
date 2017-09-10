@@ -52,10 +52,18 @@ import domainapp.dom.tipodocumento.TipoDocumento;
 @javax.jdo.annotations.DatastoreIdentity(
         strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
          column="proveedores_id")
+@javax.jdo.annotations.Queries({
+	@javax.jdo.annotations.Query(
+			name="buscarPorCategoria", language="JDOQL",
+			value="SELECT "
+				+"FROM domainapp.dom.TuEvento.Proveedores "
+				+"WHERE categoria == :categoria"
+	)
+})
 public class Proveedores implements Comparable<Proveedores>{
 	
 	public TranslatableString title() { return TranslatableString.tr("Proveedores: {organizacion} - {categoria}", 
-			"organizacion",getOrganizacion(), "categoria",getCategoria());}
+			"organizacion",getOrganizacion(), "categoria", getCategoria());}
 	
 	//Nombre de Organización
 	@MemberOrder(sequence = "1")

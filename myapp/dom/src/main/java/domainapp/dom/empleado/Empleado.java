@@ -50,10 +50,18 @@ import javax.jdo.annotations.PersistenceCapable;
 @javax.jdo.annotations.DatastoreIdentity(
         strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
          column="empleado_id")
+@javax.jdo.annotations.Queries({
+	@javax.jdo.annotations.Query(
+			name="listarNombresJose", language="JDOQL",
+			value="SELECT "
+				+"FROM domainapp.dom.TuEvento.Empleado "
+				+"WHERE nombre.indexOf(:nombre)>=0 "
+	)
+})
 public class Empleado extends Persona implements Comparable<Empleado> {
 
-    public TranslatableString title() { return TranslatableString.tr("Empleado: {apellido}, {nombre} - {rol}",
-    		"apellido", getApellido(), "nombre", getNombre(), "rol", getCategoria());}
+    public TranslatableString title() { return TranslatableString.tr("Empleado: {apellido}, {nombre} - {categoria}",
+    		"apellido", getApellido(), "nombre", getNombre(), "categoria", getCategoria());}
 
     @MemberOrder(sequence = "7")
     @Column(allowsNull = "false")

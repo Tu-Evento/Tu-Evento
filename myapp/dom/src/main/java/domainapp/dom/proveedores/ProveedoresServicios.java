@@ -28,6 +28,7 @@ import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.factory.FactoryService;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
@@ -75,6 +76,12 @@ public class ProveedoresServicios {
     public List<Proveedores> listar() {
         return repositoryService.allInstances(Proveedores.class);
     }
+	
+	@ActionLayout(named = "Buscar por Categoria")
+	@MemberOrder(name = "Listar", sequence = "3.1")
+	public List<Proveedores> buscarPorCategoria(final TipoCategoria categoria){
+		return repositoryService.allMatches(new QueryDefault<>(Proveedores.class,"buscarPorCategoria","categoria",categoria));
+	}
 
 	@Inject
     RepositoryService repositoryService;

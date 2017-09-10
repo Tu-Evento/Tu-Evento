@@ -71,12 +71,12 @@ public class EmpleadoServicio {
     }
 
     @ActionLayout(named = "Empleado de nombre Jose")
-    @MemberOrder(name = "Listar", sequence = "1")
+    @MemberOrder(name = "Listar", sequence = "1.1")
     public List<Empleado> listarNombresJose() {
-        return repositoryService.allInstances(Empleado.class)
-                .stream()
-                .filter(x -> x.getNombre().compareTo("jose") == 0)
-                .collect(Collectors.toList());
+        return repositoryService.allInstances(Empleado.class);
+                //.stream()
+                //.filter(x -> x.getNombre().compareTo("jose") == 0)
+                //.collect(Collectors.toList());
     }
     
     
