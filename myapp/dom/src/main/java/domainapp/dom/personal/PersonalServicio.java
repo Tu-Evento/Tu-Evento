@@ -16,14 +16,14 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package domainapp.dom.empleado;
+package domainapp.dom.personal;
 
 import org.apache.isis.applib.annotation.*;
 import org.apache.isis.applib.services.factory.FactoryService;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
-import domainapp.dom.tipocategoria.TipoCategoria;
 import domainapp.dom.tipodocumento.TipoDocumento;
+import domainapp.dom.tiposervicios.TipoServicios;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -33,47 +33,47 @@ import java.util.stream.Collectors;
  * Created for domainapp.dom.empleado on 17/06/2017.
  */
 @DomainService(
-        repositoryFor = Empleado.class,
+        repositoryFor = Personal.class,
         nature = NatureOfService.VIEW
 )
 @DomainServiceLayout(
         menuOrder = "20"
 )
-public class EmpleadoServicio {
+public class PersonalServicio {
 
-    @ActionLayout(named = "Empleado")
+    @ActionLayout(named = "Personal")
     @MemberOrder(name = "Crear", sequence = "1")
-    public Empleado create(
+    public Personal create(
             @ParameterLayout(named="Nombre") String nombre,
             @ParameterLayout(named="Apellido") String apellido,
             @ParameterLayout(named="TipoDocumento") TipoDocumento tipoDocumento,
             @ParameterLayout(named="Documento") Integer documento,
             @ParameterLayout(named="CUIL") Integer cuil,
             @ParameterLayout(named="Direccion") String direccion,
-            @ParameterLayout(named="Categoria") TipoCategoria categoria
+            @ParameterLayout(named="Servicios") TipoServicios servicios
     ) {
-        final Empleado obj = repositoryService.instantiate(Empleado.class);
+        final Personal obj = repositoryService.instantiate(Personal.class);
         obj.setNombre(nombre);
         obj.setApellido(apellido);
         obj.setTipoDocumento(tipoDocumento);
         obj.setDocumento(documento);
         obj.setCuil(cuil);
         obj.setDireccion(direccion);
-        obj.setCategoria(categoria);
+        obj.setServicios(servicios);
         repositoryService.persist(obj);
         return obj;
     }
 
-    @ActionLayout(named = "Empleado")
+    @ActionLayout(named = "Personal")
     @MemberOrder(name = "Listar", sequence = "1")
-    public List<Empleado> listar() {
-        return repositoryService.allInstances(Empleado.class);
+    public List<Personal> listar() {
+        return repositoryService.allInstances(Personal.class);
     }
 
     @ActionLayout(named = "Empleado de nombre Jose")
     @MemberOrder(name = "Listar", sequence = "1.1")
-    public List<Empleado> listarNombresJose() {
-        return repositoryService.allInstances(Empleado.class);
+    public List<Personal> listarNombresJose() {
+        return repositoryService.allInstances(Personal.class);
                 //.stream()
                 //.filter(x -> x.getNombre().compareTo("jose") == 0)
                 //.collect(Collectors.toList());

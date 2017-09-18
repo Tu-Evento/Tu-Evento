@@ -16,11 +16,11 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package domainapp.dom.empleado;
+package domainapp.dom.personal;
 
 import domainapp.dom.persona.Persona;
-import domainapp.dom.tipocategoria.TipoCategoria;
 import domainapp.dom.tipodocumento.TipoDocumento;
+import domainapp.dom.tiposervicios.TipoServicios;
 
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.CommandReification;
@@ -45,54 +45,54 @@ import javax.jdo.annotations.PersistenceCapable;
 @PersistenceCapable(
 		identityType = IdentityType.DATASTORE,
 		schema = "TuEvento",
-		table="Empleado"
+		table="Personal"
 		)
 @javax.jdo.annotations.DatastoreIdentity(
         strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-         column="empleado_id")
+         column="personal_id")
 @javax.jdo.annotations.Queries({
 	@javax.jdo.annotations.Query(
 			name="listarNombresJose", language="JDOQL",
 			value="SELECT "
-				+"FROM domainapp.dom.TuEvento.Empleado "
+				+"FROM domainapp.dom.TuEvento.Personal "
 				+"WHERE nombre.indexOf(:nombre)>=0 "
 	)
 })
-public class Empleado extends Persona implements Comparable<Empleado> {
+public class Personal extends Persona implements Comparable<Personal> {
 
-    public TranslatableString title() { return TranslatableString.tr("Empleado: {apellido}, {nombre} - {categoria}",
-    		"apellido", getApellido(), "nombre", getNombre(), "categoria", getCategoria());}
+    public TranslatableString title() { return TranslatableString.tr("Empleado: {apellido}, {nombre} - {servicios}",
+    		"apellido", getApellido(), "nombre", getNombre(), "servicios", getServicios());}
 
     @MemberOrder(sequence = "7")
     @Column(allowsNull = "false")
-	private TipoCategoria categoria;
-	public TipoCategoria getCategoria(){
-		return categoria;
+	private TipoServicios servicios;
+	public TipoServicios getServicios(){
+		return servicios;
 	}
-	public void setCategoria(TipoCategoria categoria){
-		this.categoria = categoria;
+	public void setServicios(TipoServicios servicios){
+		this.servicios = servicios;
 	}
 	
 	
-	public static class EditarDomainEvent extends ActionDomainEvent<Empleado> {	}
+	public static class EditarDomainEvent extends ActionDomainEvent<Personal> {	}
 
 	@Action(command = CommandReification.ENABLED, publishing = Publishing.ENABLED, 
 			semantics = SemanticsOf.IDEMPOTENT, domainEvent = EditarDomainEvent.class)
-	public Empleado editar(
+	public Personal editar(
 			@ParameterLayout(named = "Nombre") final String nombre,
 			@ParameterLayout(named = "Apellido") final String apellido,
 			@ParameterLayout(named = "Tipo Documento") final TipoDocumento tipo,
 			@ParameterLayout(named = "Documento") final Integer documento,
 			@ParameterLayout(named = "Cuil") final Integer cuil,
 			@ParameterLayout(named = "Direccion") final String direccion,
-			@ParameterLayout(named = "Rol Trabajo") final TipoCategoria categoria) {
+			@ParameterLayout(named = "Rol Trabajo") final TipoServicios servicios) {
 		setNombre(nombre);
 		setApellido(apellido);
 		setTipoDocumento(tipo);
 		setDocumento(documento);
 		setCuil(cuil);
 		setDireccion(direccion);
-		setCategoria(categoria);
+		setServicios(servicios);
 		return this;
 	}
 
@@ -120,12 +120,12 @@ public class Empleado extends Persona implements Comparable<Empleado> {
 		return getDireccion();
 	}
 
-	public TipoCategoria default6Editar() {
-		return getCategoria();
+	public TipoServicios default6Editar() {
+		return getServicios();
 	}
     
  // region > delete (action)
- 	public static class EliminarDomainEvent extends ActionDomainEvent<Empleado> { }
+ 	public static class EliminarDomainEvent extends ActionDomainEvent<Personal> { }
 
  	@Action(domainEvent = EliminarDomainEvent.class, semantics = SemanticsOf.NON_IDEMPOTENT_ARE_YOU_SURE)
  	public void eliminar() {
@@ -136,7 +136,7 @@ public class Empleado extends Persona implements Comparable<Empleado> {
     
     
     @Override
-    public int compareTo(Empleado o) {
+    public int compareTo(Personal o) {
         return ObjectContracts.compare(o, this, "nombre");
     }
     

@@ -33,7 +33,7 @@ import org.apache.isis.applib.services.factory.FactoryService;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
 import domainapp.dom.estado.Estado;
-import domainapp.dom.tipocategoria.TipoCategoria;
+import domainapp.dom.tiposervicios.TipoServicios;
 
 
 
@@ -50,7 +50,7 @@ public class ProveedoresServicios {
     @MemberOrder(name = "Crear", sequence = "2")
 	public Proveedores create(
 			@ParameterLayout(named="Organización") String organizacion,
-			@ParameterLayout(named="Categoria") TipoCategoria categoria,
+			@ParameterLayout(named="Servicios") TipoServicios servicios,
 			@ParameterLayout(named="Estado") Estado estado,
 			@ParameterLayout(named="Dirección") String direccion,
 			@ParameterLayout(named="Cuit") Integer cuit,
@@ -60,7 +60,7 @@ public class ProveedoresServicios {
 			){
 		final Proveedores obj = repositoryService.instantiate(Proveedores.class);
 		obj.setOrganizacion(organizacion);
-		obj.setCategoria(categoria);
+		obj.setServicios(servicios);
 		obj.setEstado(estado);
 		obj.setDireccion(direccion);
 		obj.setCuit(cuit);
@@ -77,10 +77,10 @@ public class ProveedoresServicios {
         return repositoryService.allInstances(Proveedores.class);
     }
 	
-	@ActionLayout(named = "Buscar por Categoria")
+	@ActionLayout(named = "Buscar por Servicios")
 	@MemberOrder(name = "Listar", sequence = "3.1")
-	public List<Proveedores> buscarPorCategoria(final TipoCategoria categoria){
-		return repositoryService.allMatches(new QueryDefault<>(Proveedores.class,"buscarPorCategoria","categoria",categoria));
+	public List<Proveedores> buscarPorServicios(final TipoServicios servicios){
+		return repositoryService.allMatches(new QueryDefault<>(Proveedores.class,"buscarPorServicios","servicios",servicios));
 	}
 
 	@Inject

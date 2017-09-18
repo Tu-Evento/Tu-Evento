@@ -17,10 +17,11 @@
  *  under the License.
  */
 
-package domainapp.dom.tipocategoria;
+package domainapp.dom.tiposervicios;
 
-public enum TipoCategoria {
+public enum TipoServicios {
 	
+	Animación(""),
 	Sonido(""),
 	Musicalización(""),
 	Limpieza(""),
@@ -29,13 +30,20 @@ public enum TipoCategoria {
 	Filmación(""),
 	Fotografía(""),
 	Publicidad(""),
-	Mozos("");
+	Decoración(""),
+	CoffeeBreak(""),
+	Utensillos(""),
+	Mesas(""),
+	Sillas(""),
+	Manteleria(""),
+	Toldos("");
+	
 	
 	
 	private final String nombre;
 
 	public String getNombre() {return nombre;}
-	private TipoCategoria(String nom) {nombre = nom;}
+	private TipoServicios(String nom) {nombre = nom;}
 
 	@Override
 	public String toString() {

@@ -41,7 +41,7 @@
                                 <c:property id="documento" namedEscaped="true"/>
                                 <c:property id="cuil" namedEscaped="true"/>
                                 <c:property id="direccion" namedEscaped="true"/>
-                                <c:property id="categoria" namedEscaped="true"/>
+                                <c:property id="servicios" namedEscaped="true"/>
                             </c:fieldSet>
                         </bs3:col>
                     </bs3:row>

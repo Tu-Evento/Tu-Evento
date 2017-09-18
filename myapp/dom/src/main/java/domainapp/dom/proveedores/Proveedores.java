@@ -35,12 +35,9 @@ import org.apache.isis.applib.services.repository.RepositoryService;
 import org.apache.isis.applib.services.title.TitleService;
 import org.apache.isis.applib.util.ObjectContracts;
 
-import domainapp.dom.empleado.Empleado;
-import domainapp.dom.empleado.Empleado.EditarDomainEvent;
-import domainapp.dom.empleado.Empleado.EliminarDomainEvent;
 import domainapp.dom.estado.Estado;
-import domainapp.dom.tipocategoria.TipoCategoria;
 import domainapp.dom.tipodocumento.TipoDocumento;
+import domainapp.dom.tiposervicios.TipoServicios;
 
 
 
@@ -54,16 +51,26 @@ import domainapp.dom.tipodocumento.TipoDocumento;
          column="proveedores_id")
 @javax.jdo.annotations.Queries({
 	@javax.jdo.annotations.Query(
-			name="buscarPorCategoria", language="JDOQL",
+            name = "listarTodos", language = "JDOQL",
+            value = "SELECT "
+                    + "FROM domainapp.dom.TuEvento.Proveedores"),
+	@javax.jdo.annotations.Query(
+			name="buscarPorServicios", language="JDOQL",
 			value="SELECT "
 				+"FROM domainapp.dom.TuEvento.Proveedores "
-				+"WHERE categoria == :categoria"
-	)
+				+"WHERE servicios == :servicios"
+	),
+	@javax.jdo.annotations.Query(
+            name = "traerProveedor", language = "JDOQL",
+            value = "SELECT "
+                    + "FROM domainapp.dom.TuEvento.Proveedores "
+                    + "WHERE organizacion == :organizacion "
+                    + "|| organizacion.indexOf(:organizacion) >= 0")
 })
 public class Proveedores implements Comparable<Proveedores>{
 	
-	public TranslatableString title() { return TranslatableString.tr("Proveedores: {organizacion} - {categoria}", 
-			"organizacion",getOrganizacion(), "categoria", getCategoria());}
+	public TranslatableString title() { return TranslatableString.tr("Proveedores: {organizacion} - {servicios}", 
+			"organizacion",getOrganizacion(), "servicios", getServicios());}
 	
 	//Nombre de Organización
 	@MemberOrder(sequence = "1")
@@ -79,12 +86,12 @@ public class Proveedores implements Comparable<Proveedores>{
 	//Categoria del servicio del Proveedor
 	@MemberOrder(sequence = "2")
 	@Column(allowsNull = "false")
-	private TipoCategoria categoria;
-	public TipoCategoria getCategoria(){
-		return categoria;
+	private TipoServicios servicios;
+	public TipoServicios getServicios(){
+		return servicios;
 	}
-	public void setCategoria(TipoCategoria categoria){
-		this.categoria = categoria;
+	public void setServicios(TipoServicios servicios){
+		this.servicios = servicios;
 	}
 	
 	//Disponibilidad del proveedor para los Eventos
@@ -159,7 +166,7 @@ public class Proveedores implements Comparable<Proveedores>{
 			semantics = SemanticsOf.IDEMPOTENT, domainEvent = EditarDomainEvent.class)
 	public Proveedores editar(
 			@ParameterLayout(named = "Organización") final String organizacion,
-			@ParameterLayout(named = "Categoria") final TipoCategoria categoria,
+			@ParameterLayout(named = "Servicios") final TipoServicios servicios,
 			@ParameterLayout(named = "Estado") final Estado estado,
 			@ParameterLayout(named = "Dirección") final String direccion,
 			@ParameterLayout(named = "CUIT") final Integer cuit,
@@ -168,7 +175,7 @@ public class Proveedores implements Comparable<Proveedores>{
 			@ParameterLayout(named = "Contacto") final String contacto 
 			){
 		setOrganizacion(organizacion);
-		setCategoria(categoria);
+		setServicios(servicios);
 		setEstado(estado);
 		setDireccion(direccion);
 		setCuit(cuit);
@@ -182,8 +189,8 @@ public class Proveedores implements Comparable<Proveedores>{
 		return getOrganizacion();
 	}
 
-	public TipoCategoria default1Editar() {
-		return getCategoria();
+	public TipoServicios default1Editar() {
+		return getServicios();
 	}
 	
 	public Estado default2Editar() {

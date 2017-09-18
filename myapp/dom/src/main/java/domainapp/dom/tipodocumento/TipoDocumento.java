@@ -20,11 +20,9 @@ package domainapp.dom.tipodocumento;
 
 public enum TipoDocumento {
 
-	DNI("DNI: Documento Nacional de Identidad"), 
-	LC("LC: Libreta Civica"), 
-	LE("LE:  Libreta de Enrolamiento"), 
+	DNI("DNI: Documento Nacional de Identidad"),  
 	CI("CI: Cedula de Identidad"), 
-	PASAPORTE("Pasaporte");
+	PASS("Pass: Pasaporte");
 	
 	private final String nombre;
 

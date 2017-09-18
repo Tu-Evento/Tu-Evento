@@ -29,11 +29,14 @@ import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.annotation.Where;
+import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.factory.FactoryService;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
 import domainapp.dom.estado.Estado;
-import domainapp.dom.tipocategoria.TipoCategoria;
+import domainapp.dom.proveedores.Proveedores;
+import domainapp.dom.tiposervicios.TipoServicios;
 
 @DomainService(
         repositoryFor = Articulos.class,
@@ -47,16 +50,20 @@ public class ArticulosServicio {
 	@ActionLayout(named = "Articulos")
     @MemberOrder(name = "Crear", sequence = "3")
 	public Articulos create(
-			@ParameterLayout(named="Nombre") String nombre,
-			@ParameterLayout(named="Categoria") TipoCategoria categoria,
+			@ParameterLayout(named="Descripcion") String descripcion,
+			@ParameterLayout(named="Servicios") TipoServicios servicios,
+			@ParameterLayout(named="TipoArticulo") TipoArticulo tipoArticulo,
 			@ParameterLayout(named="Estado") Estado estado,
-			@ParameterLayout(named="Cantidad") int cantidad
+			@ParameterLayout(named="Cantidad") int cantidad,
+			@ParameterLayout(named="Organización") Proveedores organizacion
 			){
 		final Articulos obj = repositoryService.instantiate(Articulos.class);
-		obj.setNombre(nombre);
-		obj.setCategoria(categoria);
+		obj.setDescripcion(descripcion);
+		obj.setServicios(servicios);
+		obj.setTipoArticulo(tipoArticulo);
 		obj.setEstado(estado);
 		obj.setCantidad(cantidad);
+		//obj.setOrganizacion(organizacion);
 		repositoryService.persist(obj);
 		return obj;
 	}
@@ -66,10 +73,21 @@ public class ArticulosServicio {
     public List<Articulos> listar() {
         return repositoryService.allInstances(Articulos.class);
     }
+	
+	//@ActionLayout(hidden=Where.EVERYWHERE)
+	//public String buscarProveedor(final Proveedores organizacion){
+	//	return "";
+	//}
+	/*@ActionLayout(hidden=Where.EVERYWHERE)
+	public List<Proveedores> buscarProveedores(final Proveedores organizacion){
+		return repositoryService.allMatches(QueryDefault.create(Proveedores.class, "listarProveedor", "organizacion", organizacion));
+	}*/
 
 	@Inject
     RepositoryService repositoryService;
 
     @Inject
     FactoryService factoryService;
+    
+    
 }

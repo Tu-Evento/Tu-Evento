@@ -36,7 +36,9 @@ import org.apache.isis.applib.services.repository.RepositoryService;
 import org.apache.isis.applib.services.title.TitleService;
 
 import domainapp.dom.estado.Estado;
-import domainapp.dom.tipocategoria.TipoCategoria;
+import domainapp.dom.proveedores.Proveedores;
+import domainapp.dom.proveedores.ProveedoresServicios;
+import domainapp.dom.tiposervicios.TipoServicios;
 
 @PersistenceCapable(
 		identityType = IdentityType.DATASTORE,
@@ -48,33 +50,47 @@ import domainapp.dom.tipocategoria.TipoCategoria;
          column="articulos_id")
 public class Articulos implements Comparable<Articulos>{
 
-	public TranslatableString title() { return TranslatableString.tr("Articulo: {nombre} - {categoria}",
-    		"nombre", getNombre(), "categoria", getCategoria());}
+	public TranslatableString title() { return TranslatableString.tr("Articulo: {descripcion} - {servicios}",
+    		"nombre", getDescripcion(), "servicios", getServicios());}
+	
+	//ID Articulo
+	
 	
 	//Nombre del Articulo
 	@MemberOrder(sequence = "1")
 	@Column(allowsNull = "false")
-	private String nombre;
-	public String getNombre() {
-		return nombre;
+	private String descripcion;
+	public String getDescripcion() {
+		return descripcion;
 	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 	
-	//Categoria del Articulo
+	//Servicio del Articulo
 	@MemberOrder(sequence = "2")
 	@Column(allowsNull = "false")
-	private TipoCategoria categoria;
-	public TipoCategoria getCategoria(){
-		return categoria;
+	private TipoServicios servicios;
+	public TipoServicios getServicios(){
+		return servicios;
 	}
-	public void setCategoria(TipoCategoria categoria){
-		this.categoria = categoria;
+	public void setServicios(TipoServicios servicios){
+		this.servicios = servicios;
 	}
 	
-	//Disponibilidad en Stock
+	//Tipo de Articulo
 	@MemberOrder(sequence = "3")
+	@Column(allowsNull = "false")
+	private TipoArticulo tipoArticulo;
+		public TipoArticulo getTipoArticulo(){
+			return tipoArticulo;
+		}
+		public void setTipoArticulo(TipoArticulo tipoArticulo){
+			this.tipoArticulo = tipoArticulo;
+		}
+	
+	//Disponibilidad en Stock
+	@MemberOrder(sequence = "4")
 	@Column(allowsNull = "false")
 	private Estado estado;
 	public Estado getEstado(){
@@ -85,7 +101,7 @@ public class Articulos implements Comparable<Articulos>{
 	}
 	
 	//Cantidad en Stock
-	@MemberOrder(sequence = "4")
+	@MemberOrder(sequence = "5")
 	@Column(allowsNull = "false")
 	private int cantidad;
 	public int getCantidad(){
@@ -95,35 +111,57 @@ public class Articulos implements Comparable<Articulos>{
 		this.cantidad = cantidad;
 	}
 	
+	//Proveedores
+	//@MemberOrder(sequence = "5")
+	//@Column(allowsNull = "false")
+	//private Proveedores organizacion;
+	//public Proveedores getOrganizacion(){
+	//	return organizacion;
+	//}
+	//public void setOrganizacion(Proveedores organizacion){
+	//	this.organizacion=organizacion;
+	//}
+	
+	/*@ActionLayout(hidden=Where.EVERYWHERE)
+	public List<Proveedores> choices1buscarProveedor(final Proveedores organizacion){
+		return proveedoresServicios.listar();
+	}*/
+	
 	public static class EditarDomainEvent extends ActionDomainEvent<Articulos> { }
 
 	@Action(command = CommandReification.ENABLED, publishing = Publishing.ENABLED, semantics = SemanticsOf.IDEMPOTENT, domainEvent = EditarDomainEvent.class)
 	public Articulos editar(
-			@ParameterLayout(named = "Nombre") final String nombre,
-			@ParameterLayout(named = "Categoria") final TipoCategoria categoria,
+			@ParameterLayout(named = "Descripcion") final String descripcion,
+			@ParameterLayout(named = "Servicios") final TipoServicios servicios,
+			@ParameterLayout(named = "TipoArticulo") final TipoArticulo tipoArticulo,
 			@ParameterLayout(named = "Estado") final Estado estado,
 			@ParameterLayout(named = "Cantidad") final Integer cantidad			 
 			){
-		setNombre(nombre);
-		setCategoria(categoria);
+		setDescripcion(descripcion);
+		setServicios(servicios);
+		setTipoArticulo(tipoArticulo);
 		setEstado(estado);
 		setCantidad(cantidad);
 		return this;
 	}
 
 	public String default0Editar() {
-		return getNombre();
+		return getDescripcion();
 	}
 
-	public TipoCategoria default1Editar() {
-		return getCategoria();
+	public TipoServicios default1Editar() {
+		return getServicios();
 	}
 	
-	public Estado default2Editar() {
+	public TipoArticulo default2Editar(){
+		return getTipoArticulo();
+	}
+	
+	public Estado default3Editar() {
 		return getEstado();
 	}
 
-	public Integer default3Editar() {
+	public Integer default4Editar() {
 		return getCantidad();
 	}
 	
@@ -157,6 +195,9 @@ public class Articulos implements Comparable<Articulos>{
 
 	@javax.inject.Inject
 	MessageService messageService;
+	
+	@javax.inject.Inject
+	ProveedoresServicios proveedoresServicios;
 
 	// endregion
 }

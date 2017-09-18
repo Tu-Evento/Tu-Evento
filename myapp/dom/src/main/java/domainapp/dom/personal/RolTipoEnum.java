@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package domainapp.dom.empleado;
+package domainapp.dom.personal;
 
 /**
  * Created for domainapp.dom.producto.empleado on 18/06/2017.

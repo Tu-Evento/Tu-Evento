@@ -28,8 +28,8 @@ import org.apache.isis.applib.services.i18n.TranslatableString;
 
 import domainapp.dom.articulos.Articulos;
 import domainapp.dom.articulos.ArticulosServicio;
-import domainapp.dom.empleado.Empleado;
-import domainapp.dom.empleado.EmpleadoServicio;
+import domainapp.dom.personal.Personal;
+import domainapp.dom.personal.PersonalServicio;
 //import domainapp.dom.temporada.Temporada;
 import domainapp.dom.proveedores.Proveedores;
 import domainapp.dom.proveedores.ProveedoresServicios;
@@ -54,9 +54,9 @@ public class HomePageViewModel {
     
 	@MemberOrder(sequence = "1")
     @HomePage()
-    @CollectionLayout(named="Empleados")
-    public List<Empleado> getEmpleados() {
-        return empleadoServicio.listar();
+    @CollectionLayout(named="Personal")
+    public List<Personal> getPersonal() {
+        return personalServicio.listar();
     }
     
 	@MemberOrder(sequence = "2")
@@ -77,7 +77,7 @@ public class HomePageViewModel {
     //region > injected services
 
     @javax.inject.Inject
-    EmpleadoServicio empleadoServicio;
+    PersonalServicio personalServicio;
     
     @javax.inject.Inject
     ProveedoresServicios proveedoresServicio;
