@@ -62,25 +62,15 @@ public abstract class Persona {
 
 	@MemberOrder(sequence = "4")
 	@Column(allowsNull = "false")
-	private Integer documento;
-	public Integer getDocumento() {
-		return documento;
+	private Integer nroDocumento;
+	public Integer getNroDocumento() {
+		return nroDocumento;
 	}
-	public void setDocumento(Integer documento) {
-		this.documento = documento;
+	public void setNroDocumento(Integer nroDocumento) {
+		this.nroDocumento = nroDocumento;
 	}
 
 	@MemberOrder(sequence = "5")
-	@Column(allowsNull = "false")
-	private Integer cuil;
-	public Integer getCuil() {
-		return cuil;
-	}
-	public void setCuil(Integer cuil) {
-		this.cuil = cuil;
-	}
-
-	@MemberOrder(sequence = "6")
 	@Column(allowsNull = "true")
 	private String direccion;
 	public String getDireccion() {
@@ -88,5 +78,25 @@ public abstract class Persona {
 	}
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
+	}
+	
+	@MemberOrder(sequence = "6")
+	@Column(allowsNull = "false")
+	private Integer telefono;
+	public Integer getTelefono() {
+		return telefono;
+	}
+	public void setTelefono(Integer telefono) {
+		this.telefono = telefono;
+	}
+	
+	@MemberOrder(sequence = "7")
+	@Column(allowsNull = "false")
+	private String email;
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 }

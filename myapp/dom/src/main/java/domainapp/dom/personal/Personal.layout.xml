@@ -38,9 +38,15 @@
                                 <c:property id="apellido" namedEscaped="true"/>
                                 <c:property id="nombre" namedEscaped="true"/>
                                 <c:property id="tipoDocumento" namedEscaped="true"/>
-                                <c:property id="documento" namedEscaped="true"/>
-                                <c:property id="cuil" namedEscaped="true"/>
+                                <c:property id="nroDocumento" namedEscaped="true"/>
+                                <c:property id="cuilCuit" namedEscaped="true"/>
                                 <c:property id="direccion" namedEscaped="true"/>
+                                <c:property id="telefono" namedEscaped="true"/>
+                                <c:property id="email" namedEscaped="true"/>
+                                <c:property id="cargo" namedEscaped="true"/>
+                                <c:property id="sexo" namedEscaped="true"/>
+                                <c:property id="fechaNacimiento" namedEscaped="true"/>
+                                <c:property id="estadoCivil" namedEscaped="true"/>
                                 <c:property id="servicios" namedEscaped="true"/>
                             </c:fieldSet>
                         </bs3:col>

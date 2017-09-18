@@ -26,6 +26,8 @@ import domainapp.dom.tipodocumento.TipoDocumento;
 import domainapp.dom.tiposervicios.TipoServicios;
 
 import javax.inject.Inject;
+
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,21 +46,33 @@ public class PersonalServicio {
     @ActionLayout(named = "Personal")
     @MemberOrder(name = "Crear", sequence = "1")
     public Personal create(
-            @ParameterLayout(named="Nombre") String nombre,
-            @ParameterLayout(named="Apellido") String apellido,
-            @ParameterLayout(named="TipoDocumento") TipoDocumento tipoDocumento,
-            @ParameterLayout(named="Documento") Integer documento,
-            @ParameterLayout(named="CUIL") Integer cuil,
-            @ParameterLayout(named="Direccion") String direccion,
-            @ParameterLayout(named="Servicios") TipoServicios servicios
+            @ParameterLayout(named="Nombre") final String nombre,
+            @ParameterLayout(named="Apellido") final String apellido,
+            @ParameterLayout(named="TipoDocumento") final TipoDocumento tipoDocumento,
+            @ParameterLayout(named="NºDocumento") final Integer nroDocumento,
+            @ParameterLayout(named="Cuil/Cuit") final Integer cuilCuit,
+            @ParameterLayout(named="Direccion") final String direccion,
+            @ParameterLayout(named = "Telefono") final Integer telefono,
+			@ParameterLayout(named = "Email") final String email,
+			@ParameterLayout(named = "Cargo") final String cargo,
+			@ParameterLayout(named = "Sexo") final String sexo,
+			@ParameterLayout(named = "Fecha Nacimiento") final Date fechaNacimiento,
+			@ParameterLayout(named = "Estado Civil") final EstadoCivil estadoCivil,
+            @ParameterLayout(named="Servicios") final TipoServicios servicios
     ) {
         final Personal obj = repositoryService.instantiate(Personal.class);
         obj.setNombre(nombre);
         obj.setApellido(apellido);
         obj.setTipoDocumento(tipoDocumento);
-        obj.setDocumento(documento);
-        obj.setCuil(cuil);
+        obj.setNroDocumento(nroDocumento);
+        obj.setCuilCuit(cuilCuit);
         obj.setDireccion(direccion);
+        obj.setTelefono(telefono);
+        obj.setEmail(email);
+        obj.setCargo(cargo);
+        obj.setSexo(sexo);
+        obj.setFechaNacimiento(fechaNacimiento);
+        obj.setEstadoCivil(estadoCivil);
         obj.setServicios(servicios);
         repositoryService.persist(obj);
         return obj;

@@ -21,13 +21,11 @@ package domainapp.dom.personal;
 /**
  * Created for domainapp.dom.producto.empleado on 18/06/2017.
  */
-public enum RolTipoEnum {
-    Seguridad,
-    Limpieza,
-    Mozos,
-    Barman,
-    Dj,
-    Fotografo,
-    Filmación,
-    Ayudante
+public enum EstadoCivil {
+    
+	Soltero,
+    Casado,
+    Divorciado,
+    Separado,
+    Otro
 }

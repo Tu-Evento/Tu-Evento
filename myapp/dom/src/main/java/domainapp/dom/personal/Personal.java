@@ -35,6 +35,8 @@ import org.apache.isis.applib.services.repository.RepositoryService;
 import org.apache.isis.applib.services.title.TitleService;
 import org.apache.isis.applib.util.ObjectContracts;
 
+import java.util.Date;
+
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
@@ -60,10 +62,60 @@ import javax.jdo.annotations.PersistenceCapable;
 })
 public class Personal extends Persona implements Comparable<Personal> {
 
-    public TranslatableString title() { return TranslatableString.tr("Empleado: {apellido}, {nombre} - {servicios}",
+    public TranslatableString title() { return TranslatableString.tr("Personal: {apellido}, {nombre} - {servicios}",
     		"apellido", getApellido(), "nombre", getNombre(), "servicios", getServicios());}
 
-    @MemberOrder(sequence = "7")
+    @MemberOrder(sequence = "8")
+	@Column(allowsNull = "false")
+	private String cargo;
+	public String getCargo() {
+		return cargo;
+	}
+	public void setCargo(String cargo) {
+		this.cargo = cargo;
+	}
+	
+	@MemberOrder(sequence = "9")
+	@Column(allowsNull = "false")
+	private String sexo;
+	public String getSexo() {
+		return sexo;
+	}
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
+	}
+	
+	@MemberOrder(sequence = "10")
+	@Column(allowsNull = "false")
+	private Date fechaNacimiento;
+	public Date getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+	public void setFechaNacimiento(Date fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
+	}
+	
+	@MemberOrder(sequence = "11")
+	@Column(allowsNull = "false")
+	private EstadoCivil estadoCivil;
+	public EstadoCivil getEstadoCivil() {
+		return estadoCivil;
+	}
+	public void setEstadoCivil(EstadoCivil estadoCivil) {
+		this.estadoCivil = estadoCivil;
+	}
+	
+	@MemberOrder(sequence = "12")
+	@Column(allowsNull = "false")
+	private Integer cuilCuit;
+	public Integer getCuilCuit() {
+		return cuilCuit;
+	}
+	public void setCuilCuit(Integer cuilCuit) {
+		this.cuilCuit = cuilCuit;
+	}
+    
+    @MemberOrder(sequence = "13")
     @Column(allowsNull = "false")
 	private TipoServicios servicios;
 	public TipoServicios getServicios(){
@@ -82,16 +134,28 @@ public class Personal extends Persona implements Comparable<Personal> {
 			@ParameterLayout(named = "Nombre") final String nombre,
 			@ParameterLayout(named = "Apellido") final String apellido,
 			@ParameterLayout(named = "Tipo Documento") final TipoDocumento tipo,
-			@ParameterLayout(named = "Documento") final Integer documento,
-			@ParameterLayout(named = "Cuil") final Integer cuil,
+			@ParameterLayout(named = "Nº Documento") final Integer nroDocumento,
+			@ParameterLayout(named = "Cuil/Cuit") final Integer cuilCuit,
 			@ParameterLayout(named = "Direccion") final String direccion,
-			@ParameterLayout(named = "Rol Trabajo") final TipoServicios servicios) {
+			@ParameterLayout(named = "Telefono") final Integer telefono,
+			@ParameterLayout(named = "Email") final String email,
+			@ParameterLayout(named = "Cargo") final String cargo,
+			@ParameterLayout(named = "Sexo") final String sexo,
+			@ParameterLayout(named = "Fecha Nacimiento") final Date fechaNacimiento,
+			@ParameterLayout(named = "Estado Civil") final EstadoCivil estadoCivil,
+			@ParameterLayout(named = "Area de Trabajo") final TipoServicios servicios) {
 		setNombre(nombre);
 		setApellido(apellido);
 		setTipoDocumento(tipo);
-		setDocumento(documento);
-		setCuil(cuil);
+		setNroDocumento(nroDocumento);
+		setCuilCuit(cuilCuit);
 		setDireccion(direccion);
+		setTelefono(telefono);
+		setEmail(email);
+		setCargo(cargo);
+		setSexo(sexo);
+		setFechaNacimiento(fechaNacimiento);
+		setEstadoCivil(estadoCivil);
 		setServicios(servicios);
 		return this;
 	}
@@ -109,18 +173,42 @@ public class Personal extends Persona implements Comparable<Personal> {
 	}
 
 	public Integer default3Editar() {
-		return getDocumento();
+		return getNroDocumento();
 	}
 
 	public Integer default4Editar() {
-		return getCuil();
+		return getCuilCuit();
 	}
 
 	public String default5Editar() {
 		return getDireccion();
 	}
+	
+	public Integer default6Editar() {
+		return getTelefono();
+	}
+	
+	public String default7Editar() {
+		return getEmail();
+	}
+	
+	public String default8Editar() {
+		return getCargo();
+	}
+	
+	public String default9Editar() {
+		return getSexo();
+	}
+	
+	public Date default10Editar() {
+		return getFechaNacimiento();
+	}
+	
+	public EstadoCivil default11Editar() {
+		return getEstadoCivil();
+	}
 
-	public TipoServicios default6Editar() {
+	public TipoServicios default12Editar() {
 		return getServicios();
 	}
     
