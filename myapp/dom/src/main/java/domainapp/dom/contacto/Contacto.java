@@ -19,6 +19,55 @@
 
 package domainapp.dom.contacto;
 
-public class Contacto {
+import javax.jdo.annotations.Column;
+import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.PersistenceCapable;
+
+import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.services.message.MessageService;
+import org.apache.isis.applib.services.repository.RepositoryService;
+import org.apache.isis.applib.services.title.TitleService;
+
+import domainapp.dom.persona.Persona;
+
+@PersistenceCapable(
+		identityType = IdentityType.DATASTORE,
+		schema = "TuEvento",
+		table="Contactos"
+		)
+@javax.jdo.annotations.DatastoreIdentity(
+        strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+         column="contacto_id")
+public class Contacto extends Persona implements Comparable<Contacto>{
+
+	@MemberOrder(sequence = "8")
+	@Column(allowsNull = "false")
+	private TipoContacto tipoContacto;
+	public TipoContacto getTipoContacto() {
+		return tipoContacto;
+	}
+	public void setTipoContacto(TipoContacto tipoContacto) {
+		this.tipoContacto = tipoContacto;
+	}
+	
+	
+	@Override
+	public int compareTo(Contacto o) {
+		// TODO Apéndice de método generado automáticamente
+		return 0;
+	}
+	
+	// region > injected dependencies
+
+	@javax.inject.Inject
+	RepositoryService repositoryService;
+
+	@javax.inject.Inject
+	TitleService titleService;
+
+	@javax.inject.Inject
+	MessageService messageService;
+
+	// endregion
 
 }

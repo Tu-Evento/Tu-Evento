@@ -19,6 +19,57 @@
 
 package domainapp.dom.contacto;
 
+import javax.inject.Inject;
+
+import org.apache.isis.applib.annotation.ActionLayout;
+import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.DomainServiceLayout;
+import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.services.factory.FactoryService;
+import org.apache.isis.applib.services.repository.RepositoryService;
+
+import domainapp.dom.tipodocumento.TipoDocumento;
+
+@DomainService(
+        repositoryFor = Contacto.class,
+        nature = NatureOfService.VIEW
+)
+@DomainServiceLayout(
+        menuOrder = "20"
+)
 public class ContactoServicio {
 
+	@ActionLayout(named = "Contacto")
+    @MemberOrder(name = "Crear", sequence = "4")
+    public Contacto create(
+            @ParameterLayout(named="Nombre/s") final String nombre,
+            @ParameterLayout(named="Apellido/s") final String apellido,
+            @ParameterLayout(named="Tipo de Documento") final TipoDocumento tipoDocumento,
+            @ParameterLayout(named="Nº Documento") final Integer nroDocumento,
+            @ParameterLayout(named="Dirección") final String direccion,
+            @ParameterLayout(named = "Teléfono") final Integer telefono,
+			@ParameterLayout(named = "Email") final String email,
+			@ParameterLayout(named="Tipo de Contacto") final TipoContacto tipoContacto
+    ) {
+        final Contacto obj = repositoryService.instantiate(Contacto.class);
+        obj.setNombre(nombre);
+        obj.setApellido(apellido);
+        obj.setTipoDocumento(tipoDocumento);
+        obj.setNroDocumento(nroDocumento);
+        obj.setDireccion(direccion);
+        obj.setTelefono(telefono);
+        obj.setEmail(email);
+        obj.setTipoContacto(tipoContacto);
+        repositoryService.persist(obj);
+        return obj;
+    }
+	
+	
+	@Inject
+    RepositoryService repositoryService;
+
+    @Inject
+    FactoryService factoryService;
 }
