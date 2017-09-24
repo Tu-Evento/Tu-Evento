@@ -70,13 +70,13 @@ public class ContactoServicio {
     }
 	
 	@ActionLayout(named = "Contactos")
-    @MemberOrder(name = "Listar", sequence = "3")
+    @MemberOrder(name = "Listar", sequence = "4")
     public List<Contacto> listar() {
         return repositoryService.allInstances(Contacto.class);
     }
 	
 	@ActionLayout(named = "Buscar por Tipo de Contacto")
-	@MemberOrder(name = "Listar", sequence = "3.1")
+	@MemberOrder(name = "Listar", sequence = "4.1")
 	public List<Contacto> buscarPorTipoDeContacto(final TipoContacto tipoContacto){
 		return repositoryService.allMatches(new QueryDefault<>(Contacto.class,"buscarPorTipoDeContacto","tipoContacto",tipoContacto));
 	}

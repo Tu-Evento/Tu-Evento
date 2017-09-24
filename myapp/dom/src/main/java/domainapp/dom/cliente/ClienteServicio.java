@@ -16,35 +16,34 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package domainapp.dom.personal;
 
-import org.apache.isis.applib.annotation.*;
+package domainapp.dom.cliente;
+
+import javax.inject.Inject;
+
+import org.apache.isis.applib.annotation.ActionLayout;
+import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.DomainServiceLayout;
+import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.services.factory.FactoryService;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
 import domainapp.dom.tipodocumento.TipoDocumento;
-import domainapp.dom.tiposervicios.TipoServicios;
 
-import javax.inject.Inject;
-
-import java.util.Date;
-import java.util.List;
-
-/**
- * Created for domainapp.dom.empleado on 17/06/2017.
- */
 @DomainService(
-        repositoryFor = Personal.class,
+        repositoryFor = Cliente.class,
         nature = NatureOfService.VIEW
 )
 @DomainServiceLayout(
         menuOrder = "20"
 )
-public class PersonalServicio {
+public class ClienteServicio {
 
-    @ActionLayout(named = "Personal")
-    @MemberOrder(name = "Crear", sequence = "1")
-    public Personal create(
+	@ActionLayout(named = "Cliente")
+    @MemberOrder(name = "Crear", sequence = "3")
+    public Cliente create(
             @ParameterLayout(named="Nombre") final String nombre,
             @ParameterLayout(named="Apellido") final String apellido,
             @ParameterLayout(named="TipoDocumento") final TipoDocumento tipoDocumento,
@@ -53,13 +52,9 @@ public class PersonalServicio {
             @ParameterLayout(named="Direccion") final String direccion,
             @ParameterLayout(named = "Telefono") final Integer telefono,
 			@ParameterLayout(named = "Email") final String email,
-			@ParameterLayout(named = "Cargo") final String cargo,
-			@ParameterLayout(named = "Sexo") final String sexo,
-			@ParameterLayout(named = "Fecha Nacimiento") final Date fechaNacimiento,
-			@ParameterLayout(named = "Estado Civil") final EstadoCivil estadoCivil,
-            @ParameterLayout(named="Servicios") final TipoServicios servicios
+			@ParameterLayout(named = "TipoCliente") final TipoCliente tipoCliente
     ) {
-        final Personal obj = repositoryService.instantiate(Personal.class);
+        final Cliente obj = repositoryService.instantiate(Cliente.class);
         obj.setNombre(nombre);
         obj.setApellido(apellido);
         obj.setTipoDocumento(tipoDocumento);
@@ -68,33 +63,12 @@ public class PersonalServicio {
         obj.setDireccion(direccion);
         obj.setTelefono(telefono);
         obj.setEmail(email);
-        obj.setCargo(cargo);
-        obj.setSexo(sexo);
-        obj.setFechaNacimiento(fechaNacimiento);
-        obj.setEstadoCivil(estadoCivil);
-        obj.setServicios(servicios);
+        obj.setTipoCliente(tipoCliente);
         repositoryService.persist(obj);
         return obj;
     }
-
-    @ActionLayout(named = "Personal")
-    @MemberOrder(name = "Listar", sequence = "1")
-    public List<Personal> listar() {
-        return repositoryService.allInstances(Personal.class);
-    }
-
-    @ActionLayout(named = "Empleado de nombre Jose")
-    @MemberOrder(name = "Listar", sequence = "1.1")
-    public List<Personal> listarNombresJose() {
-        return repositoryService.allInstances(Personal.class);
-                //.stream()
-                //.filter(x -> x.getNombre().compareTo("jose") == 0)
-                //.collect(Collectors.toList());
-    }
-    
-    
-
-    @Inject
+	
+	@Inject
     RepositoryService repositoryService;
 
     @Inject

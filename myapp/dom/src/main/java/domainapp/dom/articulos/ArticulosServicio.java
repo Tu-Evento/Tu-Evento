@@ -48,7 +48,7 @@ import domainapp.dom.tiposervicios.TipoServicios;
 public class ArticulosServicio {
 	
 	@ActionLayout(named = "Articulos")
-    @MemberOrder(name = "Crear", sequence = "3")
+    @MemberOrder(name = "Crear", sequence = "5")
 	public Articulos create(
 			@ParameterLayout(named="Descripcion") String descripcion,
 			@ParameterLayout(named="Servicios") TipoServicios servicios,
@@ -69,7 +69,7 @@ public class ArticulosServicio {
 	}
 	
 	@ActionLayout(named = "Articulos")
-    @MemberOrder(name = "Listar", sequence = "4")
+    @MemberOrder(name = "Listar", sequence = "5")
     public List<Articulos> listar() {
         return repositoryService.allInstances(Articulos.class);
     }
