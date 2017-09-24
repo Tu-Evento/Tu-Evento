@@ -19,6 +19,8 @@
 
 package domainapp.dom.contacto;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.isis.applib.annotation.ActionLayout;
@@ -27,6 +29,7 @@ import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.factory.FactoryService;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
@@ -66,6 +69,17 @@ public class ContactoServicio {
         return obj;
     }
 	
+	@ActionLayout(named = "Contactos")
+    @MemberOrder(name = "Listar", sequence = "3")
+    public List<Contacto> listar() {
+        return repositoryService.allInstances(Contacto.class);
+    }
+	
+	@ActionLayout(named = "Buscar por Tipo de Contacto")
+	@MemberOrder(name = "Listar", sequence = "3.1")
+	public List<Contacto> buscarPorTipoDeContacto(final TipoContacto tipoContacto){
+		return repositoryService.allMatches(new QueryDefault<>(Contacto.class,"buscarPorTipoDeContacto","tipoContacto",tipoContacto));
+	}
 	
 	@Inject
     RepositoryService repositoryService;

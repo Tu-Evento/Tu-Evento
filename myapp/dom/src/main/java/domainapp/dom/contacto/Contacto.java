@@ -38,6 +38,17 @@ import domainapp.dom.persona.Persona;
 @javax.jdo.annotations.DatastoreIdentity(
         strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
          column="contacto_id")
+@javax.jdo.annotations.Queries({
+	@javax.jdo.annotations.Query(
+            name = "listarTodos", language = "JDOQL",
+            value = "SELECT "
+                    + "FROM domainapp.dom.TuEvento.Contactos"),
+	@javax.jdo.annotations.Query(
+			name="buscarPorTipoDeContacto", language="JDOQL",
+			value="SELECT "
+				+"FROM domainapp.dom.TuEvento.Contactos "
+				+"WHERE tipoContacto == :tipoContacto")
+})
 public class Contacto extends Persona implements Comparable<Contacto>{
 
 	@MemberOrder(sequence = "8")

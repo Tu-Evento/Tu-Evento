@@ -72,13 +72,13 @@ public class ProveedoresServicios {
 	}
 	
 	@ActionLayout(named = "Proveedores")
-    @MemberOrder(name = "Listar", sequence = "3")
+    @MemberOrder(name = "Listar", sequence = "2")
     public List<Proveedores> listar() {
         return repositoryService.allInstances(Proveedores.class);
     }
 	
 	@ActionLayout(named = "Buscar por Servicios")
-	@MemberOrder(name = "Listar", sequence = "3.1")
+	@MemberOrder(name = "Listar", sequence = "2.1")
 	public List<Proveedores> buscarPorServicios(final TipoServicios servicios){
 		return repositoryService.allMatches(new QueryDefault<>(Proveedores.class,"buscarPorServicios","servicios",servicios));
 	}
