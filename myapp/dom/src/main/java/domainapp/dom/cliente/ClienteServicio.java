@@ -19,6 +19,8 @@
 
 package domainapp.dom.cliente;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.isis.applib.annotation.ActionLayout;
@@ -27,6 +29,7 @@ import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.factory.FactoryService;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
@@ -67,6 +70,18 @@ public class ClienteServicio {
         repositoryService.persist(obj);
         return obj;
     }
+	
+	@ActionLayout(named = "Clientes")
+    @MemberOrder(name = "Listar", sequence = "3")
+    public List<Cliente> listar() {
+        return repositoryService.allInstances(Cliente.class);
+    }
+	
+	@ActionLayout(named = "Buscar por Tipo de Cliente")
+	@MemberOrder(name = "Listar", sequence = "3.1")
+	public List<Cliente> buscarPorTipoDeCliente(final TipoCliente tipoCliente){
+		return repositoryService.allMatches(new QueryDefault<>(Cliente.class,"buscarPorTipoDeCliente","tipoCliente",tipoCliente));
+	}
 	
 	@Inject
     RepositoryService repositoryService;
