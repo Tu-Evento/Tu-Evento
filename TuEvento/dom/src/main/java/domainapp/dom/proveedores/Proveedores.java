@@ -18,6 +18,9 @@
  */
 package domainapp.dom.proveedores;
 
+import java.util.Collection;
+import java.util.List;
+
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
@@ -26,6 +29,8 @@ import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.CommandReification;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.annotation.Property;
+import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.Publishing;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
@@ -35,6 +40,9 @@ import org.apache.isis.applib.services.repository.RepositoryService;
 import org.apache.isis.applib.services.title.TitleService;
 import org.apache.isis.applib.util.ObjectContracts;
 
+import domainapp.dom.contacto.Contacto;
+import domainapp.dom.contacto.ContactoServicio;
+import domainapp.dom.contacto.TipoContacto;
 import domainapp.dom.estado.Estado;
 import domainapp.dom.tipodocumento.TipoDocumento;
 import domainapp.dom.tiposervicios.TipoServicios;
@@ -51,7 +59,7 @@ import domainapp.dom.tiposervicios.TipoServicios;
          column="proveedores_id")
 @javax.jdo.annotations.Queries({
 	@javax.jdo.annotations.Query(
-            name = "listarTodos", language = "JDOQL",
+            name = "listarProveedores", language = "JDOQL",
             value = "SELECT "
                     + "FROM domainapp.dom.TuEvento.Proveedores"),
 	@javax.jdo.annotations.Query(
@@ -65,7 +73,12 @@ import domainapp.dom.tiposervicios.TipoServicios;
             value = "SELECT "
                     + "FROM domainapp.dom.TuEvento.Proveedores "
                     + "WHERE organizacion == :organizacion "
-                    + "|| organizacion.indexOf(:organizacion) >= 0")
+                    + "|| organizacion.indexOf(:organizacion) >= 0"),
+	@javax.jdo.annotations.Query(
+			name="buscarPorTipoDeContacto", language="JDOQL",
+			value="SELECT "
+				+"FROM domainapp.dom.TuEvento.Contactos "
+				+"WHERE tipoContacto == :contacto")
 })
 public class Proveedores implements Comparable<Proveedores>{
 	
@@ -152,13 +165,15 @@ public class Proveedores implements Comparable<Proveedores>{
 	//Contacto de Referencia de la Organización
 	@MemberOrder(sequence = "8")
 	@Column(allowsNull = "false")
-	private String contacto;
-	public String getContacto(){
+	@Property()
+	private Contacto contacto;
+	public Contacto getContacto(){
 		return contacto;
 	}
-	public void setContacto(String contacto){
+	public void setContacto(Contacto contacto){
 		this.contacto = contacto;
 	}
+	
 	
 	public static class EditarDomainEvent extends ActionDomainEvent<Proveedores> {	}
 
@@ -172,7 +187,7 @@ public class Proveedores implements Comparable<Proveedores>{
 			@ParameterLayout(named = "CUIT") final Integer cuit,
 			@ParameterLayout(named = "Email") final String email,
 			@ParameterLayout(named = "Teléfono") final Integer telefono,
-			@ParameterLayout(named = "Contacto") final String contacto 
+			@ParameterLayout(named = "Contacto") final Contacto contacto 
 			){
 		setOrganizacion(organizacion);
 		setServicios(servicios);
@@ -213,7 +228,7 @@ public class Proveedores implements Comparable<Proveedores>{
 		return getTelefono();
 	}
 	
-	public String default7Editar(){
+	public Contacto default7Editar(){
 		return getContacto();
 	}
 	
@@ -243,6 +258,9 @@ public class Proveedores implements Comparable<Proveedores>{
 
 	 	@javax.inject.Inject
 	 	MessageService messageService;
+	 	
+	 	@javax.inject.Inject
+	 	ContactoServicio contactoServicio;
 
 	 	// endregion
 

@@ -47,7 +47,7 @@ import domainapp.dom.tipodocumento.TipoDocumento;
          column="contacto_id")
 @javax.jdo.annotations.Queries({
 	@javax.jdo.annotations.Query(
-            name = "listarTodos", language = "JDOQL",
+            name = "listarContactos", language = "JDOQL",
             value = "SELECT "
                     + "FROM domainapp.dom.TuEvento.Contactos"),
 	@javax.jdo.annotations.Query(

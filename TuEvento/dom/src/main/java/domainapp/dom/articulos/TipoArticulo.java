@@ -19,27 +19,31 @@
 
 package domainapp.dom.articulos;
 
+import java.util.Collections;
+import java.util.List;
+
+import domainapp.dom.tiposervicios.TipoServicios;
+
 public enum TipoArticulo {
 
-	Animador,
-	Payaso,
-	Malabarista,
-	PersonalLimpieza,
-	PersonalSeguridad,
-	PersonalDecoracion,
-	Cotillon,
-	PersonalSonido,
-	EquipoSonido,
-	Dj,
-	Fotografo,
-	Camarografo,
-	Barman,
-	Mozo,
-	Vajilla,
-	Cubiertos,
-	Vaso,
-	Jarra,
-	Mesa,
-	Silla,
-	Toldos
+		//Animación
+		Animador, Payaso, Malabarista,
+		//Limpieza
+		PersonalLimpieza,
+		//Seguridad
+		PersonalSeguridad,
+		//Decoración
+		PersonalDecoracion, Cotillon,
+		//Sonido
+		PersonalSonido, EquipoSonido,
+		//Musicalización
+		Dj,
+		//Visual
+		Fotografo, Camarografo,
+		//Gastronomía
+		Barman, Mozo, Vajilla, Cubiertos, Vaso, Jarra, Mesa, Silla, Toldos;
+		
+		public static List<TipoArticulo> listFor(final TipoServicios categoria) {
+	        return categoria != null? categoria.subcategorias(): Collections.<TipoArticulo>emptyList();
+	    }
 }

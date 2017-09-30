@@ -82,12 +82,12 @@ public class Articulos implements Comparable<Articulos>{
 	@MemberOrder(sequence = "3")
 	@Column(allowsNull = "false")
 	private TipoArticulo tipoArticulo;
-		public TipoArticulo getTipoArticulo(){
-			return tipoArticulo;
-		}
-		public void setTipoArticulo(TipoArticulo tipoArticulo){
-			this.tipoArticulo = tipoArticulo;
-		}
+	public TipoArticulo getTipoArticulo(){
+		return tipoArticulo;
+	}
+	public void setTipoArticulo(TipoArticulo tipoArticulo){
+		this.tipoArticulo = tipoArticulo;
+	}
 	
 	//Disponibilidad en Stock
 	@MemberOrder(sequence = "4")
@@ -112,15 +112,15 @@ public class Articulos implements Comparable<Articulos>{
 	}
 	
 	//Proveedores
-	//@MemberOrder(sequence = "5")
-	//@Column(allowsNull = "false")
-	//private Proveedores organizacion;
-	//public Proveedores getOrganizacion(){
-	//	return organizacion;
-	//}
-	//public void setOrganizacion(Proveedores organizacion){
-	//	this.organizacion=organizacion;
-	//}
+	@MemberOrder(sequence = "6")
+	@Column(allowsNull = "false")
+	private Proveedores organizacion;
+	public Proveedores getOrganizacion(){
+		return organizacion;
+	}
+	public void setOrganizacion(Proveedores organizacion){
+		this.organizacion=organizacion;
+	}
 	
 	/*@ActionLayout(hidden=Where.EVERYWHERE)
 	public List<Proveedores> choices1buscarProveedor(final Proveedores organizacion){

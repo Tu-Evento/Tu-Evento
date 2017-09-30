@@ -23,6 +23,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
@@ -71,7 +72,7 @@ public class ContactoServicio {
 	
 	@ActionLayout(named = "Contactos")
     @MemberOrder(name = "Listar", sequence = "4")
-    public List<Contacto> listar() {
+    public List<Contacto> listarContactos() {
         return repositoryService.allInstances(Contacto.class);
     }
 	
@@ -80,6 +81,8 @@ public class ContactoServicio {
 	public List<Contacto> buscarPorTipoDeContacto(final TipoContacto tipoContacto){
 		return repositoryService.allMatches(new QueryDefault<>(Contacto.class,"buscarPorTipoDeContacto","tipoContacto",tipoContacto));
 	}
+	
+	
 	
 	@Inject
     RepositoryService repositoryService;

@@ -63,14 +63,14 @@ public class HomePageViewModel {
     @HomePage()
     @CollectionLayout(named="Proveedores")
     public List<Proveedores> getProveedores() {
-        return proveedoresServicio.listar();
+        return proveedoresServicio.listarProveedores();
     }
     
 	@MemberOrder(sequence = "3")
     @HomePage()
     @CollectionLayout(named="Articulos")
     public List<Articulos> getArticulos(){
-    	return articulosServicio.listar();
+    	return articulosServicio.listarArticulos();
     }
     //endregion
 

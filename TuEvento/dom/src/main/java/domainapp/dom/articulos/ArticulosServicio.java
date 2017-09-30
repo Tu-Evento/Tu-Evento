@@ -28,14 +28,19 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.Optionality;
+import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.factory.FactoryService;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
+import domainapp.dom.contacto.Contacto;
 import domainapp.dom.estado.Estado;
 import domainapp.dom.proveedores.Proveedores;
+import domainapp.dom.proveedores.ProveedoresServicios;
+import domainapp.dom.tiposervicios.Categorizar;
 import domainapp.dom.tiposervicios.TipoServicios;
 
 @DomainService(
@@ -52,42 +57,48 @@ public class ArticulosServicio {
 	public Articulos create(
 			@ParameterLayout(named="Descripcion") String descripcion,
 			@ParameterLayout(named="Servicios") TipoServicios servicios,
+			@Parameter(optionality=Optionality.OPTIONAL)
 			@ParameterLayout(named="TipoArticulo") TipoArticulo tipoArticulo,
 			@ParameterLayout(named="Estado") Estado estado,
 			@ParameterLayout(named="Cantidad") int cantidad,
 			@ParameterLayout(named="Organización") Proveedores organizacion
 			){
 		final Articulos obj = repositoryService.instantiate(Articulos.class);
+		//final Categorizar item= null;
+		//item.setCategoria(servicios);
+		//item.setSubcategoria(tipoArticulo);
 		obj.setDescripcion(descripcion);
 		obj.setServicios(servicios);
 		obj.setTipoArticulo(tipoArticulo);
 		obj.setEstado(estado);
 		obj.setCantidad(cantidad);
-		//obj.setOrganizacion(organizacion);
+		obj.setOrganizacion(organizacion);
 		repositoryService.persist(obj);
 		return obj;
+	}
+	/*public List<TipoArticulo> choices2Create(final Categorizar item, final TipoServicios categoria){
+		return tipoArticulo.listFor(categoria);
+    }*/
+	public List<Proveedores> choices5Create(){
+		return proveedoresServicios.listarProveedores();
 	}
 	
 	@ActionLayout(named = "Articulos")
     @MemberOrder(name = "Listar", sequence = "5")
-    public List<Articulos> listar() {
+    public List<Articulos> listarArticulos() {
         return repositoryService.allInstances(Articulos.class);
     }
 	
-	//@ActionLayout(hidden=Where.EVERYWHERE)
-	//public String buscarProveedor(final Proveedores organizacion){
-	//	return "";
-	//}
-	/*@ActionLayout(hidden=Where.EVERYWHERE)
-	public List<Proveedores> buscarProveedores(final Proveedores organizacion){
-		return repositoryService.allMatches(QueryDefault.create(Proveedores.class, "listarProveedor", "organizacion", organizacion));
-	}*/
-
+	
 	@Inject
     RepositoryService repositoryService;
 
     @Inject
     FactoryService factoryService;
     
+    @Inject
+    ProveedoresServicios proveedoresServicios;
     
+    @Inject
+    TipoArticulo tipoArticulo;
 }
