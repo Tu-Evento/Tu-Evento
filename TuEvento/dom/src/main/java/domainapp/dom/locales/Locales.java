@@ -98,6 +98,7 @@ public class Locales implements Comparable<Locales> {
 		this.condicion = condicion;
 	}
 
+	
 	//region > editar
 	public static class EditarDomainEvent extends ActionDomainEvent<Locales> {	}
 

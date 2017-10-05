@@ -122,10 +122,7 @@ public class Articulos implements Comparable<Articulos>{
 		this.organizacion=organizacion;
 	}
 	
-	/*@ActionLayout(hidden=Where.EVERYWHERE)
-	public List<Proveedores> choices1buscarProveedor(final Proveedores organizacion){
-		return proveedoresServicios.listar();
-	}*/
+	
 	
 	public static class EditarDomainEvent extends ActionDomainEvent<Articulos> { }
 

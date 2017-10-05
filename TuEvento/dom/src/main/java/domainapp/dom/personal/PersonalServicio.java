@@ -29,6 +29,7 @@ import javax.inject.Inject;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created for domainapp.dom.empleado on 17/06/2017.
@@ -86,10 +87,10 @@ public class PersonalServicio {
     @ActionLayout(named = "Empleado de nombre Jose")
     @MemberOrder(name = "Listar", sequence = "1.1")
     public List<Personal> listarNombresJose() {
-        return repositoryService.allInstances(Personal.class);
-                //.stream()
-                //.filter(x -> x.getNombre().compareTo("jose") == 0)
-                //.collect(Collectors.toList());
+        return repositoryService.allInstances(Personal.class)
+                .stream()
+                .filter(x -> x.getNombre().compareTo("jose") == 0)
+                .collect(Collectors.toList());
     }
     
     

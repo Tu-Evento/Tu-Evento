@@ -33,6 +33,7 @@ import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
 import org.apache.isis.applib.services.message.MessageService;
 import org.apache.isis.applib.services.repository.RepositoryService;
 import org.apache.isis.applib.services.title.TitleService;
+import org.apache.isis.applib.util.ObjectContracts;
 
 import domainapp.dom.persona.Persona;
 import domainapp.dom.tipodocumento.TipoDocumento;
@@ -54,7 +55,16 @@ import domainapp.dom.tipodocumento.TipoDocumento;
 			name="buscarPorTipoDeContacto", language="JDOQL",
 			value="SELECT "
 				+"FROM domainapp.dom.TuEvento.Contactos "
-				+"WHERE tipoContacto == :tipoContacto")
+				+"WHERE tipoContacto == :tipoContacto"),
+	@javax.jdo.annotations.Query(
+            name = "listarPorTipoDeContacto", language = "JDOQL",
+            value = "SELECT "
+                    + "FROM domainapp.dom.simple.Contactos "
+                    + "WHERE tipoContacto == 'Proveedor' "),
+	@javax.jdo.annotations.Query(
+			name = "buscarContacto", language = "JDOQL",
+			value = "SELECT apellido "
+					+ "FROM domainapp.dom.simple.Contactos ")
 })
 public class Contacto extends Persona implements Comparable<Contacto>{
 
@@ -136,13 +146,14 @@ public class Contacto extends Persona implements Comparable<Contacto>{
  		messageService.informUser(String.format("'%s' eliminado", title));
  		repositoryService.remove(this);
  	}
-	
+	//end-region > delete (action)
 	
 	@Override
 	public int compareTo(Contacto o) {
 		// TODO Apéndice de método generado automáticamente
-		return 0;
+		return ObjectContracts.compare(o, this, "nombre");
 	}
+	
 	
 	// region > injected dependencies
 

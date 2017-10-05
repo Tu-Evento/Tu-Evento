@@ -228,7 +228,7 @@ public class Personal extends Persona implements Comparable<Personal> {
         return ObjectContracts.compare(o, this, "nombre");
     }
     
- // region > injected dependencies
+    // region > injected dependencies
 
  	@javax.inject.Inject
  	RepositoryService repositoryService;
@@ -238,10 +238,7 @@ public class Personal extends Persona implements Comparable<Personal> {
 
  	@javax.inject.Inject
  	MessageService messageService;
-	public void updateName(String string) {
-		// TODO Apéndice de método generado automáticamente
-		
-	}
+	
 
  	// endregion
 }

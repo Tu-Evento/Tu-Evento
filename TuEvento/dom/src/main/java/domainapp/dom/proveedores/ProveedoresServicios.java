@@ -19,25 +19,20 @@
 package domainapp.dom.proveedores;
 
 import java.util.List;
-
 import javax.inject.Inject;
 
-import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.ParameterLayout;
-import org.apache.isis.applib.annotation.SemanticsOf;
-import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.factory.FactoryService;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
 import domainapp.dom.contacto.Contacto;
 import domainapp.dom.contacto.ContactoServicio;
-import domainapp.dom.contacto.TipoContacto;
 import domainapp.dom.estado.Estado;
 import domainapp.dom.tiposervicios.TipoServicios;
 
@@ -65,6 +60,7 @@ public class ProveedoresServicios {
 	}
 	
 	
+	
 	@ActionLayout(named = "Proveedores")
     @MemberOrder(name = "Crear", sequence = "2")
 	public Proveedores create(
@@ -75,7 +71,7 @@ public class ProveedoresServicios {
 			@ParameterLayout(named="Cuit") Integer cuit,
 			@ParameterLayout(named="Email") String email,
 			@ParameterLayout(named="Teléfono") Integer telefono,
-			@ParameterLayout(named="Contacto") Contacto contacto
+			@ParameterLayout(named="Contacto") String contacto
 			){
 		final Proveedores obj = repositoryService.instantiate(Proveedores.class);
 		obj.setOrganizacion(organizacion);
@@ -95,13 +91,12 @@ public class ProveedoresServicios {
 	public Estado default2Create(){
 		return Estado.Activo;
 	}
-	public List<Contacto> choices7Create(){
-		return contactoServicio.listarContactos();
+	public List<Contacto> choices7Create(){ 
+		return contactoServicio.buscarContacto();
 	}
 	
 	
-	
-	
+		
 	
 	
 

@@ -18,7 +18,6 @@
  */
 package domainapp.dom.proveedores;
 
-import java.util.Collection;
 import java.util.List;
 
 import javax.jdo.annotations.Column;
@@ -26,6 +25,7 @@ import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 
 import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.CommandReification;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.ParameterLayout;
@@ -33,6 +33,7 @@ import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.Publishing;
 import org.apache.isis.applib.annotation.SemanticsOf;
+import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.services.message.MessageService;
@@ -42,9 +43,7 @@ import org.apache.isis.applib.util.ObjectContracts;
 
 import domainapp.dom.contacto.Contacto;
 import domainapp.dom.contacto.ContactoServicio;
-import domainapp.dom.contacto.TipoContacto;
 import domainapp.dom.estado.Estado;
-import domainapp.dom.tipodocumento.TipoDocumento;
 import domainapp.dom.tiposervicios.TipoServicios;
 
 
@@ -67,7 +66,7 @@ import domainapp.dom.tiposervicios.TipoServicios;
 			value="SELECT "
 				+"FROM domainapp.dom.TuEvento.Proveedores "
 				+"WHERE servicios == :servicios"
-	),
+	)/*,
 	@javax.jdo.annotations.Query(
             name = "traerProveedor", language = "JDOQL",
             value = "SELECT "
@@ -75,15 +74,17 @@ import domainapp.dom.tiposervicios.TipoServicios;
                     + "WHERE organizacion == :organizacion "
                     + "|| organizacion.indexOf(:organizacion) >= 0"),
 	@javax.jdo.annotations.Query(
-			name="buscarPorTipoDeContacto", language="JDOQL",
+			name="listarContactoPorApellido", language="JDOQL",
 			value="SELECT "
 				+"FROM domainapp.dom.TuEvento.Contactos "
-				+"WHERE tipoContacto == :contacto")
+				+"WHERE apellido == :apellido")*/
 })
 public class Proveedores implements Comparable<Proveedores>{
 	
 	public TranslatableString title() { return TranslatableString.tr("Proveedores: {organizacion} - {servicios}", 
 			"organizacion",getOrganizacion(), "servicios", getServicios());}
+	
+	
 	
 	//Nombre de Organización
 	@MemberOrder(sequence = "1")
@@ -165,16 +166,17 @@ public class Proveedores implements Comparable<Proveedores>{
 	//Contacto de Referencia de la Organización
 	@MemberOrder(sequence = "8")
 	@Column(allowsNull = "false")
-	@Property()
-	private Contacto contacto;
-	public Contacto getContacto(){
+	@PropertyLayout(named="Contacto")
+	private String contacto;
+	public String getContacto(){
 		return contacto;
 	}
-	public void setContacto(Contacto contacto){
+	public void setContacto(String contacto){
 		this.contacto = contacto;
 	}
 	
 	
+	//region/ editar
 	public static class EditarDomainEvent extends ActionDomainEvent<Proveedores> {	}
 
 	@Action(command = CommandReification.ENABLED, publishing = Publishing.ENABLED, 
@@ -187,7 +189,7 @@ public class Proveedores implements Comparable<Proveedores>{
 			@ParameterLayout(named = "CUIT") final Integer cuit,
 			@ParameterLayout(named = "Email") final String email,
 			@ParameterLayout(named = "Teléfono") final Integer telefono,
-			@ParameterLayout(named = "Contacto") final Contacto contacto 
+			@ParameterLayout(named = "Contacto") final String contacto 
 			){
 		setOrganizacion(organizacion);
 		setServicios(servicios);
@@ -228,10 +230,13 @@ public class Proveedores implements Comparable<Proveedores>{
 		return getTelefono();
 	}
 	
-	public Contacto default7Editar(){
+	public String default7Editar(){
 		return getContacto();
 	}
-	
+	public List<Contacto> choices7Editar(){ 
+		return contactoServicio.buscarContacto();
+	}
+	//end---------------------
 	
 	// region > delete (action)
 	public static class EliminarDomainEvent extends ActionDomainEvent<Proveedores> {}

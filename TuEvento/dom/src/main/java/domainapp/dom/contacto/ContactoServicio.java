@@ -20,20 +20,25 @@
 package domainapp.dom.contacto;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
-
+import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.annotation.SemanticsOf;
+import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.factory.FactoryService;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
+import domainapp.dom.personal.Personal;
 import domainapp.dom.tipodocumento.TipoDocumento;
 
 @DomainService(
@@ -70,7 +75,7 @@ public class ContactoServicio {
         return obj;
     }
 	
-	@ActionLayout(named = "Contactos")
+	@ActionLayout(named = "Contacto")
     @MemberOrder(name = "Listar", sequence = "4")
     public List<Contacto> listarContactos() {
         return repositoryService.allInstances(Contacto.class);
@@ -80,6 +85,13 @@ public class ContactoServicio {
 	@MemberOrder(name = "Listar", sequence = "4.1")
 	public List<Contacto> buscarPorTipoDeContacto(final TipoContacto tipoContacto){
 		return repositoryService.allMatches(new QueryDefault<>(Contacto.class,"buscarPorTipoDeContacto","tipoContacto",tipoContacto));
+	}
+	
+	
+	
+	@ActionLayout(hidden=Where.EVERYWHERE)
+	public List<Contacto> buscarContacto(){
+		return repositoryService.allMatches(QueryDefault.create(Contacto.class, "buscarContacto"));
 	}
 	
 	
