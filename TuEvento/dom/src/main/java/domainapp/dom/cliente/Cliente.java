@@ -19,6 +19,8 @@
 
 package domainapp.dom.cliente;
 
+import java.util.List;
+
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
@@ -27,13 +29,17 @@ import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.CommandReification;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.Publishing;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
+import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.services.message.MessageService;
 import org.apache.isis.applib.services.repository.RepositoryService;
 import org.apache.isis.applib.services.title.TitleService;
 
+import domainapp.dom.contacto.Contacto;
+import domainapp.dom.contacto.ContactoServicio;
 import domainapp.dom.persona.Persona;
 import domainapp.dom.tipodocumento.TipoDocumento;
 
@@ -58,6 +64,10 @@ import domainapp.dom.tipodocumento.TipoDocumento;
 })
 public class Cliente extends Persona implements Comparable<Cliente>{
 
+	public TranslatableString title() {
+		return TranslatableString.tr("{apellido}", "apellido", this.getApellido());
+    }
+	
 	@MemberOrder(sequence = "8")
 	@Column(allowsNull = "false")
 	private Integer cuilCuit;
@@ -78,6 +88,18 @@ public class Cliente extends Persona implements Comparable<Cliente>{
 		this.tipoCliente = tipoCliente;
 	}
 	
+	//Contacto de Referencia de la Organización
+	@MemberOrder(sequence = "10")
+	@Column(allowsNull = "false")
+	@PropertyLayout(named="Contacto")
+	private Contacto contacto;
+	public Contacto getContacto(){
+		return contacto;
+	}
+	public void setContacto(Contacto contacto){
+		this.contacto = contacto;
+	}
+	
 	//Editar
 		public static class EditarDomainEvent extends ActionDomainEvent<Cliente> {	}
 
@@ -92,7 +114,8 @@ public class Cliente extends Persona implements Comparable<Cliente>{
 	            @ParameterLayout(named="Direccion") final String direccion,
 	            @ParameterLayout(named = "Telefono") final Integer telefono,
 				@ParameterLayout(named = "Email") final String email,
-				@ParameterLayout(named = "TipoCliente") final TipoCliente tipoCliente 
+				@ParameterLayout(named = "TipoCliente") final TipoCliente tipoCliente,
+				@ParameterLayout(named = "Contacto") final Contacto contacto
 				){
 			setNombre(nombre);
 	        setApellido(apellido);
@@ -103,6 +126,7 @@ public class Cliente extends Persona implements Comparable<Cliente>{
 	        setTelefono(telefono);
 	        setEmail(email);
 	        setTipoCliente(tipoCliente);
+	        setContacto(contacto);
 			return this;
 		}
 
@@ -142,6 +166,13 @@ public class Cliente extends Persona implements Comparable<Cliente>{
 			return getTipoCliente();
 		}
 		
+		public Contacto default9Editar(){
+			return getContacto();
+		}
+		public List<Contacto> choices9Editar(){ 
+			return contactoServicio.listarContactosActivos();
+		}
+		
 		
 		// region > delete (action)
 		public static class EliminarDomainEvent extends ActionDomainEvent<Cliente> {}
@@ -169,6 +200,9 @@ public class Cliente extends Persona implements Comparable<Cliente>{
 
 	@javax.inject.Inject
 	MessageService messageService;
+	
+	@javax.inject.Inject
+ 	ContactoServicio contactoServicio;
 
 	// endregion
 

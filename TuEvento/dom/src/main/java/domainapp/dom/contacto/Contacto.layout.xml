@@ -42,6 +42,7 @@
                                 <c:property id="telefono" namedEscaped="true"/>
                                 <c:property id="email" namedEscaped="true"/>
                                 <c:property id="tipoContacto" namedEscaped="true"/>
+                                <c:property id="estado" namedEscaped="true"/>
                             </c:fieldSet>
                         </bs3:col>
                     </bs3:row>

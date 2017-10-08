@@ -72,12 +72,8 @@ import domainapp.dom.tiposervicios.TipoServicios;
             value = "SELECT "
                     + "FROM domainapp.dom.TuEvento.Proveedores "
                     + "WHERE organizacion == :organizacion "
-                    + "|| organizacion.indexOf(:organizacion) >= 0"),
-	@javax.jdo.annotations.Query(
-			name="listarContactoPorApellido", language="JDOQL",
-			value="SELECT "
-				+"FROM domainapp.dom.TuEvento.Contactos "
-				+"WHERE apellido == :apellido")*/
+                    + "|| organizacion.indexOf(:organizacion) >= 0"),*/
+	
 })
 public class Proveedores implements Comparable<Proveedores>{
 	
@@ -167,11 +163,11 @@ public class Proveedores implements Comparable<Proveedores>{
 	@MemberOrder(sequence = "8")
 	@Column(allowsNull = "false")
 	@PropertyLayout(named="Contacto")
-	private String contacto;
-	public String getContacto(){
+	private Contacto contacto;
+	public Contacto getContacto(){
 		return contacto;
 	}
-	public void setContacto(String contacto){
+	public void setContacto(Contacto contacto){
 		this.contacto = contacto;
 	}
 	
@@ -189,7 +185,7 @@ public class Proveedores implements Comparable<Proveedores>{
 			@ParameterLayout(named = "CUIT") final Integer cuit,
 			@ParameterLayout(named = "Email") final String email,
 			@ParameterLayout(named = "Teléfono") final Integer telefono,
-			@ParameterLayout(named = "Contacto") final String contacto 
+			@ParameterLayout(named = "Contacto") final Contacto contacto 
 			){
 		setOrganizacion(organizacion);
 		setServicios(servicios);
@@ -230,11 +226,11 @@ public class Proveedores implements Comparable<Proveedores>{
 		return getTelefono();
 	}
 	
-	public String default7Editar(){
+	public Contacto default7Editar(){
 		return getContacto();
 	}
 	public List<Contacto> choices7Editar(){ 
-		return contactoServicio.buscarContacto();
+		return contactoServicio.listarContactosActivos();
 	}
 	//end---------------------
 	

@@ -38,6 +38,7 @@ import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.factory.FactoryService;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
+import domainapp.dom.estado.Estado;
 import domainapp.dom.personal.Personal;
 import domainapp.dom.tipodocumento.TipoDocumento;
 
@@ -60,7 +61,8 @@ public class ContactoServicio {
             @ParameterLayout(named="Dirección") final String direccion,
             @ParameterLayout(named = "Teléfono") final Integer telefono,
 			@ParameterLayout(named = "Email") final String email,
-			@ParameterLayout(named="Tipo de Contacto") final TipoContacto tipoContacto
+			@ParameterLayout(named="Tipo de Contacto") final TipoContacto tipoContacto,
+			@ParameterLayout(named="Estado") final Estado estado
     ) {
         final Contacto obj = repositoryService.instantiate(Contacto.class);
         obj.setNombre(nombre);
@@ -71,6 +73,7 @@ public class ContactoServicio {
         obj.setTelefono(telefono);
         obj.setEmail(email);
         obj.setTipoContacto(tipoContacto);
+        obj.setEstado(estado);
         repositoryService.persist(obj);
         return obj;
     }
@@ -87,9 +90,11 @@ public class ContactoServicio {
 		return repositoryService.allMatches(new QueryDefault<>(Contacto.class,"buscarPorTipoDeContacto","tipoContacto",tipoContacto));
 	}
 	
+	public List<Contacto> listarContactosActivos(){
+		return repositoryService.allMatches(new QueryDefault<>(Contacto.class,"listarContactosActivos"));
+	}
 	
-	
-	@ActionLayout(hidden=Where.EVERYWHERE)
+	//@ActionLayout(hidden=Where.EVERYWHERE)
 	public List<Contacto> buscarContacto(){
 		return repositoryService.allMatches(QueryDefault.create(Contacto.class, "buscarContacto"));
 	}

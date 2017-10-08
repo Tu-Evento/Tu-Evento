@@ -33,6 +33,8 @@ import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.factory.FactoryService;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
+import domainapp.dom.contacto.Contacto;
+import domainapp.dom.contacto.ContactoServicio;
 import domainapp.dom.tipodocumento.TipoDocumento;
 
 @DomainService(
@@ -55,7 +57,8 @@ public class ClienteServicio {
             @ParameterLayout(named="Direccion") final String direccion,
             @ParameterLayout(named = "Telefono") final Integer telefono,
 			@ParameterLayout(named = "Email") final String email,
-			@ParameterLayout(named = "TipoCliente") final TipoCliente tipoCliente
+			@ParameterLayout(named = "TipoCliente") final TipoCliente tipoCliente,
+			@ParameterLayout(named ="Contacto") final Contacto contacto
     ) {
         final Cliente obj = repositoryService.instantiate(Cliente.class);
         obj.setNombre(nombre);
@@ -67,9 +70,20 @@ public class ClienteServicio {
         obj.setTelefono(telefono);
         obj.setEmail(email);
         obj.setTipoCliente(tipoCliente);
+        obj.setContacto(contacto);
         repositoryService.persist(obj);
         return obj;
     }
+	public TipoDocumento default2Create(){
+		return TipoDocumento.DNI;
+	}
+	public TipoCliente default8Create(){
+		return TipoCliente.Persona_Física;
+	}
+	public List<Contacto> choices9Create(){ 
+		return contactoServicio.listarContactosActivos();
+	}
+	
 	
 	@ActionLayout(named = "Clientes")
     @MemberOrder(name = "Listar", sequence = "3")
@@ -88,4 +102,7 @@ public class ClienteServicio {
 
     @Inject
     FactoryService factoryService;
+    
+    @Inject
+    ContactoServicio contactoServicio;
 }

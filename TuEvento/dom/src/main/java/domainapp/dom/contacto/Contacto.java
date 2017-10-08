@@ -27,14 +27,17 @@ import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.CommandReification;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.Publishing;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
+import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.services.message.MessageService;
 import org.apache.isis.applib.services.repository.RepositoryService;
 import org.apache.isis.applib.services.title.TitleService;
 import org.apache.isis.applib.util.ObjectContracts;
 
+import domainapp.dom.estado.Estado;
 import domainapp.dom.persona.Persona;
 import domainapp.dom.tipodocumento.TipoDocumento;
 
@@ -57,17 +60,22 @@ import domainapp.dom.tipodocumento.TipoDocumento;
 				+"FROM domainapp.dom.TuEvento.Contactos "
 				+"WHERE tipoContacto == :tipoContacto"),
 	@javax.jdo.annotations.Query(
-            name = "listarPorTipoDeContacto", language = "JDOQL",
-            value = "SELECT "
-                    + "FROM domainapp.dom.simple.Contactos "
-                    + "WHERE tipoContacto == 'Proveedor' "),
-	@javax.jdo.annotations.Query(
 			name = "buscarContacto", language = "JDOQL",
 			value = "SELECT apellido "
-					+ "FROM domainapp.dom.simple.Contactos ")
+					+ "FROM domainapp.dom.TuEvento.Contactos "
+					+"WHERE tipoContacto == 'Contacto_Proveedor' "),
+	@javax.jdo.annotations.Query(
+			name = "listarContactosActivos", language = "JDOQL",
+			value = "SELECT  "
+					+ "FROM domainapp.dom.TuEvento.Contactos "
+					+ "WHERE estado == 'Activo' ")
 })
 public class Contacto extends Persona implements Comparable<Contacto>{
 
+	public TranslatableString title() {
+		return TranslatableString.tr("{apellido}", "apellido", this.getApellido());
+    }
+	
 	@MemberOrder(sequence = "8")
 	@Column(allowsNull = "false")
 	private TipoContacto tipoContacto;
@@ -77,6 +85,18 @@ public class Contacto extends Persona implements Comparable<Contacto>{
 	public void setTipoContacto(TipoContacto tipoContacto) {
 		this.tipoContacto = tipoContacto;
 	}
+	
+	//Continuidad de representación del contacto a proveedor o al Evento
+	@MemberOrder(sequence = "9")
+	@Column(allowsNull = "false")
+	private Estado estado;
+	public Estado getEstado(){
+		return estado;
+	}
+	public void setEstado(Estado estado){
+		this.estado = estado;
+	}
+	
 	
 	//Editar
 	public static class EditarDomainEvent extends ActionDomainEvent<Contacto> {	}
@@ -91,7 +111,8 @@ public class Contacto extends Persona implements Comparable<Contacto>{
             @ParameterLayout(named="Dirección") final String direccion,
             @ParameterLayout(named = "Teléfono") final Integer telefono,
 			@ParameterLayout(named = "Email") final String email,
-			@ParameterLayout(named="Tipo de Contacto") final TipoContacto tipoContacto 
+			@ParameterLayout(named="Tipo de Contacto") final TipoContacto tipoContacto,
+			@ParameterLayout(named="Estado") final Estado estado
 			){
 		setNombre(nombre);
         setApellido(apellido);
@@ -101,6 +122,7 @@ public class Contacto extends Persona implements Comparable<Contacto>{
         setTelefono(telefono);
         setEmail(email);
         setTipoContacto(tipoContacto);
+        setEstado(estado);
 		return this;
 	}
 
@@ -134,6 +156,10 @@ public class Contacto extends Persona implements Comparable<Contacto>{
 
 	public TipoContacto default7Editar(){
 		return getTipoContacto();
+	}
+	
+	public Estado default8Editar(){
+		return getEstado();
 	}
 	
 	

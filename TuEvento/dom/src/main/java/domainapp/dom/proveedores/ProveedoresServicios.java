@@ -71,7 +71,7 @@ public class ProveedoresServicios {
 			@ParameterLayout(named="Cuit") Integer cuit,
 			@ParameterLayout(named="Email") String email,
 			@ParameterLayout(named="Teléfono") Integer telefono,
-			@ParameterLayout(named="Contacto") String contacto
+			@ParameterLayout(named="Contacto") Contacto contacto
 			){
 		final Proveedores obj = repositoryService.instantiate(Proveedores.class);
 		obj.setOrganizacion(organizacion);
@@ -92,7 +92,7 @@ public class ProveedoresServicios {
 		return Estado.Activo;
 	}
 	public List<Contacto> choices7Create(){ 
-		return contactoServicio.buscarContacto();
+		return contactoServicio.listarContactosActivos();
 	}
 	
 	
