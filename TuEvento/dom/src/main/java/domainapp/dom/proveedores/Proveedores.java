@@ -66,7 +66,8 @@ import domainapp.dom.tiposervicios.TipoServicios;
 			value="SELECT "
 				+"FROM domainapp.dom.TuEvento.Proveedores "
 				+"WHERE servicios == :servicios"
-	)/*,
+	)
+	/*,
 	@javax.jdo.annotations.Query(
             name = "traerProveedor", language = "JDOQL",
             value = "SELECT "

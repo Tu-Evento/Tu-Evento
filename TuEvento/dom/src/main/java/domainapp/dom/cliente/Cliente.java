@@ -170,7 +170,7 @@ public class Cliente extends Persona implements Comparable<Cliente>{
 			return getContacto();
 		}
 		public List<Contacto> choices9Editar(){ 
-			return contactoServicio.listarContactosActivos();
+			return contactoServicio.buscarContactoEvento();
 		}
 		
 		

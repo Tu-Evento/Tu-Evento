@@ -60,10 +60,15 @@ import domainapp.dom.tipodocumento.TipoDocumento;
 				+"FROM domainapp.dom.TuEvento.Contactos "
 				+"WHERE tipoContacto == :tipoContacto"),
 	@javax.jdo.annotations.Query(
-			name = "buscarContacto", language = "JDOQL",
-			value = "SELECT apellido "
-					+ "FROM domainapp.dom.TuEvento.Contactos "
-					+"WHERE tipoContacto == 'Contacto_Proveedor' "),
+			name = "buscarContactoProveedor", language = "JDOQL",
+			value = "SELECT "
+			+ "FROM domainapp.dom.TuEvento.Contactos "
+			+ "WHERE estado == 'Activo' && tipoContacto == 'Contacto_Proveedor'"),
+	@javax.jdo.annotations.Query(
+			name = "buscarContactoEvento", language = "JDOQL",
+			value = "SELECT "
+			+ "FROM domainapp.dom.TuEvento.Contactos "
+			+ "WHERE estado == 'Activo' && tipoContacto == 'Contacto_Evento'"),
 	@javax.jdo.annotations.Query(
 			name = "listarContactosActivos", language = "JDOQL",
 			value = "SELECT  "

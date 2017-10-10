@@ -81,7 +81,7 @@ public class ClienteServicio {
 		return TipoCliente.Persona_Física;
 	}
 	public List<Contacto> choices9Create(){ 
-		return contactoServicio.listarContactosActivos();
+		return contactoServicio.buscarContactoEvento();
 	}
 	
 	

@@ -77,6 +77,13 @@ public class ContactoServicio {
         repositoryService.persist(obj);
         return obj;
     }
+	public TipoDocumento default2Create(){
+		return TipoDocumento.DNI;
+	}
+	public Estado default8Create(){
+		return Estado.Activo;
+	}
+	
 	
 	@ActionLayout(named = "Contacto")
     @MemberOrder(name = "Listar", sequence = "4")
@@ -90,15 +97,20 @@ public class ContactoServicio {
 		return repositoryService.allMatches(new QueryDefault<>(Contacto.class,"buscarPorTipoDeContacto","tipoContacto",tipoContacto));
 	}
 	
+	@ActionLayout(named = "Listar Contactos Activos")
+	@MemberOrder(name = "Listar", sequence = "4.2")
 	public List<Contacto> listarContactosActivos(){
 		return repositoryService.allMatches(new QueryDefault<>(Contacto.class,"listarContactosActivos"));
 	}
 	
-	//@ActionLayout(hidden=Where.EVERYWHERE)
-	public List<Contacto> buscarContacto(){
-		return repositoryService.allMatches(QueryDefault.create(Contacto.class, "buscarContacto"));
+	@ActionLayout(hidden=Where.EVERYWHERE)
+	public List<Contacto> buscarContactoProveedor(){
+		return repositoryService.allMatches(new QueryDefault<>(Contacto.class, "buscarContactoProveedor"));
 	}
-	
+	@ActionLayout(hidden=Where.EVERYWHERE)
+	public List<Contacto> buscarContactoEvento(){
+		return repositoryService.allMatches(new QueryDefault<>(Contacto.class, "buscarContactoEvento"));
+	}
 	
 	
 	@Inject

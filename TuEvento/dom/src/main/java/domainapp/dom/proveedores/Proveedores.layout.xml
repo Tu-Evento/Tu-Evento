@@ -42,8 +42,8 @@
                                 <c:action id="eliminar"/>
                                 <c:action id="editar"/>
                                 <c:property id="organizacion" namedEscaped="true"/>
-                                <c:property id="servicios" namedEscaped="true"/>
-                                <c:property id="estado" namedEscaped="true"/>
+                                <c:property id="servicios" namedEscaped="true" hidden="ALL_TABLES"/>
+                                <c:property id="estado" namedEscaped="true" hidden="ALL_TABLES"/>
                                 <c:property id="direccion" namedEscaped="true"/>
                                 <c:property id="cuit" namedEscaped="true"/>
                                 <c:property id="email" namedEscaped="true"/>

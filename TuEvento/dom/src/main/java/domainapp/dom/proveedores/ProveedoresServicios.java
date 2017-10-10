@@ -92,7 +92,7 @@ public class ProveedoresServicios {
 		return Estado.Activo;
 	}
 	public List<Contacto> choices7Create(){ 
-		return contactoServicio.listarContactosActivos();
+		return contactoServicio.buscarContactoProveedor();
 	}
 	
 	
