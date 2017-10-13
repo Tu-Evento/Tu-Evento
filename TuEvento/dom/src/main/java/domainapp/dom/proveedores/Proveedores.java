@@ -66,19 +66,17 @@ import domainapp.dom.tiposervicios.TipoServicios;
 			value="SELECT "
 				+"FROM domainapp.dom.TuEvento.Proveedores "
 				+"WHERE servicios == :servicios"
-	)
-	/*,
+	),
 	@javax.jdo.annotations.Query(
-            name = "traerProveedor", language = "JDOQL",
-            value = "SELECT "
-                    + "FROM domainapp.dom.TuEvento.Proveedores "
-                    + "WHERE organizacion == :organizacion "
-                    + "|| organizacion.indexOf(:organizacion) >= 0"),*/
-	
+			name = "buscarProveedorActivo", language = "JDOQL",
+			value = "SELECT "
+			+ "FROM domainapp.dom.TuEvento.Proveedores "
+			+ "WHERE estado == 'Activo'")
+		
 })
 public class Proveedores implements Comparable<Proveedores>{
 	
-	public TranslatableString title() { return TranslatableString.tr("Proveedores: {organizacion} - {servicios}", 
+	public TranslatableString title() { return TranslatableString.tr("{organizacion} - {servicios}", 
 			"organizacion",getOrganizacion(), "servicios", getServicios());}
 	
 	

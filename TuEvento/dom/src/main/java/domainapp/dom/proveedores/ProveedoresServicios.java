@@ -27,6 +27,7 @@ import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.factory.FactoryService;
 import org.apache.isis.applib.services.repository.RepositoryService;
@@ -95,7 +96,10 @@ public class ProveedoresServicios {
 		return contactoServicio.buscarContactoProveedor();
 	}
 	
-	
+	@ActionLayout(hidden=Where.EVERYWHERE)
+	public List<Proveedores> buscarProveedorActivo(){
+		return repositoryService.allMatches(new QueryDefault<>(Proveedores.class, "buscarProveedorActivo"));
+	}
 		
 	
 	

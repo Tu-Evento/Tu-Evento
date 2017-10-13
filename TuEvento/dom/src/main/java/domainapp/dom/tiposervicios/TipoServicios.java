@@ -19,61 +19,20 @@
 
 package domainapp.dom.tiposervicios;
 
-import java.util.Arrays;
-import java.util.List;
-
-import domainapp.dom.articulos.TipoArticulo;
-
 public enum TipoServicios {
 	
-	Animación{
-		@Override
-		public List<TipoArticulo> subcategorias() {
-            return Arrays.asList(null, TipoArticulo.Animador, TipoArticulo.Payaso, TipoArticulo.Malabarista);
-        }
-	},
-	Sonido{
-		@Override
-		public List<TipoArticulo> subcategorias() {
-            return Arrays.asList(null, TipoArticulo.EquipoSonido, TipoArticulo.PersonalSonido);
-        }},
-	Musicalización{
-		@Override
-		public List<TipoArticulo> subcategorias() {
-			return Arrays.asList(null, TipoArticulo.Dj);
-		}},
-	Limpieza{
-    	@Override
-		public List<TipoArticulo> subcategorias() {
-	        return Arrays.asList(null, TipoArticulo.PersonalLimpieza);
-	    }},
-	Seguridad{
-    	@Override
-    	public List<TipoArticulo> subcategorias() {
-    		return Arrays.asList(null, TipoArticulo.PersonalSeguridad);
-    	}},
-	Gastronomía{
-    		@Override
-    		public List<TipoArticulo> subcategorias() {
-    			return Arrays.asList(null, TipoArticulo.Barman, TipoArticulo.Mozo, TipoArticulo.Cubiertos, TipoArticulo.Jarra, 
-    					TipoArticulo.Mesa, TipoArticulo.Silla, TipoArticulo.Vajilla, TipoArticulo.Vaso);
-    		}},
-	Visual{
-    			@Override
-    	    	public List<TipoArticulo> subcategorias() {
-    	    		return Arrays.asList(null, TipoArticulo.Camarografo, TipoArticulo.Fotografo);
-    	    }},
-	Decoración{
-    	@Override
-    	public List<TipoArticulo> subcategorias() {
-    		return Arrays.asList(null, TipoArticulo.PersonalDecoracion, TipoArticulo.Cotillon);
-    	}};
+	Animación("Animador, Payaso, Malabarista"),
+	Sonido("Equipo de Sonido, Personal de Sonido"),
+	Musicalización("Dj"),
+	Limpieza("Personal de Limpieza"),
+	Seguridad("Personal de Seguridad"),
+	Gastronomía("Barman, Mozo, Cubiertos, Jarra, Mesa, Silla, Vajilla, Vaso"),
+	Visual("Camarografo, Fotografo"),
+	Decoración("PersonalDecoracion, Cotillon");
 	
 	
 	
-	public abstract List<TipoArticulo> subcategorias();
-	
-	/*private final String nombre;
+	private final String nombre;
 
 	public String getNombre() {return nombre;}
 	private TipoServicios(String nom) {nombre = nom;}
@@ -81,6 +40,6 @@ public enum TipoServicios {
 	@Override
 	public String toString() {
 		return this.nombre;
-	}*/
+	}
 
 }

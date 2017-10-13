@@ -27,6 +27,7 @@ import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.CommandReification;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.Publishing;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
@@ -48,6 +49,9 @@ import domainapp.dom.tiposervicios.TipoServicios;
 @javax.jdo.annotations.DatastoreIdentity(
         strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
          column="articulos_id")
+@javax.jdo.annotations.Queries({
+	
+})
 public class Articulos implements Comparable<Articulos>{
 
 	public TranslatableString title() { return TranslatableString.tr("Articulo: {descripcion} - {servicios}",
@@ -81,6 +85,7 @@ public class Articulos implements Comparable<Articulos>{
 	//Tipo de Articulo
 	@MemberOrder(sequence = "3")
 	@Column(allowsNull = "false")
+	@PropertyLayout(named="TipoArticulo")
 	private TipoArticulo tipoArticulo;
 	public TipoArticulo getTipoArticulo(){
 		return tipoArticulo;

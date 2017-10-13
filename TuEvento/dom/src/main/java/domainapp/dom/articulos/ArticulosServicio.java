@@ -31,16 +31,12 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.Optionality;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
-import org.apache.isis.applib.annotation.Where;
-import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.factory.FactoryService;
 import org.apache.isis.applib.services.repository.RepositoryService;
 
-import domainapp.dom.contacto.Contacto;
 import domainapp.dom.estado.Estado;
 import domainapp.dom.proveedores.Proveedores;
 import domainapp.dom.proveedores.ProveedoresServicios;
-import domainapp.dom.tiposervicios.Categorizar;
 import domainapp.dom.tiposervicios.TipoServicios;
 
 @DomainService(
@@ -50,23 +46,22 @@ import domainapp.dom.tiposervicios.TipoServicios;
 @DomainServiceLayout(
         menuOrder = "20"
 )
-public class ArticulosServicio {
+public class ArticulosServicio{
+	
+	
 	
 	@ActionLayout(named = "Articulos")
     @MemberOrder(name = "Crear", sequence = "5")
 	public Articulos create(
-			@ParameterLayout(named="Descripcion") String descripcion,
-			@ParameterLayout(named="Servicios") TipoServicios servicios,
+			@ParameterLayout(named="Descripcion") final String descripcion,
+			@ParameterLayout(named="Servicios") final TipoServicios servicios,
 			@Parameter(optionality=Optionality.OPTIONAL)
-			@ParameterLayout(named="TipoArticulo") TipoArticulo tipoArticulo,
-			@ParameterLayout(named="Estado") Estado estado,
-			@ParameterLayout(named="Cantidad") int cantidad,
-			@ParameterLayout(named="Organización") Proveedores organizacion
+			@ParameterLayout(named="TipoArticulo") final TipoArticulo tipoArticulo,
+			@ParameterLayout(named="Estado") final Estado estado,
+			@ParameterLayout(named="Cantidad") final int cantidad,
+			@ParameterLayout(named="Organización") final Proveedores organizacion
 			){
 		final Articulos obj = repositoryService.instantiate(Articulos.class);
-		//final Categorizar item= null;
-		//item.setCategoria(servicios);
-		//item.setSubcategoria(tipoArticulo);
 		obj.setDescripcion(descripcion);
 		obj.setServicios(servicios);
 		obj.setTipoArticulo(tipoArticulo);
@@ -76,11 +71,9 @@ public class ArticulosServicio {
 		repositoryService.persist(obj);
 		return obj;
 	}
-	/*public List<TipoArticulo> choices2Create(final Categorizar item, final TipoServicios categoria){
-		return tipoArticulo.listFor(categoria);
-    }*/
+	    
 	public List<Proveedores> choices5Create(){
-		return proveedoresServicios.listarProveedores();
+		return proveedoresServicios.buscarProveedorActivo();
 	}
 	
 	@ActionLayout(named = "Articulos")
@@ -88,6 +81,7 @@ public class ArticulosServicio {
     public List<Articulos> listarArticulos() {
         return repositoryService.allInstances(Articulos.class);
     }
+	
 	
 	
 	@Inject
@@ -99,6 +93,5 @@ public class ArticulosServicio {
     @Inject
     ProveedoresServicios proveedoresServicios;
     
-    @Inject
-    TipoArticulo tipoArticulo;
+
 }

@@ -19,11 +19,6 @@
 
 package domainapp.dom.articulos;
 
-import java.util.Collections;
-import java.util.List;
-
-import domainapp.dom.tiposervicios.TipoServicios;
-
 public enum TipoArticulo {
 
 		//Animación
@@ -43,7 +38,5 @@ public enum TipoArticulo {
 		//Gastronomía
 		Barman, Mozo, Vajilla, Cubiertos, Vaso, Jarra, Mesa, Silla, Toldos;
 		
-		public static List<TipoArticulo> listFor(final TipoServicios categoria) {
-	        return categoria != null? categoria.subcategorias(): Collections.<TipoArticulo>emptyList();
-	    }
+
 }
